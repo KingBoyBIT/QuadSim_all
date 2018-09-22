@@ -26,8 +26,8 @@ UAV_kpz = 0;                %z
 UAV_kiz = 0;
 UAV_kdz = 0;
 
-UAV_kpphi = 0.0;            %¹ö×ª 15  193
-UAV_kdphi = 0;                  %20
+UAV_kpphi = 1e-2;            %¹ö×ª 15  193
+UAV_kdphi = 1e-3;                  %20
 UAV_kptheta = UAV_kpphi;          %¸©Ñö
 UAV_kdtheta = UAV_kdphi;
 UAV_kppsai = 0;           %Æ«º½
