@@ -1,105 +1,101 @@
 % UAV动力学模型
-
 function out = dynamics(in)
 %               x+
 %               2+
 %               |
 %               |
 %               |
-%    -          |         -
-% y+ 1----------z---------3 y-
+%    -          |           -
+% y+ 1—————z—————3 y-
 %               |
 %               |
 %               |
 %               |
 %               4+
 %               x-
+
 constant
-%input states and omegas
-x = in(1);
-x_dot = in(2);
-y = in(3);
-y_dot = in(4);
-z = in(5);
-z_dot= in(6);
-roll = in(7);
-roll_dot= in(8);
-pitch = in(9);
-pitch_dot= in(10);
-yaw = in(11);
-yaw_dot= in(12);
-% 控制输入（角速度）
-% 1 3 为正，2 4 为负，十字模式
-omega = in(13:16);
-
-%输入力和力矩
-T_motor=in(17:20);%推力
-M_motor=in(21:24);%力矩
-
-C_n_b = angle2dcm(yaw,pitch,roll,'ZYX');% 从大地系转本体系
-C_b_n = C_n_b';%从本体系转大地系
-UAV_I = diag([UAV_Ixx UAV_Iyy UAV_Izz]);
-
-M_bx = UAV_L*(T_motor(1)-T_motor(3));
-M_by = UAV_L*(T_motor(2)-T_motor(4));
-M_bz = (M_motor(1)+M_motor(3)-M_motor(2)-M_motor(4));
-
-M_b = [M_bx;M_by;M_bz];
-d_w_n = inv(UAV_I)*C_b_n*M_b;
-
-
-% Rolling moments
-Rbg = -pitch_dot*yaw_dot*(Iyy-Izz);                
-Rgp = jr*pitch_dot*Om;                            
-Raa = L*(-T(2)+T(4));                           
-Rhm = (Hy(1)+Hy(2)+Hy(3)+Hy(4))*h;              
-Rrm = +RRx(1)-RRx(2)+RRx(3)-RRx(4);             
-Rfm = 0.5*Cz*A*rho*roll_dot*abs(roll_dot)*L*(P/2)*L;   
-
-% Pitch moments
-Pgb = roll_dot*yaw_dot*(Izz-Ixx); 
-Pgp = jr*roll_dot*Om; 
-Paa = L*(-T(1)+T(3)); 
-Phf = (Hx(1)+Hx(2)+Hx(3)+Hx(4))*h; 
-Prm = +RRy(1)-RRy(2)+RRy(3)-RRy(4);            
-Pfm = 0.5*Cz*A*rho*pitch_dot*abs(pitch_dot)*L*(P/2)*L; 
-
-% Yaw moments
-Ygb = pitch_dot*roll_dot*(Ixx-Iyy); 
-Yict = jr*(Om-Om_old)/sp;           
-Yct = +Q(1)-Q(2)+Q(3)-Q(4);              
-Yhfx = (-Hx(2)+Hx(4))*L;                    
-Yhfy = (-Hy(1)+Hy(3))*L; 
-
-Om_old=Om;
-
-
-% X forces
-Xaa = (sin(yaw)*sin(roll)+cos(yaw)*sin(pitch)*cos(roll))*(T(1)+T(2)+T(3)+T(4)); 
-Xdf = 0.5*Cx*Ac*rho*x_dot*abs(x_dot); 
-Xhf = Hx(1)+Hx(2)+Hx(3)+Hx(4);
-
- % Y forces
-Yaa = (-cos(yaw)*sin(roll)+sin(yaw)*sin(pitch)*cos(roll))*(T(1)+T(2)+T(3)+T(4)); 
-Ydf = 0.5*Cy*Ac*rho*y_dot*abs(y_dot); 
-Yhf = Hy(1)+Hy(2)+Hy(3)+Hy(4); 
-
-% Z forces
-Zaa = (cos(pitch)*cos(roll))*(T(1)+T(2)+T(3)+T(4));              
-Zaf = 0.5*Cz*A*rho*z_dot*abs(z_dot)*P + 0.5*Cz*Ac*rho*z_dot*abs(z_dot); 
-
-%outputs
-out(1) = x_dot;
-out(2) = (Xaa - Xdf - Xhf)/m;
-out(3) = y_dot;
-out(4) = (Yaa - Ydf - Yhf) / m;
-out(5) = z_dot;
-out(6) = -g + (Zaa - Zaf)/m;
-out(7) = roll_dot;
-out(8) = (Rbg + Rgp + Raa + Rhm + Rrm - Rfm) /Ixx;
-out(9) = pitch_dot;
-out(10) = (Pgb - Pgp + Paa - Phf + Prm - Pfm) /Iyy;
-out(11) = yaw_dot;
-out(12) = (Ygb + Yict +Yct + Yhfx + Yhfy) /Izz;
-
+% 获取输入值
+if true
+	%input states and omegas
+	x = in(1);
+	x_dot = in(2);
+	y = in(3);
+	y_dot = in(4);
+	z = in(5);
+	z_dot = in(6);
+	fai = in(7);
+	theta = in(8);
+	psi = in(9);
+	Wx = in(10);
+	Wy = in(11);
+	Wz = in(12);
+	% 控制输入
+	% 1 3 为正，2 4 为负，十字模式
+	%输入力和力矩
+	T_motor=in(13:16);%推力
+	M_motor=in(17:20);%力矩
+end
+% 坐标变换
+if true
+	C_n_b = angle2dcm(psi,theta,fai,'ZYX');% 从大地系转本体系
+	C_b_n = C_n_b';% 从本体系转大地系
+	UAV_I = diag([UAV_Ixx UAV_Iyy UAV_Izz]);
+	T_omega2dangle = zeros(3,3);
+	T_omega2dangle(1,1) = 1;
+	T_omega2dangle(1,2) = sin(fai)*tan(theta);
+	T_omega2dangle(1,3) = cos(fai)*tan(theta);
+	T_omega2dangle(2,2) = cos(fai);
+	T_omega2dangle(2,3) = -sin(fai);
+	T_omega2dangle(3,2) = sin(fai)/cos(theta);
+	T_omega2dangle(3,3) = cos(fai)/cos(theta);
+	
+	% T_dangle2omega = zeros(3,3);
+	% T_dangle2omega(1,1) = 1;
+	% T_dangle2omega(1,3) = -sin(pitch);
+	% T_dangle2omega(2,2) = cos(roll);
+	% T_dangle2omega(2,3) = sin(roll)*cos(pitch);
+	% T_dangle2omega(3,2) = -sin(roll);
+	% T_dangle2omega(3,3) = cos(roll)*cos(pitch);
+	W_n = [Wx;Wy;Wz];
+	dangle = T_omega2dangle*W_n;
+	roll_dot = dangle(1);
+	pitch_dot = dangle(2);
+	yaw_dot = dangle(3);
+end
+% 质心动力学方程
+if true
+	F_b = [0;0;sum(T_motor)];
+	G_n = [0;0;-Earth_g];
+	acc_n = (C_b_n*F_b)/UAV_m+G_n;
+	acc_n_x = acc_n(1);
+	acc_n_y = acc_n(2);
+	acc_n_z = acc_n(3);
+end
+% 质点系动力学方程
+if true
+	M_bx = UAV_L*(T_motor(1)-T_motor(3));
+	M_by = UAV_L*(T_motor(2)-T_motor(4));
+	M_bz = (M_motor(1)+M_motor(3)-M_motor(2)-M_motor(4));
+	
+	M_b = [M_bx;M_by;M_bz];
+	d_W_n = inv(UAV_I)*(C_b_n*M_b-cross(W_n,UAV_I*W_n));
+	
+end
+% outputs
+if true
+	out(1) = x_dot;
+	out(2) = acc_n_x;
+	out(3) = y_dot;
+	out(4) = acc_n_y;
+	out(5) = z_dot;
+	out(6) = acc_n_z;
+	out(7) = roll_dot;
+	out(8) = pitch_dot;
+	out(9) = yaw_dot;
+	out(10) = d_W_n(1);
+	out(11) = d_W_n(2);
+	out(12) = d_W_n(3);
+end
+end
 

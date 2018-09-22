@@ -13,6 +13,6 @@ M(i) = -sign(omega(i))*UAV_km*(omega(i)^2); %Á¦¾Ø
 end
 
 out(1:4)= T;
-out(5:8)=M;
+out(5:8)= M;
 
 end
