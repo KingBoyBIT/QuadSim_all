@@ -23,8 +23,6 @@ omega = in(13:16);
 T=in(17:20);%ÍÆÁ¦
 M=in(21:24);%Á¦¾Ø
 
-C
-
 UAV_I = diag([UAV_Ixx UAV_Iyy UAV_Izz]);
 
 
