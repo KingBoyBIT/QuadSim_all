@@ -1,6 +1,19 @@
 % UAV动力学模型
 
 function out = dynamics(in)
+%               x+
+%               2+
+%               |
+%               |
+%               |
+%    -          |         -
+% y+ 1----------z---------3 y-
+%               |
+%               |
+%               |
+%               |
+%               4+
+%               x-
 constant
 %input states and omegas
 x = in(1);
@@ -20,13 +33,19 @@ yaw_dot= in(12);
 omega = in(13:16);
 
 %输入力和力矩
-T=in(17:20);%推力
-M=in(21:24);%力矩
+T_motor=in(17:20);%推力
+M_motor=in(21:24);%力矩
 
-C
-
+C_n_b = angle2dcm(yaw,pitch,roll,'ZYX');% 从大地系转本体系
+C_b_n = C_n_b';%从本体系转大地系
 UAV_I = diag([UAV_Ixx UAV_Iyy UAV_Izz]);
 
+M_bx = UAV_L*(T_motor(1)-T_motor(3));
+M_by = UAV_L*(T_motor(2)-T_motor(4));
+M_bz = (M_motor(1)+M_motor(3)-M_motor(2)-M_motor(4));
+
+M_b = [M_bx;M_by;M_bz];
+d_w_n = inv(UAV_I)*C_b_n*M_b;
 
 
 % Rolling moments
