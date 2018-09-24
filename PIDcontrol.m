@@ -1,0 +1,60 @@
+function out = PIDcontrol(in)
+
+constant;
+global delta_old delta_sum delta_angle_old
+target_r = in(1:3);
+current_r = in(4:6);
+current_angle = in(7:9);
+
+delta_r = target_r - current_r;
+
+% delta_rx = delta_r(1);
+% delta_ry = delta_r(2);
+% delta_rz = delta_r(3);
+% 
+% target_rx = target_r(1);
+% target_ry = target_r(2);
+% target_rz = target_r(3);
+
+delta_sub = delta_r-delta_old;
+
+dd_p = delta_r.*[UAV_kpx;UAV_kpy;UAV_kpz];
+dd_i = delta_sum.*[UAV_kix;UAV_kiy;UAV_kiz];
+dd_d = delta_sub.*[UAV_kdx;UAV_kdy;UAV_kdz];
+
+dd_a = dd_p+dd_i+dd_d;
+
+delta_old = delta_r;
+delta_sum = delta_sum + delta_r;
+
+U1 = sqrt((UAV_m*dd_a(1))^2+(UAV_m*dd_a(2))^2+(UAV_m*dd_a(3)+UAV_m*Earth_g)^2);
+angle_des = zeros(3,1);
+angle_des(1) = asin(UAV_m*sin(dd_a(1))*dd_a(2)-cos(dd_a(1))*dd_a(3)...
+	/sqrt((UAV_m*dd_a(1))^2+(UAV_m*dd_a(2))^2+(UAV_m*dd_a(3)+UAV_m*Earth_g)^2));
+
+angle_des(2) = atan(Earth_g * (sin(dd_a(1))*dd_a(3)+cos(dd_a(1))*dd_a(2))...
+	/(dd_a(3)+Earth_g));
+angle_des(3) = 0;
+
+angle_des = max(angle_des,-pi/2);
+angle_des = min(angle_des,pi/2);
+
+delta_angle = angle_des - current_angle;
+motor_control = delta_angle.*[UAV_kpphi;UAV_kptheta;UAV_kppsai]+...
+	(delta_angle-delta_angle_old).*[UAV_kdphi;UAV_kdtheta;UAV_kdpsai];
+delta_angle_old = delta_angle;
+ddphi = motor_control(1);
+ddtheta = motor_control(2);
+ddpsi = motor_control(3);
+
+u =zeros(4,1);
+u(1) = U1;
+u(2) = ddphi*UAV_Ixx/UAV_L;
+u(3) = ddtheta*UAV_Iyy/UAV_L;
+u(4) = UAV_Izz*ddpsi;
+
+control_out = UAV_aaa'*u;% 这里得到的是电机角速度的平方
+control_out=max(control_out,0);
+control_out=min(control_out,(UAV_maxRPM*2*pi/60)^2);
+out = control_out;
+end
