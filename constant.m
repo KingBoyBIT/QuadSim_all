@@ -9,10 +9,15 @@ UAV_kf = 3.13e-5;           %升力系数
 UAV_maxRPM = 9000;
 
 UAV_wh = sqrt(UAV_m*Earth_g/(4*UAV_kf));
-UAV_aaa=[UAV_kf UAV_kf UAV_kf UAV_kf;
+UAV_aaa=inv([UAV_kf UAV_kf UAV_kf UAV_kf;
 	0 -UAV_kf 0 UAV_kf;
 	-UAV_kf 0 UAV_kf 0;
-	-UAV_km UAV_km -UAV_km UAV_km]';
+	-UAV_km UAV_km -UAV_km UAV_km]);
+% 消除因求逆造成的微小偏差
+UAV_aaa(1,2) = 0;
+UAV_aaa(2,3) = 0;
+UAV_aaa(3,2) = 0;
+UAV_aaa(4,3) = 0;
 UAV_xf=3;
 UAV_yf=4;
 UAV_zf=5;
@@ -23,12 +28,12 @@ UAV_kdx = 0;
 UAV_kpy = 0;                %y
 UAV_kiy = 0;
 UAV_kdy = 0;
-UAV_kpz = 0;                %z
+UAV_kpz = 2;                %z
 UAV_kiz = 0;
-UAV_kdz = 0;
+UAV_kdz = 2;
 
-UAV_kpphi = 0;            %滚转 15  193
-UAV_kdphi = 0;                  %20
+UAV_kpphi = 25;            %滚转 15  193
+UAV_kdphi = 8;                  %20
 UAV_kptheta = UAV_kpphi;          %俯仰
 UAV_kdtheta = UAV_kdphi;
 UAV_kppsai = 0;           %偏航

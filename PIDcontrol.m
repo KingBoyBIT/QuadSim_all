@@ -1,7 +1,7 @@
 function out = PIDcontrol(in)
 
 constant;
-global delta_old delta_sum delta_angle_old
+global delta_old delta_sum delta_angle_old SIM_dt
 target_r = in(1:3);
 current_r = in(4:6);
 current_angle = in(7:9);
@@ -20,7 +20,7 @@ delta_sub = delta_r-delta_old;
 
 dd_p = delta_r.*[UAV_kpx;UAV_kpy;UAV_kpz];
 dd_i = delta_sum.*[UAV_kix;UAV_kiy;UAV_kiz];
-dd_d = delta_sub.*[UAV_kdx;UAV_kdy;UAV_kdz];
+dd_d = delta_sub/SIM_dt.*[UAV_kdx;UAV_kdy;UAV_kdz];
 
 dd_a = dd_p+dd_i+dd_d;
 
@@ -38,12 +38,13 @@ angle_des(2) = atan(Earth_g * (sin(dd_a(1))*dd_a(3)+cos(dd_a(1))*dd_a(2))...
 angle_des(3) = yaw_des;
 
 % angle_des = zeros(3,1);
+% angle_des(2) = pi/6;
 angle_des = max(angle_des,-pi/2);
 angle_des = min(angle_des,pi/2);
 
 delta_angle = angle_des - current_angle;
 motor_control = delta_angle.*[UAV_kpphi;UAV_kptheta;UAV_kppsai]+...
-	(delta_angle-delta_angle_old).*[UAV_kdphi;UAV_kdtheta;UAV_kdpsai];
+	(delta_angle-delta_angle_old)/SIM_dt.*[UAV_kdphi;UAV_kdtheta;UAV_kdpsai];
 delta_angle_old = delta_angle;
 ddphi = motor_control(1);
 ddtheta = motor_control(2);
@@ -56,16 +57,14 @@ u(2) = ddphi*UAV_Ixx/UAV_L;
 u(3) = ddtheta*UAV_Iyy/UAV_L;
 u(4) = UAV_Izz*ddpsi;
 % 这里得到的是角速度的平方
+
+% 解决姿态角小角度变化的灵异事件，aaa不要用求逆，应转置
 control_out(1) = UAV_aaa(1,1)*u(1)+UAV_aaa(1,2)*u(2)+UAV_aaa(1,3)*u(3)+UAV_aaa(1,4)*u(4);
 control_out(2) = UAV_aaa(2,1)*u(1)+UAV_aaa(2,2)*u(2)+UAV_aaa(2,3)*u(3)+UAV_aaa(2,4)*u(4);
 control_out(3) = UAV_aaa(3,1)*u(1)+UAV_aaa(3,2)*u(2)+UAV_aaa(3,3)*u(3)+UAV_aaa(3,4)*u(4);
 control_out(4) = UAV_aaa(4,1)*u(1)+UAV_aaa(4,2)*u(2)+UAV_aaa(4,3)*u(3)+UAV_aaa(4,4)*u(4);
 control_out=max(control_out,0);
 control_out=min(control_out,(UAV_maxRPM*2*pi/60)^2);
-
-if sum(u(2:4))/3~=u(2)
-	disp('shit')
-end
 
 out = control_out;
 end
