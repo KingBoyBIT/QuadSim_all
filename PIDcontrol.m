@@ -29,13 +29,15 @@ delta_sum = delta_sum + delta_r;
 
 U1 = sqrt((UAV_m*dd_a(1))^2+(UAV_m*dd_a(2))^2+(UAV_m*dd_a(3)+UAV_m*Earth_g)^2);
 angle_des = zeros(3,1);
-angle_des(1) = asin(UAV_m*sin(dd_a(1))*dd_a(2)-cos(dd_a(1))*dd_a(3)...
+yaw_des = 0;
+angle_des(1) = asin(UAV_m*(sin(yaw_des)*dd_a(1)-cos(yaw_des)*dd_a(2))...
 	/sqrt((UAV_m*dd_a(1))^2+(UAV_m*dd_a(2))^2+(UAV_m*dd_a(3)+UAV_m*Earth_g)^2));
 
 angle_des(2) = atan(Earth_g * (sin(dd_a(1))*dd_a(3)+cos(dd_a(1))*dd_a(2))...
 	/(dd_a(3)+Earth_g));
-angle_des(3) = 0;
+angle_des(3) = yaw_des;
 
+% angle_des = zeros(3,1);
 angle_des = max(angle_des,-pi/2);
 angle_des = min(angle_des,pi/2);
 
@@ -48,13 +50,22 @@ ddtheta = motor_control(2);
 ddpsi = motor_control(3);
 
 u =zeros(4,1);
+control_out = zeros(4,1);
 u(1) = U1;
 u(2) = ddphi*UAV_Ixx/UAV_L;
 u(3) = ddtheta*UAV_Iyy/UAV_L;
 u(4) = UAV_Izz*ddpsi;
-
-control_out = UAV_aaa'*u;% 这里得到的是电机角速度的平方
+% 这里得到的是角速度的平方
+control_out(1) = UAV_aaa(1,1)*u(1)+UAV_aaa(1,2)*u(2)+UAV_aaa(1,3)*u(3)+UAV_aaa(1,4)*u(4);
+control_out(2) = UAV_aaa(2,1)*u(1)+UAV_aaa(2,2)*u(2)+UAV_aaa(2,3)*u(3)+UAV_aaa(2,4)*u(4);
+control_out(3) = UAV_aaa(3,1)*u(1)+UAV_aaa(3,2)*u(2)+UAV_aaa(3,3)*u(3)+UAV_aaa(3,4)*u(4);
+control_out(4) = UAV_aaa(4,1)*u(1)+UAV_aaa(4,2)*u(2)+UAV_aaa(4,3)*u(3)+UAV_aaa(4,4)*u(4);
 control_out=max(control_out,0);
 control_out=min(control_out,(UAV_maxRPM*2*pi/60)^2);
+
+if sum(u(2:4))/3~=u(2)
+	disp('shit')
+end
+
 out = control_out;
 end

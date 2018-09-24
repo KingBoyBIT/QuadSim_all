@@ -9,10 +9,10 @@ UAV_kf = 3.13e-5;           %ÉýÁ¦ÏµÊý
 UAV_maxRPM = 9000;
 
 UAV_wh = sqrt(UAV_m*Earth_g/(4*UAV_kf));
-UAV_aaa=inv([UAV_kf UAV_kf UAV_kf UAV_kf;
+UAV_aaa=[UAV_kf UAV_kf UAV_kf UAV_kf;
 	0 -UAV_kf 0 UAV_kf;
 	-UAV_kf 0 UAV_kf 0;
-	-UAV_km UAV_km -UAV_km UAV_km]);
+	-UAV_km UAV_km -UAV_km UAV_km]';
 UAV_xf=3;
 UAV_yf=4;
 UAV_zf=5;
