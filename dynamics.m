@@ -76,7 +76,7 @@ end
 if true
 	M_bx = UAV_L*(T_motor(1)-T_motor(3));
 	M_by = UAV_L*(T_motor(2)-T_motor(4));
-	M_bz = (M_motor(1)+M_motor(3)-M_motor(2)-M_motor(4));
+	M_bz = (M_motor(1)+M_motor(3)+M_motor(2)+M_motor(4));
 	
 	M_b = [M_bx;M_by;M_bz];
 	d_W_n = inv(UAV_I)*(C_b_n*M_b-cross(W_n,UAV_I*W_n));

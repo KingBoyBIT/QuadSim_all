@@ -9,7 +9,7 @@ M = zeros(4,1);
 
 for i=1:4
 T(i) = sign(omega(i))*UAV_kf*(omega(i)); %推力
-M(i) = -sign(omega(i))*UAV_km*(omega(i)); %力矩 
+M(i) = sign(omega(i))*UAV_km*(omega(i)); %力矩 
 end
 
 out(1:4)= T;

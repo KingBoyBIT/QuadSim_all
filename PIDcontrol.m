@@ -6,8 +6,8 @@ target_r = in(1:3);
 current_r = in(4:6);
 current_angle = in(7:9);
 
-current_angle = max(current_angle,-pi);
-current_angle = min(current_angle,pi);
+% current_angle = max(current_angle,-pi);
+% current_angle = min(current_angle,pi);
 
 delta_r = target_r - current_r;
 
@@ -40,8 +40,9 @@ angle_des(2) = atan(Earth_g * (sin(dd_a(1))*dd_a(3)+cos(dd_a(1))*dd_a(2))...
 	/(dd_a(3)+Earth_g));
 angle_des(3) = yaw_des;
 
-angle_des = zeros(3,1);
-angle_des(2) = pi/6;
+% angle_des = zeros(3,1);
+% angle_des(1) = pi/6;
+% angle_des(2) = pi/6;
 % angle_des = max(angle_des,-pi/2);
 % angle_des = min(angle_des,pi/2);
 
