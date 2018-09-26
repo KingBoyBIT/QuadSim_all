@@ -9,3 +9,10 @@ delta_old = zeros(3,1);
 delta_sum = zeros(3,1);
 delta_angle_old = zeros(3,1);
 SIM_dt = 1;
+
+syms Ixx Iyy Izz p q r
+
+w = [p q r].';
+J = diag([Ixx Iyy Izz])
+
+cross(w,J*w)

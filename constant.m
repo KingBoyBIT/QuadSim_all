@@ -14,10 +14,10 @@ UAV_aaa=inv([UAV_kf UAV_kf UAV_kf UAV_kf;
 	-UAV_kf 0 UAV_kf 0;
 	-UAV_km UAV_km -UAV_km UAV_km]);
 % 消除因求逆造成的微小偏差
-UAV_aaa(1,2) = 0;
-UAV_aaa(2,3) = 0;
-UAV_aaa(3,2) = 0;
-UAV_aaa(4,3) = 0;
+% UAV_aaa(1,2) = 0;
+% UAV_aaa(2,3) = 0;
+% UAV_aaa(3,2) = 0;
+% UAV_aaa(4,3) = 0;
 UAV_xf=3;
 UAV_yf=4;
 UAV_zf=5;
@@ -28,12 +28,12 @@ UAV_kdx = 0;
 UAV_kpy = 0;                %y
 UAV_kiy = 0;
 UAV_kdy = 0;
-UAV_kpz = 2.5;                %z
+UAV_kpz = 0;                %z
 UAV_kiz = 0;
 UAV_kdz = 0;
 
-UAV_kpphi = 0;            %滚转 15  193
-UAV_kdphi = 0;                  %20
+UAV_kpphi = 80;            %滚转 15  193
+UAV_kdphi = 500;                  %20
 UAV_kptheta = UAV_kpphi;          %俯仰
 UAV_kdtheta = UAV_kdphi;
 UAV_kppsai = 0;           %偏航

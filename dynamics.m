@@ -38,15 +38,28 @@ if true
 end
 % 坐标变换
 if true
-	C_n_b = angle2dcm(psi,theta,fai,'ZYX');% 从大地系转本体系
-	C_b_n = C_n_b';% 从本体系转大地系
+	angles = [psi theta fai];
+
+	C_b_n = zeros(3,3);% 从本体系转大地系
+	cang = cos(angles);
+	sang = sin(angles);
+	C_b_n(1,1) = cang(2).*cang(1);
+	C_b_n(2,1) = cang(2).*sang(1);
+	C_b_n(3,1) = -sang(2);
+	C_b_n(1,2) = sang(3).*sang(2).*cang(1) - cang(2).*sang(1);
+	C_b_n(2,2) = sang(3).*sang(2).*sang(1) + cang(2).*cang(1);
+	C_b_n(3,2) = sang(3).*cang(2);
+	C_b_n(1,3) = cang(3).*sang(2).*cang(1) + sang(3).*sang(1);
+	C_b_n(2,3) = cang(3).*sang(2).*sang(1) - sang(3).*cang(1);
+	C_b_n(3,3) = cang(3).*cang(2);
+	C_n_b = C_b_n;% 从大地系转本体系
 	UAV_I = diag([UAV_Ixx UAV_Iyy UAV_Izz]);
 	T_omega2dangle = zeros(3,3);
 	T_omega2dangle(1,1) = 1;
 	T_omega2dangle(1,2) = sin(fai)*tan(theta);
 	T_omega2dangle(1,3) = cos(fai)*tan(theta);
 	T_omega2dangle(2,2) = cos(fai);
-	T_omega2dangle(2,3) = -sin(fai);
+	T_omega2dangle(2,3) = sin(fai);
 	T_omega2dangle(3,2) = sin(fai)/cos(theta);
 	T_omega2dangle(3,3) = cos(fai)/cos(theta);
 	
@@ -58,10 +71,11 @@ if true
 	% T_dangle2omega(3,2) = -sin(roll);
 	% T_dangle2omega(3,3) = cos(roll)*cos(pitch);
 	W_n = [Wx;Wy;Wz];
-	dangle = T_omega2dangle*W_n;
-	roll_dot = dangle(1);
-	pitch_dot = dangle(2);
-	yaw_dot = dangle(3);
+% 	dangle = T_omega2dangle*W_n;
+dangle = W_n;
+	fai_dot = dangle(1);
+	theta_dot = dangle(2);
+	psi_dot = dangle(3);
 end
 % 质心动力学方程
 if true
@@ -74,12 +88,12 @@ if true
 end
 % 质点系动力学方程
 if true
-	M_bx = UAV_L*(T_motor(1)-T_motor(3));
-	M_by = UAV_L*(T_motor(2)-T_motor(4));
-	M_bz = (M_motor(1)+M_motor(3)+M_motor(2)+M_motor(4));
+	M_bx = -UAV_L*(T_motor(1)-T_motor(3));
+	M_by = -UAV_L*(T_motor(2)-T_motor(4));
+	M_bz = (M_motor(1)+M_motor(3)-M_motor(2)-M_motor(4));
 	
 	M_b = [M_bx;M_by;M_bz];
-	d_W_n = inv(UAV_I)*(C_b_n*M_b-cross(W_n,UAV_I*W_n));
+	d_W_n = inv(UAV_I)*(M_b-cross(dangle,UAV_I*dangle));
 	
 end
 % outputs
@@ -90,9 +104,9 @@ if true
 	out(4) = acc_n_y;
 	out(5) = z_dot;
 	out(6) = acc_n_z;
-	out(7) = roll_dot;
-	out(8) = pitch_dot;
-	out(9) = yaw_dot;
+	out(7) = fai_dot;
+	out(8) = theta_dot;
+	out(9) = psi_dot;
 	out(10) = d_W_n(1);
 	out(11) = d_W_n(2);
 	out(12) = d_W_n(3);

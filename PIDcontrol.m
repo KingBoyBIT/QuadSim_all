@@ -40,9 +40,10 @@ angle_des(2) = atan(Earth_g * (sin(dd_a(1))*dd_a(3)+cos(dd_a(1))*dd_a(2))...
 	/(dd_a(3)+Earth_g));
 angle_des(3) = yaw_des;
 
-% angle_des = zeros(3,1);
-% angle_des(1) = pi/6;
-% angle_des(2) = pi/6;
+angle_des = zeros(3,1);
+angle_des(1) = 0.5;
+angle_des(2) = 0.5;
+angle_des(3) = 0;
 % angle_des = max(angle_des,-pi/2);
 % angle_des = min(angle_des,pi/2);
 
@@ -67,8 +68,8 @@ control_out(1) = UAV_aaa(1,1)*u(1)+UAV_aaa(1,2)*u(2)+UAV_aaa(1,3)*u(3)+UAV_aaa(1
 control_out(2) = UAV_aaa(2,1)*u(1)+UAV_aaa(2,2)*u(2)+UAV_aaa(2,3)*u(3)+UAV_aaa(2,4)*u(4);
 control_out(3) = UAV_aaa(3,1)*u(1)+UAV_aaa(3,2)*u(2)+UAV_aaa(3,3)*u(3)+UAV_aaa(3,4)*u(4);
 control_out(4) = UAV_aaa(4,1)*u(1)+UAV_aaa(4,2)*u(2)+UAV_aaa(4,3)*u(3)+UAV_aaa(4,4)*u(4);
-control_out=max(control_out,0);
-control_out=min(control_out,(UAV_maxRPM*2*pi/60)^2);
+% control_out=max(control_out,0);
+% control_out=min(control_out,(UAV_maxRPM*2*pi/60)^2);
 
 out = control_out;
 end
