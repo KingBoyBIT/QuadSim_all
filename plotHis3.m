@@ -73,6 +73,8 @@ xyz=reshape(xyHis,3*n,loop);%为方便画出智能体的历史轨迹，对记录
 for k=1:loop
     plot3(xyHis(1,:,1),xyHis(2,:,1),xyHis(3,:,1),'kx')
     hold on
+	axis equal
+	grid on
     plot3(xyHis(1,1,k),xyHis(2,1,k),xyHis(3,1,k),'rp')
     plot3(xyHis(1,2:end,k),xyHis(2,2:end,k),xyHis(3,2:end,k),'bo', 'MarkerFaceColor','b','MarkerSize',5)
     

@@ -17,7 +17,7 @@ phi=state(7);theta=state(8);psi=state(9);
 vphi=state(10);vtheta=state(11);vpsi=state(12);
 
 % 标称轨迹初值
-x_leader=[0;0;0];
+x_leader=[0;0;3];
 v_leader=[0;0;0];
 % 四旋翼参数
 p = quadpara();
@@ -29,29 +29,28 @@ xyHis(:,:,1)=[x_leader state(1:3)];
 sp=1;
 omegaHis=zeros(4,loop);
 for ct=1:loop
-% 	a_leader = randn(3,1);
+	%a_leader = randn(3,1);
 % 	v_leader=v_leader+dt*a_leader;
-	v_leader = [-0.05*cos(ct*dt);-0.05*sin(ct*dt);dt];
-    x_leader = x_leader+dt*v_leader;
-
-    % 通过控制器获得控制角速度
-    omega=quad_control(state,x_leader,v_leader,0,p,1,10);
-    
-    % 记录控制角速度
-    omegaHis(:,ct)=omega;
-    
-    % 状态更新
-    state = quadcopter(state,omega,p,dt);
-    
-    % 记录飞行轨迹
-    xyHis(:,:,ct+1)=[x_leader state(1:3)];
-    
+	v_leader = [-0.05*cos(ct*dt);-0.05*sin(ct*dt);10*dt];
+	x_leader = x_leader+dt*v_leader;
+	
+	% 通过控制器获得控制角速度
+	omega=quad_control(state,x_leader,v_leader,0,p,10,20);
+	
+	% 记录控制角速度
+	omegaHis(:,ct)=omega;
+	
+	% 状态更新
+	state = quadcopter(state,omega,p,dt);
+	
+	% 记录飞行轨迹
+	xyHis(:,:,ct+1)=[x_leader state(1:3)];
+	
 end
 
 % 动画演示
 figure(1)
-axis equal
-grid on
+
 plotHis3(xyHis,dt,-1,200)
 
 
@@ -59,3 +58,4 @@ plotHis3(xyHis,dt,-1,200)
 figure(2)
 plot(omegaHis')
 grid on
+legend
