@@ -1,11 +1,16 @@
 function omega=quad_control(s,xl,vl,psil,para,k1,k2)
+% 整理输入
 s=real(s);
 x=s(1);y=s(2);z=s(3);
 vx=s(4);vy=s(5);vz=s(6);
 phi=s(7);theta=s(8);psi=s(9);
 vphi=s(10);vtheta=s(11);vpsi=s(12);
+
 u=zeros(4,1);
-tr=[para.b para.b para.b para.b;0 -para.b 0 para.b;-para.b 0 para.b 0;-para.d para.d -para.d para.d];
+tr=[para.b para.b para.b para.b;
+	0 -para.b 0 para.b;
+	-para.b 0 para.b 0;
+	-para.d para.d -para.d para.d];
 
 
 input_delta=k1*(xl-[x;y;z])+k2*(vl-[vx;vy;vz]);
@@ -18,7 +23,7 @@ u(1)=para.m*norm(attr);
 phi_p=asin(-attr(2)/norm(attr));
 theta_p=atan(attr(1)/attr(3));
 if attr(3)<0
-    theta_p=theta_p-pi;
+	theta_p=theta_p-pi;
 end
 psi_p=psil;
 
@@ -32,7 +37,8 @@ omega=omega2.^0.5;
 
 end
 
+% 饱和处理
 function u=saturate(input)
- u=tanh(input);
+u=tanh(input);
 end
 

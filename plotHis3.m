@@ -109,3 +109,4 @@ end
 xlabel('x')
 ylabel('y')
 zlabel('z')
+legend('start','target','quad')
