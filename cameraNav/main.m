@@ -11,4 +11,10 @@ fig1=figure(1);
 start(obj1);
 %%
 snapshot1 = getsnapshot(obj1);
-imshow(snapshot1(:,:,3))
+hsv = rgb2hsv(snapshot1);
+V = hsv(:,:,3); % ¡¡∂»
+K = 0.1;
+hsv(:,:,3) = V *K;
+rgb1 = hsv2rgb(hsv);
+rgb1=rgb1+(1-rgb1).*rgb1;
+imshow(rgb1(:,:,3))
