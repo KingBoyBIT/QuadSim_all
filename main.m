@@ -1,7 +1,7 @@
 clear,clc,close all
 %% 仿真参数设置
 dt=0.01;
-stime=20;
+stime=50;
 loop=stime/dt;
 
 %% 初始状态
@@ -32,6 +32,7 @@ xyHis(:,:,1)=[x_leader state(1:3)];
 sp=1;
 omegaHis=zeros(4,loop);
 for ct=1:loop
+	% 标称轨迹更新
 	%a_leader = randn(3,1);
 % 	v_leader=v_leader+dt*a_leader;
 	v_leader = [-0.5*cos(ct*dt);-0.5*sin(ct*dt);10*dt];
@@ -44,7 +45,7 @@ for ct=1:loop
 	% 通过控制器获得控制角速度
 	omega=quad_control(state_noise,x_leader,v_leader,0,p,10,20);
 	
-	% 记录控制角速度
+	% 记录控制量（电机输入角速度）
 	omegaHis(:,ct)=omega;
 	
 	% 状态更新
