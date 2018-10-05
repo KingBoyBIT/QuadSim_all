@@ -17,7 +17,7 @@ tr=[para.b para.b para.b para.b;
 
 
 input_delta=k1*(xl-[x;y;z])+k2*(vl-[vx;vy;vz]);
-attr=saturate(input_delta)*2+[0;0;para.g];
+attr=para.ctl_tanh.ctl_c0*saturate(input_delta)+[0;0;para.g];
 rot=[cos(psi) sin(psi) 0;-sin(psi) cos(psi) 0;0 0 1];
 attr=rot*attr;
 

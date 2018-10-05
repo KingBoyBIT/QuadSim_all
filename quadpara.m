@@ -11,7 +11,7 @@ para.d=10^-6;
 para.omegaMax=330;% 角速度边界值
 
 % 控制参数
-
+para.ctl_tanh.ctl_c0 = 2;
 para.ctl_tanh.ctl_k1 = 10;
 para.ctl_tanh.ctl_k2 = 20;
 para.ctl_tanh.ctl_fai = 20;
