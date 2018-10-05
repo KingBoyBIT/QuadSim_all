@@ -1,7 +1,7 @@
 clear,clc,close all
 %% 仿真参数设置
 dt=0.01;
-stime=50;
+stime=20;
 loop=stime/dt;
 
 %% 初始状态
@@ -64,6 +64,6 @@ plotHis3(xyHis,dt,-1,200)
 
 % 显示飞行中电机角速度
 figure(2)
-plot(omegaHis')
+plot(0:dt:stime-dt,omegaHis')
 grid on
 legend
