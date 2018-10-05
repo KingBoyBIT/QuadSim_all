@@ -14,4 +14,10 @@ para.omegaMax=330;% 角速度边界值
 
 para.ctl_tanh.ctl_k1 = 10;
 para.ctl_tanh.ctl_k2 = 20;
+para.ctl_tanh.ctl_fai = 20;
+para.ctl_tanh.ctl_fai1 = 1;
+para.ctl_tanh.ctl_fai2 = -1;
+para.ctl_tanh.ctl_theta = 20;
+para.ctl_tanh.ctl_theta1 = 1;
+para.ctl_tanh.ctl_theta2 = -1;
 end

@@ -31,23 +31,24 @@ end
 psi_p=psil;
 
 u(4)=para.Iz*saturate(angleDelta(psi_p,psi)+0-vpsi);
-u(2)=20*para.Ix*(u(1)+u(4))/2*saturate(angleDelta(phi_p,phi)+0-1*vphi)/para.l;
-u(3)=20*para.Iy*(u(1)-u(4))/2*saturate(angleDelta(theta_p,theta)+0-1*vtheta)/para.l;
+u(2)=para.ctl_tanh.ctl_fai*para.Ix*(u(1)+u(4))/2*saturate(para.ctl_tanh.ctl_fai1*angleDelta(phi_p,phi)+para.ctl_tanh.ctl_fai2*vphi)/para.l;
+u(3)=para.ctl_tanh.ctl_theta*para.Iy*(u(1)-u(4))/2*saturate(para.ctl_tanh.ctl_theta1*angleDelta(theta_p,theta)+para.ctl_tanh.ctl_theta2*vtheta)/para.l;
 
-omega2=(tr\u);
+omega2=inv(tr)*u;
 omega2(omega2<0)=0;
 omega=omega2.^0.5;
-
+omega(omega>para.omegaMax) = para.omegaMax;
 end
 
 % function out = 
 % end
 
-% 饱和处理
 function u=saturate(input)
+% 饱和处理
 u=tanh(input);
 end
 
 function ang=angleDelta(p2,p1)
+% 计算角度差
 ang=sign(det([[cos(p1);sin(p1)] [cos(p2);sin(p2)]]))*acos(dot([cos(p1);sin(p1)],[cos(p2);sin(p2)]));
 end
