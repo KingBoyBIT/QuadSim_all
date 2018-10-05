@@ -1,4 +1,4 @@
-function s=quadcopter(s,omega,p,dt)
+function s=quad_dynamic(s,omega,p,dt)
 
 x=s(1);y=s(2);z=s(3);
 vx=s(4);vy=s(5);vz=s(6);

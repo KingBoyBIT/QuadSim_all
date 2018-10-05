@@ -11,13 +11,16 @@ state(4:6,:)=[0;0;0];% v
 state(7,:)=0;
 state(8,:)=0;
 state(9,:)=0;
+state(10,:)=0;
+state(11,:)=0;
+state(12,:)=0;
 rx=state(1);ry=state(2);rz=state(3);
 vx=state(4);vy=state(5);vz=state(6);
 phi=state(7);theta=state(8);psi=state(9);
 vphi=state(10);vtheta=state(11);vpsi=state(12);
 
 % 标称轨迹初值
-x_leader=[0;0;3];
+x_leader=[0;0;0];
 v_leader=[0;0;0];
 % 四旋翼参数
 p = quadpara();
@@ -31,17 +34,21 @@ omegaHis=zeros(4,loop);
 for ct=1:loop
 	%a_leader = randn(3,1);
 % 	v_leader=v_leader+dt*a_leader;
-	v_leader = [-0.05*cos(ct*dt);-0.05*sin(ct*dt);10*dt];
+	v_leader = [-0.5*cos(ct*dt);-0.5*sin(ct*dt);10*dt];
 	x_leader = x_leader+dt*v_leader;
 	
+	% 状态观测偏差
+	state_noise = state;
+% 	state_noise = state + [0.01*randn(3,1);0.01*randn(3,1);0.001*randn(3,1);0.001*randn(3,1)];
+	
 	% 通过控制器获得控制角速度
-	omega=quad_control(state,x_leader,v_leader,0,p,10,20);
+	omega=quad_control(state_noise,x_leader,v_leader,0,p,10,20);
 	
 	% 记录控制角速度
 	omegaHis(:,ct)=omega;
 	
 	% 状态更新
-	state = quadcopter(state,omega,p,dt);
+	state = quad_dynamic(state,omega,p,dt);
 	
 	% 记录飞行轨迹
 	xyHis(:,:,ct+1)=[x_leader state(1:3)];

@@ -37,8 +37,14 @@ omega=omega2.^0.5;
 
 end
 
+% function out = 
+% end
+
 % ±•∫Õ¥¶¿Ì
 function u=saturate(input)
 u=tanh(input);
 end
 
+function ang=angleDelta(p2,p1)
+ang=sign(det([[cos(p1);sin(p1)] [cos(p2);sin(p2)]]))*acos(dot([cos(p1);sin(p1)],[cos(p2);sin(p2)]));
+end
