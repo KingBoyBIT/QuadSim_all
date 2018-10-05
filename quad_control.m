@@ -6,8 +6,8 @@ vx=s(4);vy=s(5);vz=s(6);
 phi=s(7);theta=s(8);psi=s(9);
 vphi=s(10);vtheta=s(11);vpsi=s(12);
 
-k1 = para.ctl_k1;
-k2 = para.ctl_k2;
+k1 = para.ctl_tanh.ctl_k1;
+k2 = para.ctl_tanh.ctl_k2;
 
 u=zeros(4,1);
 tr=[para.b para.b para.b para.b;

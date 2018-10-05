@@ -8,10 +8,12 @@ para.Iy=0.05;
 para.Iz=0.1;
 para.b=10^-4;
 para.d=10^-6;
-para.omegaMax=330;% 角速度边界值
+
+
+para.omegaMax=330;
 
 % 控制参数
 
-para.ctl_tanh.ctl_k1 = 10;
-para.ctl_tanh.ctl_k2 = 20;
+para.ctl_k1 = 10;
+para.ctl_k2 = 20;
 end
