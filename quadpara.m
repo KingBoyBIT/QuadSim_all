@@ -16,4 +16,9 @@ para.k4=0;
 para.k5=0;
 para.k6=0;
 para.omegaMax=330;
+
+% ¿ØÖÆ²ÎÊı
+
+para.ctl_k1 = 10;
+para.ctl_k2 = 20;
 end

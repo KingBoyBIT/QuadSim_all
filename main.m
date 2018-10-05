@@ -43,7 +43,7 @@ for ct=1:loop
 % 	state_noise = state + [0.01*randn(3,1);0.01*randn(3,1);0.001*randn(3,1);0.001*randn(3,1)];
 	
 	% 通过控制器获得控制角速度
-	omega=quad_control(state_noise,x_leader,v_leader,0,p,10,20);
+	omega=quad_control(state_noise,x_leader,v_leader,0,p);
 	
 	% 记录控制量（电机输入角速度）
 	omegaHis(:,ct)=omega;
@@ -62,7 +62,7 @@ figure(1)
 plotHis3(xyHis,dt,-1,200)
 
 
-%show changes in motor speeds during the flight
+% 显示飞行中电机角速度
 figure(2)
 plot(omegaHis')
 grid on

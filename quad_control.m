@@ -1,10 +1,13 @@
-function omega=quad_control(s,xl,vl,psil,para,k1,k2)
+function omega=quad_control(s,xl,vl,psil,para)
 % ’˚¿Ì ‰»Î
 s=real(s);
 x=s(1);y=s(2);z=s(3);
 vx=s(4);vy=s(5);vz=s(6);
 phi=s(7);theta=s(8);psi=s(9);
 vphi=s(10);vtheta=s(11);vpsi=s(12);
+
+k1 = para.ctl_k1;
+k2 = para.ctl_k2;
 
 u=zeros(4,1);
 tr=[para.b para.b para.b para.b;
