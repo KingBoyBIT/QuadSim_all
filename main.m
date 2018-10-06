@@ -38,7 +38,7 @@ for ct=1:loop
 % 	v_leader=v_leader+dt*a_leader;
 	v_leader = [-0.5*cos(ct*dt);-0.5*sin(ct*dt);10*dt];
 	x_leader = x_leader+dt*v_leader;
-	psi_leader = psi_leader + dt*0.1;
+	psi_leader = psi_leader + dt*0.1;% 期望偏航角略微转一转
 	% 状态观测偏差
 	state_with_noise = state;
 % 	state_with_noise = state + [0.01*randn(3,1);0.01*randn(3,1);0.001*randn(3,1);0.001*randn(3,1)];
