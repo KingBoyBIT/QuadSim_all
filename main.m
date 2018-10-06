@@ -22,6 +22,7 @@ vphi=state(10);vtheta=state(11);vpsi=state(12);
 % ±ê³Æ¹ì¼£³õÖµ
 x_leader=[0;0;0];
 v_leader=[0;0;0];
+psi_leader = 0;
 % ËÄĞıÒí²ÎÊı
 p = quadpara();
 % ¹ì¼£¼ÇÂ¼
@@ -37,7 +38,7 @@ for ct=1:loop
 % 	v_leader=v_leader+dt*a_leader;
 	v_leader = [-0.5*cos(ct*dt);-0.5*sin(ct*dt);10*dt];
 	x_leader = x_leader+dt*v_leader;
-	psi_leader = 0;
+	psi_leader = psi_leader + dt*0.1;
 	% ×´Ì¬¹Û²âÆ«²î
 	state_with_noise = state;
 % 	state_with_noise = state + [0.01*randn(3,1);0.01*randn(3,1);0.001*randn(3,1);0.001*randn(3,1)];
