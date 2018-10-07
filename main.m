@@ -1,7 +1,7 @@
 clear,clc,close all
 %% 仿真参数设置
 dt=0.01;
-stime=20;
+stime=15;
 loop=stime/dt;
 
 %% 初始状态
