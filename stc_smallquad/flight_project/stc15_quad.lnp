@@ -1,0 +1,9 @@
+"main.obj",
+"STC15W4K-PWM.obj",
+"LT8910.obj",
+"IMU.obj",
+"MPU-6050.obj",
+"KalmanFilter.obj",
+"globeVar.obj" 
+TO "stc15_quad" 
+RAMSIZE(256) 
