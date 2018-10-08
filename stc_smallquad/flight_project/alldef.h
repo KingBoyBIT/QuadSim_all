@@ -4,7 +4,7 @@
 typedef unsigned char U8,BYTE,UINT8,UCHAR,uchar;
 typedef unsigned int uint;
 typedef unsigned short u16;
-
+/*绝对值小于1的小数转为整数*/
 #define Q15(X) ((X < 0.0) ? (int)(32768*(X) - 0.5) : (int)(32767*(X) + 0.5))
 #define RC_KALMAN_Q	Q15(0.20)
 #define RC_KALMAN_R	Q15(0.80)
