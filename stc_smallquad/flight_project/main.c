@@ -70,7 +70,7 @@ void main(void)
 	Delay(10);    // 延时 100
 
 	//InitADC();/ADC模数转换 初始化（后期开发）
-	Delay(10);//延时 100
+	Delay(10); //延时 100
 	Init_MPU6050(); //初始化MPU-6050
 	Delay(10); //延时 100
 	LT8910_Init(); //无线2.4G模块初始化
@@ -98,7 +98,7 @@ void main(void)
 		js_shuju(RxBuf, 15);     //读取数据包
 #endif
 		/*控制指令接收正确*/
-		if (MAC_calc(RxBuf,10,RxBuf[10]) == 0)
+		if (MAC_calc(RxBuf, 10, RxBuf[10]) == 0)
 		{
 			LostCom = RxBuf[0];                     //接收 失联变量
 			LockState = RxBuf[1];                   //接收 命令值 1=上锁  5=解锁
@@ -116,11 +116,11 @@ void main(void)
 			LedG = 0;                               //LED 绿灯亮
 		}
 
-		if (LockState == 1)							//遥控命令 上锁
+		if (LockState == 1)                         //遥控命令 上锁
 		{
 			LedB = 1;                               //航向灯 蓝色灭
 		}
-		if (LockState == 5)							//遥控命令 解锁
+		if (LockState == 5)                         //遥控命令 解锁
 		{
 			LedB = 0;                               //航向灯 蓝色亮
 		}
@@ -178,9 +178,10 @@ void Delay(unsigned int x)
  */
 void Flight(void) interrupt 1
 {
-
-	RX_model();					//接收模式
-	ReceiveData(RxBuf, 15);		//读取数据包
+	/*LT8910设置为接收模式*/
+	RX_model();
+	/*接收15字节数据*/
+	ReceiveData(RxBuf, 15);
 
 
 	Read_MPU6050(tp); //直接读取MPU6050陀螺仪和加速度的数据包
@@ -236,8 +237,8 @@ void Flight(void) interrupt 1
 		{
 			if (throttle > 50)             //摇杆量上50执行
 			{
-				d_throttle = (throttle + 300) / 1.3;//摇杆增幅算法
-			} 
+				d_throttle = (throttle + 300) / 1.3; //摇杆增幅算法
+			}
 			else
 			{
 				d_throttle = throttle;          //摇杆低于直接赋值

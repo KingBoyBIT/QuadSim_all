@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   MAIN                                                                  10/09/2018 00:42:19 PAGE 1   
+C51 COMPILER V9.54   MAIN                                                                  10/09/2018 00:59:47 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
@@ -62,7 +62,7 @@ line level    source
   53   1              PWM_Init(); //初始化PWM
   54   1              Set_PWM(1000, 1000, 1000, 1000); //关闭电机
   55   1              LedR = 0;
-C51 COMPILER V9.54   MAIN                                                                  10/09/2018 00:42:19 PAGE 2   
+C51 COMPILER V9.54   MAIN                                                                  10/09/2018 00:59:47 PAGE 2   
 
   56   1              LedG = 1;
   57   1              LedB = 1; //3颗状态灯
@@ -81,7 +81,7 @@ line level    source
   70   1              Delay(10);    // 延时 100
   71   1      
   72   1              //InitADC();/ADC模数转换 初始化（后期开发）
-  73   1              Delay(10);//延时 100
+  73   1              Delay(10); //延时 100
   74   1              Init_MPU6050(); //初始化MPU-6050
   75   1              Delay(10); //延时 100
   76   1              LT8910_Init(); //无线2.4G模块初始化
@@ -109,7 +109,7 @@ line level    source
                               js_shuju(RxBuf, 15);     //读取数据包
               #endif
  100   2                      /*控制指令接收正确*/
- 101   2                      if (MAC_calc(RxBuf,10,RxBuf[10]) == 0)
+ 101   2                      if (MAC_calc(RxBuf, 10, RxBuf[10]) == 0)
  102   2                      {
  103   3                              LostCom = RxBuf[0];                     //接收 失联变量
  104   3                              LockState = RxBuf[1];                   //接收 命令值 1=上锁  5=解锁
@@ -126,14 +126,14 @@ line level    source
  115   2                      {
  116   3                              LedG = 0;                               //LED 绿灯亮
  117   3                      }
-C51 COMPILER V9.54   MAIN                                                                  10/09/2018 00:42:19 PAGE 3   
+C51 COMPILER V9.54   MAIN                                                                  10/09/2018 00:59:47 PAGE 3   
 
  118   2      
- 119   2                      if (LockState == 1)                                                     //遥控命令 上锁
+ 119   2                      if (LockState == 1)                         //遥控命令 上锁
  120   2                      {
  121   3                              LedB = 1;                               //航向灯 蓝色灭
  122   3                      }
- 123   2                      if (LockState == 5)                                                     //遥控命令 解锁
+ 123   2                      if (LockState == 5)                         //遥控命令 解锁
  124   2                      {
  125   3                              LedB = 0;                               //航向灯 蓝色亮
  126   3                      }
@@ -190,329 +190,330 @@ line level    source
  177           * @param void
  178           */
  179          void Flight(void) interrupt 1
-C51 COMPILER V9.54   MAIN                                                                  10/09/2018 00:42:19 PAGE 4   
+C51 COMPILER V9.54   MAIN                                                                  10/09/2018 00:59:47 PAGE 4   
 
  180          {
- 181   1      
- 182   1              RX_model();                                     //接收模式
- 183   1              ReceiveData(RxBuf, 15);         //读取数据包
- 184   1      
+ 181   1              /*LT8910设置为接收模式*/
+ 182   1              RX_model();
+ 183   1              /*接收15字节数据*/
+ 184   1              ReceiveData(RxBuf, 15);
  185   1      
- 186   1              Read_MPU6050(tp); //直接读取MPU6050陀螺仪和加速度的数据包
- 187   1      
- 188   1              Angle_ax = KalmanFilter_ax(((int *)&tp)[0], KALMAN_Q, KALMAN_R);  //低通滤波，见文档解释
- 189   1              Angle_ay = KalmanFilter_ay(((int *)&tp)[1], KALMAN_Q, KALMAN_R);
- 190   1              Angle_az = KalmanFilter_az(((int *)&tp)[2], KALMAN_Q, KALMAN_R);
- 191   1      
- 192   1              Angle_gx = ((float)(((int *)&tp)[4])) / 65.5;   //陀螺仪处理    结果单位是 +-度
- 193   1              Angle_gy = ((float)(((int *)&tp)[5])) / 65.5;   //陀螺仪量程 +-500度/S, 1度/秒 对应读数 65.536
- 194   1              Angle_gz = KalmanFilter_gyroz(((int *)&tp)[6], Q15(0.2), Q15(0.8));
- 195   1              IMU_gz = Angle_gz / 65.5;
- 196   1              Last_Angle_gx = Angle_gx;       //储存上一次角速度数据
- 197   1              Last_Angle_gy = Angle_gy;
- 198   1      
- 199   1              //*********************************** 四元数解算 ***********************************
- 200   1              IMUupdate(Angle_gx * 0.0174533f,
- 201   1                                Angle_gy * 0.0174533f,
- 202   1                                IMU_gz * 0.0174533f,
- 203   1                                Angle_ax,
- 204   1                                Angle_ay,
- 205   1                                Angle_az); //姿态解算，精度0.1度
- 206   1                                                       //发送到遥控器
- 207   1                                                       //     TxBuf[0]=(AngleX+900)/0xff; // 数值是 48~1752 = 0-360度
- 208   1                                                       //     TxBuf[1]=(AngleX+900)%0xff;     // 数值是 48~1752 = 0-360度
- 209   1                                                       //     TxBuf[2]=(AngleY+900)/0xff;     // 数值是 48~1752 = 0-360度
- 210   1                                                       //     TxBuf[3]=(AngleY+900)%0xff;     // 数值是 48~1752 = 0-360度
- 211   1                                                       //****飞控失联判断 自动降落算法*********************
- 212   1                                                       //接收遥控器发来的不断更新数据 判断联机通讯是否正常
- 213   1              if (LostCom == ShiLian)   //如果SSLL的数据没有更新即失联
- 214   1              {
- 215   2                      if (++ShiLianCount >= 20)
- 216   2                      {
- 217   3                              ShiLianCount = 19;      //状态标识
- 218   3                              Yaw = 128;  //航向变量
- 219   3                              Roll = 128;  //横滚变量
- 220   3                              Pitch = 128;  //俯仰变量
- 221   3                              if (d_throttle > 20)
- 222   3                              {
- 223   4                                      d_throttle--; //油门在原值逐渐减小
- 224   4                              }
- 225   3                      }
- 226   2              }
- 227   1              else
- 228   1              {
- 229   2                      ShiLianCount = 0;
- 230   2                      if (throttle > 1001)
- 231   2                      {
- 232   3                              throttle = 1000; //油门量0-1000最大值
- 233   3                                                               //油门优化算法 【将油门摇杆的控制幅度从60%增加到90%控制算法】如下
- 234   3                      }
- 235   2                      else
- 236   2                      {
- 237   3                              if (throttle > 50)             //摇杆量上50执行
- 238   3                              {
- 239   4                                      d_throttle = (throttle + 300) / 1.3;//摇杆增幅算法
- 240   4                              } 
- 241   3                              else
-C51 COMPILER V9.54   MAIN                                                                  10/09/2018 00:42:19 PAGE 5   
+ 186   1      
+ 187   1              Read_MPU6050(tp); //直接读取MPU6050陀螺仪和加速度的数据包
+ 188   1      
+ 189   1              Angle_ax = KalmanFilter_ax(((int *)&tp)[0], KALMAN_Q, KALMAN_R);  //低通滤波，见文档解释
+ 190   1              Angle_ay = KalmanFilter_ay(((int *)&tp)[1], KALMAN_Q, KALMAN_R);
+ 191   1              Angle_az = KalmanFilter_az(((int *)&tp)[2], KALMAN_Q, KALMAN_R);
+ 192   1      
+ 193   1              Angle_gx = ((float)(((int *)&tp)[4])) / 65.5;   //陀螺仪处理    结果单位是 +-度
+ 194   1              Angle_gy = ((float)(((int *)&tp)[5])) / 65.5;   //陀螺仪量程 +-500度/S, 1度/秒 对应读数 65.536
+ 195   1              Angle_gz = KalmanFilter_gyroz(((int *)&tp)[6], Q15(0.2), Q15(0.8));
+ 196   1              IMU_gz = Angle_gz / 65.5;
+ 197   1              Last_Angle_gx = Angle_gx;       //储存上一次角速度数据
+ 198   1              Last_Angle_gy = Angle_gy;
+ 199   1      
+ 200   1              //*********************************** 四元数解算 ***********************************
+ 201   1              IMUupdate(Angle_gx * 0.0174533f,
+ 202   1                                Angle_gy * 0.0174533f,
+ 203   1                                IMU_gz * 0.0174533f,
+ 204   1                                Angle_ax,
+ 205   1                                Angle_ay,
+ 206   1                                Angle_az); //姿态解算，精度0.1度
+ 207   1                                                       //发送到遥控器
+ 208   1                                                       //     TxBuf[0]=(AngleX+900)/0xff; // 数值是 48~1752 = 0-360度
+ 209   1                                                       //     TxBuf[1]=(AngleX+900)%0xff;     // 数值是 48~1752 = 0-360度
+ 210   1                                                       //     TxBuf[2]=(AngleY+900)/0xff;     // 数值是 48~1752 = 0-360度
+ 211   1                                                       //     TxBuf[3]=(AngleY+900)%0xff;     // 数值是 48~1752 = 0-360度
+ 212   1                                                       //****飞控失联判断 自动降落算法*********************
+ 213   1                                                       //接收遥控器发来的不断更新数据 判断联机通讯是否正常
+ 214   1              if (LostCom == ShiLian)   //如果SSLL的数据没有更新即失联
+ 215   1              {
+ 216   2                      if (++ShiLianCount >= 20)
+ 217   2                      {
+ 218   3                              ShiLianCount = 19;      //状态标识
+ 219   3                              Yaw = 128;  //航向变量
+ 220   3                              Roll = 128;  //横滚变量
+ 221   3                              Pitch = 128;  //俯仰变量
+ 222   3                              if (d_throttle > 20)
+ 223   3                              {
+ 224   4                                      d_throttle--; //油门在原值逐渐减小
+ 225   4                              }
+ 226   3                      }
+ 227   2              }
+ 228   1              else
+ 229   1              {
+ 230   2                      ShiLianCount = 0;
+ 231   2                      if (throttle > 1001)
+ 232   2                      {
+ 233   3                              throttle = 1000; //油门量0-1000最大值
+ 234   3                                                               //油门优化算法 【将油门摇杆的控制幅度从60%增加到90%控制算法】如下
+ 235   3                      }
+ 236   2                      else
+ 237   2                      {
+ 238   3                              if (throttle > 50)             //摇杆量上50执行
+ 239   3                              {
+ 240   4                                      d_throttle = (throttle + 300) / 1.3; //摇杆增幅算法
+ 241   4                              }
+C51 COMPILER V9.54   MAIN                                                                  10/09/2018 00:59:47 PAGE 5   
 
- 242   3                              {
- 243   4                                      d_throttle = throttle;          //摇杆低于直接赋值
- 244   4                              }
- 245   3                      }
- 246   2              }
- 247   1              ShiLian = LostCom; //失联变量更新
- 248   1              d_throttle = throttle;
- 249   1              //****倾斜角度极限控制***********************************************************************
- 250   1              //极限角度值   30度
- 251   1              if ((AngleX + 900) > 1200)    //飞控向右倾斜
- 252   1              {
- 253   2                      LedR = 0;
- 254   2                      d_throttle = 0;
- 255   2              }
- 256   1              else if ((AngleX + 900) < 500)    //飞控向左倾斜
- 257   1              {
- 258   2                      LedR = 0;
- 259   2                      d_throttle = 0;
- 260   2              }
- 261   1              else if ((AngleY + 900) > 1200)    //飞控向前倾斜
- 262   1              {
- 263   2                      LedR = 0;
- 264   2                      d_throttle = 0;
- 265   2              }
- 266   1              else if ((AngleY + 900) < 500)    //飞控向后倾斜
- 267   1              {
- 268   2                      LedR = 0;
- 269   2                      d_throttle = 0;
- 270   2              }
- 271   1              else
- 272   1              {
- 273   2                      LedR = 1;  //红色
- 274   2              }
- 275   1      
- 276   1              //****以下是飞行控制算法************************************
- 277   1              //************** MPU6050 X轴指向 **************************
- 278   1              delta_rc_x = ((float)Roll - 128) * 2; //得到 横滚数据变量
- 279   1              Ax = -AngleX - delta_rc_x + a_x * 5; //
- 280   1                                                                                       //     Ax =-AngleX+a_x*5;
- 281   1              if (d_throttle > 20)
- 282   1              {
- 283   2                      integAngleErr_X += Ax;   //外环积分(油门小于某个值时不积分)
- 284   2              }
- 285   1              else
- 286   1              {
- 287   2                      integAngleErr_X = 0;     //油门小于定值时清除积分值
- 288   2              }
- 289   1      
- 290   1              if (integAngleErr_X > INTEG_ANGLE_ERR_MAX)
- 291   1              {
- 292   2                      integAngleErr_X = INTEG_ANGLE_ERR_MAX;  //积分限幅
- 293   2              }
- 294   1              else if (integAngleErr_X < -INTEG_ANGLE_ERR_MAX)
- 295   1              {
- 296   2                      integAngleErr_X = -INTEG_ANGLE_ERR_MAX;  //积分限幅
- 297   2              }
- 298   1      
- 299   1              PID_P = (long)Ax * CTL_PARA_PID_ANGLEY_P;
- 300   1              PID_I = ((long)integAngleErr_X * CTL_PARA_PID_ANGLEX_I) >> 15;
- 301   1              PID_D = ((Angle_gy + Last_Angle_gy) / 2) * CTL_PARA_PID_ANGLEX_D;
- 302   1              PID_Output = (PID_P + PID_I + PID_D + 5) / 10;  //外环PID
- 303   1      
-C51 COMPILER V9.54   MAIN                                                                  10/09/2018 00:42:19 PAGE 6   
+ 242   3                              else
+ 243   3                              {
+ 244   4                                      d_throttle = throttle;          //摇杆低于直接赋值
+ 245   4                              }
+ 246   3                      }
+ 247   2              }
+ 248   1              ShiLian = LostCom; //失联变量更新
+ 249   1              d_throttle = throttle;
+ 250   1              //****倾斜角度极限控制***********************************************************************
+ 251   1              //极限角度值   30度
+ 252   1              if ((AngleX + 900) > 1200)    //飞控向右倾斜
+ 253   1              {
+ 254   2                      LedR = 0;
+ 255   2                      d_throttle = 0;
+ 256   2              }
+ 257   1              else if ((AngleX + 900) < 500)    //飞控向左倾斜
+ 258   1              {
+ 259   2                      LedR = 0;
+ 260   2                      d_throttle = 0;
+ 261   2              }
+ 262   1              else if ((AngleY + 900) > 1200)    //飞控向前倾斜
+ 263   1              {
+ 264   2                      LedR = 0;
+ 265   2                      d_throttle = 0;
+ 266   2              }
+ 267   1              else if ((AngleY + 900) < 500)    //飞控向后倾斜
+ 268   1              {
+ 269   2                      LedR = 0;
+ 270   2                      d_throttle = 0;
+ 271   2              }
+ 272   1              else
+ 273   1              {
+ 274   2                      LedR = 1;  //红色
+ 275   2              }
+ 276   1      
+ 277   1              //****以下是飞行控制算法************************************
+ 278   1              //************** MPU6050 X轴指向 **************************
+ 279   1              delta_rc_x = ((float)Roll - 128) * 2; //得到 横滚数据变量
+ 280   1              Ax = -AngleX - delta_rc_x + a_x * 5; //
+ 281   1                                                                                       //     Ax =-AngleX+a_x*5;
+ 282   1              if (d_throttle > 20)
+ 283   1              {
+ 284   2                      integAngleErr_X += Ax;   //外环积分(油门小于某个值时不积分)
+ 285   2              }
+ 286   1              else
+ 287   1              {
+ 288   2                      integAngleErr_X = 0;     //油门小于定值时清除积分值
+ 289   2              }
+ 290   1      
+ 291   1              if (integAngleErr_X > INTEG_ANGLE_ERR_MAX)
+ 292   1              {
+ 293   2                      integAngleErr_X = INTEG_ANGLE_ERR_MAX;  //积分限幅
+ 294   2              }
+ 295   1              else if (integAngleErr_X < -INTEG_ANGLE_ERR_MAX)
+ 296   1              {
+ 297   2                      integAngleErr_X = -INTEG_ANGLE_ERR_MAX;  //积分限幅
+ 298   2              }
+ 299   1      
+ 300   1              PID_P = (long)Ax * CTL_PARA_PID_ANGLEY_P;
+ 301   1              PID_I = ((long)integAngleErr_X * CTL_PARA_PID_ANGLEX_I) >> 15;
+ 302   1              PID_D = ((Angle_gy + Last_Angle_gy) / 2) * CTL_PARA_PID_ANGLEX_D;
+ 303   1              PID_Output = (PID_P + PID_I + PID_D + 5) / 10;  //外环PID
+C51 COMPILER V9.54   MAIN                                                                  10/09/2018 00:59:47 PAGE 6   
 
- 304   1              Last_Ax = Ax;
- 305   1              gx = PID_Output - Angle_gy;      //外环 -   陀螺仪Y轴
- 306   1      
- 307   1              if (d_throttle > 20)
- 308   1              {
- 309   2                      ErrORX_In += gx;    //内环积分(油门小于某个值时不积分)
- 310   2              }
- 311   1              else
- 312   1              {
- 313   2                      ErrORX_In = 0; //油门小于定值时清除积分值
- 314   2              }
- 315   1      
- 316   1              if (ErrORX_In > INTEG_ANGLE_ERR_MAX)
- 317   1              {
- 318   2                      ErrORX_In = INTEG_ANGLE_ERR_MAX;
- 319   2              }
- 320   1              else if (ErrORX_In < -INTEG_ANGLE_ERR_MAX)
- 321   1              {
- 322   2                      ErrORX_In = -INTEG_ANGLE_ERR_MAX;   //积分限幅
- 323   2              }
- 324   1      
- 325   1              PID_P = ((long)gx * CTL_PARA_PID_OMEGA_X_P) >> 15;
- 326   1              PID_I = ((long)ErrORX_In * CTL_PARA_PID_OMEGA_X_I) >> 15;
- 327   1              PID_D = ((long)gx - Last_gx) * CTL_PARA_PID_OMEGA_X_D;
- 328   1              PID_Output = PID_P + PID_I + PID_D;   //内环PID
- 329   1      
- 330   1              Last_gx = gx;
- 331   1      
- 332   1              if (PID_Output > 1000)
- 333   1              {
- 334   2                      PID_Output = 1000;  //输出量限幅
- 335   2              }
- 336   1              if (PID_Output < -1000)
- 337   1              {
- 338   2                      PID_Output = -1000;
- 339   2              }
- 340   1              speed0 = 0 + PID_Output;
- 341   1              speed1 = 0 - PID_Output;
- 342   1              speed3 = 0 + PID_Output;
- 343   1              speed2 = 0 - PID_Output;
- 344   1              //**************MPU6050 Y轴指向**************************************************
- 345   1              delta_rc_y = ((float)Pitch - 128) * 2; //得到 俯仰数据变量
- 346   1              Ay = -AngleY - delta_rc_y - a_y * 5;
- 347   1              //      Ay  =-AngleY-a_y*5;
- 348   1              if (d_throttle > 20)
- 349   1              {
- 350   2                      integAngleErr_Y += Ay;               //外环积分(油门小于某个值时不积分)
- 351   2              }
- 352   1              else
- 353   1              {
- 354   2                      integAngleErr_Y = 0;                 //油门小于定值时清除积分值
- 355   2              }
- 356   1      
- 357   1              if (integAngleErr_Y > INTEG_ANGLE_ERR_MAX)
- 358   1              {
- 359   2                      integAngleErr_Y = INTEG_ANGLE_ERR_MAX;
- 360   2              }
- 361   1              else if (integAngleErr_Y < -INTEG_ANGLE_ERR_MAX)
- 362   1              {
- 363   2                      integAngleErr_Y = -INTEG_ANGLE_ERR_MAX;  //积分限幅
- 364   2              }
- 365   1      
-C51 COMPILER V9.54   MAIN                                                                  10/09/2018 00:42:19 PAGE 7   
+ 304   1      
+ 305   1              Last_Ax = Ax;
+ 306   1              gx = PID_Output - Angle_gy;      //外环 -   陀螺仪Y轴
+ 307   1      
+ 308   1              if (d_throttle > 20)
+ 309   1              {
+ 310   2                      ErrORX_In += gx;    //内环积分(油门小于某个值时不积分)
+ 311   2              }
+ 312   1              else
+ 313   1              {
+ 314   2                      ErrORX_In = 0; //油门小于定值时清除积分值
+ 315   2              }
+ 316   1      
+ 317   1              if (ErrORX_In > INTEG_ANGLE_ERR_MAX)
+ 318   1              {
+ 319   2                      ErrORX_In = INTEG_ANGLE_ERR_MAX;
+ 320   2              }
+ 321   1              else if (ErrORX_In < -INTEG_ANGLE_ERR_MAX)
+ 322   1              {
+ 323   2                      ErrORX_In = -INTEG_ANGLE_ERR_MAX;   //积分限幅
+ 324   2              }
+ 325   1      
+ 326   1              PID_P = ((long)gx * CTL_PARA_PID_OMEGA_X_P) >> 15;
+ 327   1              PID_I = ((long)ErrORX_In * CTL_PARA_PID_OMEGA_X_I) >> 15;
+ 328   1              PID_D = ((long)gx - Last_gx) * CTL_PARA_PID_OMEGA_X_D;
+ 329   1              PID_Output = PID_P + PID_I + PID_D;   //内环PID
+ 330   1      
+ 331   1              Last_gx = gx;
+ 332   1      
+ 333   1              if (PID_Output > 1000)
+ 334   1              {
+ 335   2                      PID_Output = 1000;  //输出量限幅
+ 336   2              }
+ 337   1              if (PID_Output < -1000)
+ 338   1              {
+ 339   2                      PID_Output = -1000;
+ 340   2              }
+ 341   1              speed0 = 0 + PID_Output;
+ 342   1              speed1 = 0 - PID_Output;
+ 343   1              speed3 = 0 + PID_Output;
+ 344   1              speed2 = 0 - PID_Output;
+ 345   1              //**************MPU6050 Y轴指向**************************************************
+ 346   1              delta_rc_y = ((float)Pitch - 128) * 2; //得到 俯仰数据变量
+ 347   1              Ay = -AngleY - delta_rc_y - a_y * 5;
+ 348   1              //      Ay  =-AngleY-a_y*5;
+ 349   1              if (d_throttle > 20)
+ 350   1              {
+ 351   2                      integAngleErr_Y += Ay;               //外环积分(油门小于某个值时不积分)
+ 352   2              }
+ 353   1              else
+ 354   1              {
+ 355   2                      integAngleErr_Y = 0;                 //油门小于定值时清除积分值
+ 356   2              }
+ 357   1      
+ 358   1              if (integAngleErr_Y > INTEG_ANGLE_ERR_MAX)
+ 359   1              {
+ 360   2                      integAngleErr_Y = INTEG_ANGLE_ERR_MAX;
+ 361   2              }
+ 362   1              else if (integAngleErr_Y < -INTEG_ANGLE_ERR_MAX)
+ 363   1              {
+ 364   2                      integAngleErr_Y = -INTEG_ANGLE_ERR_MAX;  //积分限幅
+ 365   2              }
+C51 COMPILER V9.54   MAIN                                                                  10/09/2018 00:59:47 PAGE 7   
 
- 366   1              PID_P = (long)Ay * CTL_PARA_PID_ANGLEY_P;
- 367   1              PID_I = ((long)integAngleErr_Y * CTL_PARA_PID_ANGLEY_I) >> 15;
- 368   1              PID_D = ((Angle_gx + Last_Angle_gx) / 2) * CTL_PARA_PID_ANGLEY_D;
- 369   1              PID_Output = (PID_P + PID_I + PID_D + 5) / 10; //外环PID，“+5”为了四舍五入?
- 370   1      
- 371   1              Last_Ay = Ay;
- 372   1              gy = PID_Output - Angle_gx;
- 373   1      
- 374   1              if (d_throttle > 20)
- 375   1              {
- 376   2                      ErrORY_In += gy; //内环积分(油门小于某个值时不积分)
- 377   2              }
- 378   1              else
- 379   1              {
- 380   2                      ErrORY_In = 0;                          //油门小于定值时清除积分值
- 381   2              }
- 382   1      
- 383   1              if (ErrORY_In > INTEG_ANGLE_ERR_MAX)
- 384   1              {
- 385   2                      ErrORY_In = INTEG_ANGLE_ERR_MAX;
- 386   2              }
- 387   1              else if (ErrORY_In < -INTEG_ANGLE_ERR_MAX)
- 388   1              {
- 389   2                      ErrORY_In = -INTEG_ANGLE_ERR_MAX;   //积分限幅
- 390   2              }
- 391   1      
- 392   1              PID_P = ((long)gy * CTL_PARA_PID_OMEGA_Y_P) >> 15;
- 393   1              PID_I = ((long)ErrORY_In * CTL_PARA_PID_OMEGA_Y_I) >> 15;
- 394   1              PID_D = ((long)gy - Last_gy) * CTL_PARA_PID_OMEGA_Y_D;
- 395   1              PID_Output = PID_P + PID_I + PID_D;
- 396   1      
- 397   1              Last_gy = gy;
- 398   1      
- 399   1              if (PID_Output > 1000)
- 400   1              {
- 401   2                      PID_Output = 1000;  //输出量限幅
- 402   2              }
- 403   1              if (PID_Output < -1000)
- 404   1              {
- 405   2                      PID_Output = -1000;
- 406   2              }
- 407   1              speed0 = speed0 + PID_Output;
- 408   1              speed1 = speed1 + PID_Output; //加载到速度参数
- 409   1              speed3 = speed3 - PID_Output;
- 410   1              speed2 = speed2 - PID_Output;
- 411   1      
- 412   1              //************** MPU6050 Z轴指向 *****************************
- 413   1              delta_rc_z = -Angle_gz + ((float)Yaw - 128) * 65 + a_z * 20; //得到 航向数据变量 操作量
- 414   1              if (d_throttle > 20)
- 415   1              {
- 416   2                      integAngleErr_Z += delta_rc_z;
- 417   2              }
- 418   1              else
- 419   1              {
- 420   2                      integAngleErr_Z = 0;
- 421   2              }
- 422   1              if (integAngleErr_Z > 50000)
- 423   1              {
- 424   2                      integAngleErr_Z = 50000;
- 425   2              }
- 426   1              else if (integAngleErr_Z < -50000)
- 427   1              {
-C51 COMPILER V9.54   MAIN                                                                  10/09/2018 00:42:19 PAGE 8   
+ 366   1      
+ 367   1              PID_P = (long)Ay * CTL_PARA_PID_ANGLEY_P;
+ 368   1              PID_I = ((long)integAngleErr_Y * CTL_PARA_PID_ANGLEY_I) >> 15;
+ 369   1              PID_D = ((Angle_gx + Last_Angle_gx) / 2) * CTL_PARA_PID_ANGLEY_D;
+ 370   1              PID_Output = (PID_P + PID_I + PID_D + 5) / 10; //外环PID，“+5”为了四舍五入?
+ 371   1      
+ 372   1              Last_Ay = Ay;
+ 373   1              gy = PID_Output - Angle_gx;
+ 374   1      
+ 375   1              if (d_throttle > 20)
+ 376   1              {
+ 377   2                      ErrORY_In += gy; //内环积分(油门小于某个值时不积分)
+ 378   2              }
+ 379   1              else
+ 380   1              {
+ 381   2                      ErrORY_In = 0;                          //油门小于定值时清除积分值
+ 382   2              }
+ 383   1      
+ 384   1              if (ErrORY_In > INTEG_ANGLE_ERR_MAX)
+ 385   1              {
+ 386   2                      ErrORY_In = INTEG_ANGLE_ERR_MAX;
+ 387   2              }
+ 388   1              else if (ErrORY_In < -INTEG_ANGLE_ERR_MAX)
+ 389   1              {
+ 390   2                      ErrORY_In = -INTEG_ANGLE_ERR_MAX;   //积分限幅
+ 391   2              }
+ 392   1      
+ 393   1              PID_P = ((long)gy * CTL_PARA_PID_OMEGA_Y_P) >> 15;
+ 394   1              PID_I = ((long)ErrORY_In * CTL_PARA_PID_OMEGA_Y_I) >> 15;
+ 395   1              PID_D = ((long)gy - Last_gy) * CTL_PARA_PID_OMEGA_Y_D;
+ 396   1              PID_Output = PID_P + PID_I + PID_D;
+ 397   1      
+ 398   1              Last_gy = gy;
+ 399   1      
+ 400   1              if (PID_Output > 1000)
+ 401   1              {
+ 402   2                      PID_Output = 1000;  //输出量限幅
+ 403   2              }
+ 404   1              if (PID_Output < -1000)
+ 405   1              {
+ 406   2                      PID_Output = -1000;
+ 407   2              }
+ 408   1              speed0 = speed0 + PID_Output;
+ 409   1              speed1 = speed1 + PID_Output; //加载到速度参数
+ 410   1              speed3 = speed3 - PID_Output;
+ 411   1              speed2 = speed2 - PID_Output;
+ 412   1      
+ 413   1              //************** MPU6050 Z轴指向 *****************************
+ 414   1              delta_rc_z = -Angle_gz + ((float)Yaw - 128) * 65 + a_z * 20; //得到 航向数据变量 操作量
+ 415   1              if (d_throttle > 20)
+ 416   1              {
+ 417   2                      integAngleErr_Z += delta_rc_z;
+ 418   2              }
+ 419   1              else
+ 420   1              {
+ 421   2                      integAngleErr_Z = 0;
+ 422   2              }
+ 423   1              if (integAngleErr_Z > 50000)
+ 424   1              {
+ 425   2                      integAngleErr_Z = 50000;
+ 426   2              }
+ 427   1              else if (integAngleErr_Z < -50000)
+C51 COMPILER V9.54   MAIN                                                                  10/09/2018 00:59:47 PAGE 8   
 
- 428   2                      integAngleErr_Z = -50000;    //积分限幅
- 429   2              }
- 430   1              PID_P = ((long)delta_rc_z) * CTL_PARA_PID_ANGLEZ_P;
- 431   1              PID_I = ((long)integAngleErr_Z * CTL_PARA_PID_ANGLEZ_I) >> 15;
- 432   1              PID_D = ((long)delta_rc_z - AngleZ_late) * CTL_PARA_PID_ANGLEZ_D;
- 433   1              PID_Output = (PID_P + PID_I + PID_D) >> 6;
- 434   1      
- 435   1              AngleZ_late = delta_rc_z;
- 436   1              speed0 = speed0 + PID_Output;
- 437   1              speed1 = speed1 - PID_Output;
- 438   1              speed3 = speed3 - PID_Output;
- 439   1              speed2 = speed2 + PID_Output;
- 440   1      
- 441   1              //**************将速度参数加载至PWM模块*************************************************
- 442   1              //速度参数控制，防止超过PWM参数范围0-1000（X型有效）
- 443   1              PWM0 = (d_throttle + speed0);
- 444   1              if (PWM0 > 1000)
- 445   1              {
- 446   2                      PWM0 = 1000;
- 447   2              }
- 448   1              else if (PWM0 < 0)
- 449   1              {
- 450   2                      PWM0 = 0;
- 451   2              }
- 452   1              PWM1 = (d_throttle + speed1);
- 453   1              if (PWM1 > 1000)
- 454   1              {
- 455   2                      PWM1 = 1000;
- 456   2              }
- 457   1              else if (PWM1 < 0)
- 458   1              {
- 459   2                      PWM1 = 0;
- 460   2              }
- 461   1              PWM2 = (d_throttle + speed2);
- 462   1              if (PWM2 > 1000)
- 463   1              {
- 464   2                      PWM2 = 1000;
- 465   2              }
- 466   1              else if (PWM2 < 0)
- 467   1              {
- 468   2                      PWM2 = 0;
- 469   2              }
- 470   1              PWM3 = (d_throttle + speed3);
- 471   1              if (PWM3 > 1000)
- 472   1              {
- 473   2                      PWM3 = 1000;
- 474   2              }
- 475   1              else if (PWM3 < 0)
- 476   1              {
- 477   2                      PWM3 = 0;
- 478   2              }
- 479   1      
- 480   1              //满足条件：（解锁：2.4G=5；油门大于30）才能控制电机
- 481   1              if (LockState == 5 && d_throttle >= 50)
- 482   1              {
- 483   2                      Set_PWM(1000 - PWM1, 1000 - PWM2, 1000 - PWM3, 1000 - PWM0);
- 484   2              } //启动PWM
- 485   1              else
- 486   1              {
- 487   2                      Set_PWM(1000, 1000, 1000, 1000);
- 488   2              } //关闭PWM
- 489   1      }
-C51 COMPILER V9.54   MAIN                                                                  10/09/2018 00:42:19 PAGE 9   
+ 428   1              {
+ 429   2                      integAngleErr_Z = -50000;    //积分限幅
+ 430   2              }
+ 431   1              PID_P = ((long)delta_rc_z) * CTL_PARA_PID_ANGLEZ_P;
+ 432   1              PID_I = ((long)integAngleErr_Z * CTL_PARA_PID_ANGLEZ_I) >> 15;
+ 433   1              PID_D = ((long)delta_rc_z - AngleZ_late) * CTL_PARA_PID_ANGLEZ_D;
+ 434   1              PID_Output = (PID_P + PID_I + PID_D) >> 6;
+ 435   1      
+ 436   1              AngleZ_late = delta_rc_z;
+ 437   1              speed0 = speed0 + PID_Output;
+ 438   1              speed1 = speed1 - PID_Output;
+ 439   1              speed3 = speed3 - PID_Output;
+ 440   1              speed2 = speed2 + PID_Output;
+ 441   1      
+ 442   1              //**************将速度参数加载至PWM模块*************************************************
+ 443   1              //速度参数控制，防止超过PWM参数范围0-1000（X型有效）
+ 444   1              PWM0 = (d_throttle + speed0);
+ 445   1              if (PWM0 > 1000)
+ 446   1              {
+ 447   2                      PWM0 = 1000;
+ 448   2              }
+ 449   1              else if (PWM0 < 0)
+ 450   1              {
+ 451   2                      PWM0 = 0;
+ 452   2              }
+ 453   1              PWM1 = (d_throttle + speed1);
+ 454   1              if (PWM1 > 1000)
+ 455   1              {
+ 456   2                      PWM1 = 1000;
+ 457   2              }
+ 458   1              else if (PWM1 < 0)
+ 459   1              {
+ 460   2                      PWM1 = 0;
+ 461   2              }
+ 462   1              PWM2 = (d_throttle + speed2);
+ 463   1              if (PWM2 > 1000)
+ 464   1              {
+ 465   2                      PWM2 = 1000;
+ 466   2              }
+ 467   1              else if (PWM2 < 0)
+ 468   1              {
+ 469   2                      PWM2 = 0;
+ 470   2              }
+ 471   1              PWM3 = (d_throttle + speed3);
+ 472   1              if (PWM3 > 1000)
+ 473   1              {
+ 474   2                      PWM3 = 1000;
+ 475   2              }
+ 476   1              else if (PWM3 < 0)
+ 477   1              {
+ 478   2                      PWM3 = 0;
+ 479   2              }
+ 480   1      
+ 481   1              //满足条件：（解锁：2.4G=5；油门大于30）才能控制电机
+ 482   1              if (LockState == 5 && d_throttle >= 50)
+ 483   1              {
+ 484   2                      Set_PWM(1000 - PWM1, 1000 - PWM2, 1000 - PWM3, 1000 - PWM0);
+ 485   2              } //启动PWM
+ 486   1              else
+ 487   1              {
+ 488   2                      Set_PWM(1000, 1000, 1000, 1000);
+ 489   2              } //关闭PWM
+C51 COMPILER V9.54   MAIN                                                                  10/09/2018 00:59:47 PAGE 9   
 
- 490          
+ 490   1      }
+ 491          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
