@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   GLOBEVAR                                                              10/09/2018 00:59:47 PAGE 1   
+C51 COMPILER V9.54   GLOBEVAR                                                              10/09/2018 01:20:49 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE GLOBEVAR
@@ -47,7 +47,7 @@ line level    source
   38          int data AngleX = 0, AngleY = 0;                //四元数解算出的欧拉角  ,AngleZ=0
   39          
   40          /*acc16*3+tempreture16+gyro16*3直接读取MPU6050陀螺仪和加速度的数据包（用掉14字节）*/
-  41          unsigned char data tp[16];                              
+  41          unsigned char data IMUdata[16];                         
   42           
   43          
   44          /*飞行控制变量*/
@@ -62,7 +62,7 @@ line level    source
   53          unsigned char PitchRoll;                                //俯仰横滚变量
   54          unsigned char CKV_calc;                                 //CRC 算出效验包
   55          unsigned char CKV_match;                                //CRC 接收效验包
-C51 COMPILER V9.54   GLOBEVAR                                                              10/09/2018 00:59:47 PAGE 2   
+C51 COMPILER V9.54   GLOBEVAR                                                              10/09/2018 01:20:49 PAGE 2   
 
   56          
   57          /*PID算法变量*/

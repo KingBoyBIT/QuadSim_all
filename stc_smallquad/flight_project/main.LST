@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   MAIN                                                                  10/09/2018 00:59:47 PAGE 1   
+C51 COMPILER V9.54   MAIN                                                                  10/09/2018 01:20:48 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
@@ -62,7 +62,7 @@ line level    source
   53   1              PWM_Init(); //初始化PWM
   54   1              Set_PWM(1000, 1000, 1000, 1000); //关闭电机
   55   1              LedR = 0;
-C51 COMPILER V9.54   MAIN                                                                  10/09/2018 00:59:47 PAGE 2   
+C51 COMPILER V9.54   MAIN                                                                  10/09/2018 01:20:48 PAGE 2   
 
   56   1              LedG = 1;
   57   1              LedB = 1; //3颗状态灯
@@ -126,7 +126,7 @@ line level    source
  115   2                      {
  116   3                              LedG = 0;                               //LED 绿灯亮
  117   3                      }
-C51 COMPILER V9.54   MAIN                                                                  10/09/2018 00:59:47 PAGE 3   
+C51 COMPILER V9.54   MAIN                                                                  10/09/2018 01:20:48 PAGE 3   
 
  118   2      
  119   2                      if (LockState == 1)                         //遥控命令 上锁
@@ -190,7 +190,7 @@ line level    source
  177           * @param void
  178           */
  179          void Flight(void) interrupt 1
-C51 COMPILER V9.54   MAIN                                                                  10/09/2018 00:59:47 PAGE 4   
+C51 COMPILER V9.54   MAIN                                                                  10/09/2018 01:20:48 PAGE 4   
 
  180          {
  181   1              /*LT8910设置为接收模式*/
@@ -199,15 +199,15 @@ line level    source
  184   1              ReceiveData(RxBuf, 15);
  185   1      
  186   1      
- 187   1              Read_MPU6050(tp); //直接读取MPU6050陀螺仪和加速度的数据包
+ 187   1              Read_MPU6050(IMUdata); //直接读取MPU6050陀螺仪和加速度的数据包
  188   1      
- 189   1              Angle_ax = KalmanFilter_ax(((int *)&tp)[0], KALMAN_Q, KALMAN_R);  //低通滤波，见文档解释
- 190   1              Angle_ay = KalmanFilter_ay(((int *)&tp)[1], KALMAN_Q, KALMAN_R);
- 191   1              Angle_az = KalmanFilter_az(((int *)&tp)[2], KALMAN_Q, KALMAN_R);
+ 189   1              Angle_ax = RCLowPassFilter_ax(((int *)&IMUdata)[0], RC_KALMAN_Q, RC_KALMAN_R);  //低通滤波，见文档解释
+ 190   1              Angle_ay = RCLowPassFilter_ay(((int *)&IMUdata)[1], RC_KALMAN_Q, RC_KALMAN_R);
+ 191   1              Angle_az = RCLowPassFilter_az(((int *)&IMUdata)[2], RC_KALMAN_Q, RC_KALMAN_R);
  192   1      
- 193   1              Angle_gx = ((float)(((int *)&tp)[4])) / 65.5;   //陀螺仪处理    结果单位是 +-度
- 194   1              Angle_gy = ((float)(((int *)&tp)[5])) / 65.5;   //陀螺仪量程 +-500度/S, 1度/秒 对应读数 65.536
- 195   1              Angle_gz = KalmanFilter_gyroz(((int *)&tp)[6], Q15(0.2), Q15(0.8));
+ 193   1              Angle_gx = ((float)(((int *)&IMUdata)[4])) / 65.5;   //陀螺仪处理       结果单位是 +-度
+ 194   1              Angle_gy = ((float)(((int *)&IMUdata)[5])) / 65.5;   //陀螺仪量程 +-500度/S, 1度/秒 对应读数 65.536
+ 195   1              Angle_gz = RCLowPassFilter_gyroz(((int *)&IMUdata)[6], Q15(0.2), Q15(0.8));
  196   1              IMU_gz = Angle_gz / 65.5;
  197   1              Last_Angle_gx = Angle_gx;       //储存上一次角速度数据
  198   1              Last_Angle_gy = Angle_gy;
@@ -254,7 +254,7 @@ line level    source
  239   3                              {
  240   4                                      d_throttle = (throttle + 300) / 1.3; //摇杆增幅算法
  241   4                              }
-C51 COMPILER V9.54   MAIN                                                                  10/09/2018 00:59:47 PAGE 5   
+C51 COMPILER V9.54   MAIN                                                                  10/09/2018 01:20:48 PAGE 5   
 
  242   3                              else
  243   3                              {
@@ -318,7 +318,7 @@ line level    source
  301   1              PID_I = ((long)integAngleErr_X * CTL_PARA_PID_ANGLEX_I) >> 15;
  302   1              PID_D = ((Angle_gy + Last_Angle_gy) / 2) * CTL_PARA_PID_ANGLEX_D;
  303   1              PID_Output = (PID_P + PID_I + PID_D + 5) / 10;  //外环PID
-C51 COMPILER V9.54   MAIN                                                                  10/09/2018 00:59:47 PAGE 6   
+C51 COMPILER V9.54   MAIN                                                                  10/09/2018 01:20:48 PAGE 6   
 
  304   1      
  305   1              Last_Ax = Ax;
@@ -382,7 +382,7 @@ line level    source
  363   1              {
  364   2                      integAngleErr_Y = -INTEG_ANGLE_ERR_MAX;  //积分限幅
  365   2              }
-C51 COMPILER V9.54   MAIN                                                                  10/09/2018 00:59:47 PAGE 7   
+C51 COMPILER V9.54   MAIN                                                                  10/09/2018 01:20:48 PAGE 7   
 
  366   1      
  367   1              PID_P = (long)Ay * CTL_PARA_PID_ANGLEY_P;
@@ -446,7 +446,7 @@ line level    source
  425   2                      integAngleErr_Z = 50000;
  426   2              }
  427   1              else if (integAngleErr_Z < -50000)
-C51 COMPILER V9.54   MAIN                                                                  10/09/2018 00:59:47 PAGE 8   
+C51 COMPILER V9.54   MAIN                                                                  10/09/2018 01:20:48 PAGE 8   
 
  428   1              {
  429   2                      integAngleErr_Z = -50000;    //积分限幅
@@ -510,7 +510,7 @@ line level    source
  487   1              {
  488   2                      Set_PWM(1000, 1000, 1000, 1000);
  489   2              } //关闭PWM
-C51 COMPILER V9.54   MAIN                                                                  10/09/2018 00:59:47 PAGE 9   
+C51 COMPILER V9.54   MAIN                                                                  10/09/2018 01:20:48 PAGE 9   
 
  490   1      }
  491          

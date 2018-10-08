@@ -38,7 +38,7 @@ int idata Angle_gz = 0;					//由角速度计算的角速率(角度制)
 int data AngleX = 0, AngleY = 0;		//四元数解算出的欧拉角  ,AngleZ=0
 
 /*acc16*3+tempreture16+gyro16*3直接读取MPU6050陀螺仪和加速度的数据包（用掉14字节）*/
-unsigned char data tp[16];				
+unsigned char data IMUdata[16];				
  
 
 /*飞行控制变量*/

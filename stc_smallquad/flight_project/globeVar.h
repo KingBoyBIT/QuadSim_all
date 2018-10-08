@@ -38,7 +38,7 @@ extern int idata Angle_gz;//由角速度计算的角速率(角度制)
 
 extern int data AngleX, AngleY;//四元数解算出的欧拉角  ,AngleZ=0
 
-extern unsigned char data tp[16];//acc16*3+tempreture16+gyro16*3直接读取MPU6050陀螺仪和加速度的数据包（用掉14字节）
+extern unsigned char data IMUdata[16];//acc16*3+tempreture16+gyro16*3直接读取MPU6050陀螺仪和加速度的数据包（用掉14字节）
  
 
 /*飞行控制变量*/

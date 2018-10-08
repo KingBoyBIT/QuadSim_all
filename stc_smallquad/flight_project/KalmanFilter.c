@@ -2,7 +2,7 @@
 #include "KalmanFilter.h"  //¿¨¶ûÂüÂË²¨Ëã·¨
 
 /**
- * 
+ * Ò»½×¿¨¶ûÂüÂË²¨£¬ÍË»¯Îª¹ßÐÔÂË²¨
  *
  * @author KingBoy (2018/5/20)
  *
@@ -12,7 +12,7 @@
  *
  * @return int
  */
-int KalmanFilter_ax(int ResrcData, int ProcessNiose_Q, int MeasureNoise_R)
+int RCLowPassFilter_ax(int ResrcData, int ProcessNiose_Q, int MeasureNoise_R)
 {
 	int R = MeasureNoise_R;
 	int Q = ProcessNiose_Q;
@@ -34,7 +34,7 @@ int KalmanFilter_ax(int ResrcData, int ProcessNiose_Q, int MeasureNoise_R)
 	ax_last = ax_now;
 	return (ax_now);
 }
-int KalmanFilter_ay(int ResrcData, int ProcessNiose_Q, int MeasureNoise_R)
+int RCLowPassFilter_ay(int ResrcData, int ProcessNiose_Q, int MeasureNoise_R)
 {
 	int R = MeasureNoise_R;
 	int Q = ProcessNiose_Q;
@@ -57,7 +57,7 @@ int KalmanFilter_ay(int ResrcData, int ProcessNiose_Q, int MeasureNoise_R)
 	ay_last = ay_now;
 	return (ay_now);
 }
-int KalmanFilter_az(int ResrcData, int ProcessNiose_Q, int MeasureNoise_R)
+int RCLowPassFilter_az(int ResrcData, int ProcessNiose_Q, int MeasureNoise_R)
 {
 	int R = MeasureNoise_R;
 	int Q = ProcessNiose_Q;
@@ -128,7 +128,7 @@ int KalmanFilter_gyroy(int ResrcData, int ProcessNiose_Q, int MeasureNoise_R)
 	return (gyroy_now);
 }
 #endif
-int KalmanFilter_gyroz(int ResrcData, int ProcessNiose_Q, int MeasureNoise_R)
+int RCLowPassFilter_gyroz(int ResrcData, int ProcessNiose_Q, int MeasureNoise_R)
 {
 	int R = MeasureNoise_R;
 	int Q = ProcessNiose_Q;

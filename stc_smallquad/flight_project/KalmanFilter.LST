@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   KALMANFILTER                                                          10/09/2018 00:59:47 PAGE 1   
+C51 COMPILER V9.54   KALMANFILTER                                                          10/09/2018 01:20:49 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE KALMANFILTER
@@ -11,7 +11,7 @@ line level    source
    2          #include "KalmanFilter.h"  //¿¨¶ûÂüÂË²¨Ëã·¨
    3          
    4          /**
-   5           * 
+   5           * Ò»½×¿¨¶ûÂüÂË²¨£¬ÍË»¯Îª¹ßÐÔÂË²¨
    6           *
    7           * @author KingBoy (2018/5/20)
    8           *
@@ -21,7 +21,7 @@ line level    source
   12           *
   13           * @return int
   14           */
-  15          int KalmanFilter_ax(int ResrcData, int ProcessNiose_Q, int MeasureNoise_R)
+  15          int RCLowPassFilter_ax(int ResrcData, int ProcessNiose_Q, int MeasureNoise_R)
   16          {
   17   1              int R = MeasureNoise_R;
   18   1              int Q = ProcessNiose_Q;
@@ -43,7 +43,7 @@ line level    source
   34   1              ax_last = ax_now;
   35   1              return (ax_now);
   36   1      }
-  37          int KalmanFilter_ay(int ResrcData, int ProcessNiose_Q, int MeasureNoise_R)
+  37          int RCLowPassFilter_ay(int ResrcData, int ProcessNiose_Q, int MeasureNoise_R)
   38          {
   39   1              int R = MeasureNoise_R;
   40   1              int Q = ProcessNiose_Q;
@@ -62,13 +62,13 @@ line level    source
   53   1      
   54   1              ay_now = ay_mid + (((long)kg * (ResrcData - ay_mid)) >> 15);
   55   1              p_now = ((long)p_mid * (32768 - kg)) >> 15;
-C51 COMPILER V9.54   KALMANFILTER                                                          10/09/2018 00:59:47 PAGE 2   
+C51 COMPILER V9.54   KALMANFILTER                                                          10/09/2018 01:20:49 PAGE 2   
 
   56   1              ay_p_last = p_now;
   57   1              ay_last = ay_now;
   58   1              return (ay_now);
   59   1      }
-  60          int KalmanFilter_az(int ResrcData, int ProcessNiose_Q, int MeasureNoise_R)
+  60          int RCLowPassFilter_az(int ResrcData, int ProcessNiose_Q, int MeasureNoise_R)
   61          {
   62   1              int R = MeasureNoise_R;
   63   1              int Q = ProcessNiose_Q;
@@ -126,7 +126,7 @@ line level    source
                       long p_mid;
                       long p_now;
                       int kg;
-C51 COMPILER V9.54   KALMANFILTER                                                          10/09/2018 00:59:47 PAGE 3   
+C51 COMPILER V9.54   KALMANFILTER                                                          10/09/2018 01:20:49 PAGE 3   
 
                       long temp;
                       gyroy_mid = gyroy_last;
@@ -141,7 +141,7 @@ line level    source
                       return (gyroy_now);
               }
               #endif
- 131          int KalmanFilter_gyroz(int ResrcData, int ProcessNiose_Q, int MeasureNoise_R)
+ 131          int RCLowPassFilter_gyroz(int ResrcData, int ProcessNiose_Q, int MeasureNoise_R)
  132          {
  133   1              int R = MeasureNoise_R;
  134   1              int Q = ProcessNiose_Q;

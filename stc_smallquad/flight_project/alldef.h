@@ -6,8 +6,8 @@ typedef unsigned int uint;
 typedef unsigned short u16;
 
 #define Q15(X) ((X < 0.0) ? (int)(32768*(X) - 0.5) : (int)(32767*(X) + 0.5))
-#define KALMAN_Q	Q15(0.20)
-#define KALMAN_R	Q15(0.80)
+#define RC_KALMAN_Q	Q15(0.20)
+#define RC_KALMAN_R	Q15(0.80)
 //==================================================//
 //   PID 手动微调参数值
 //   修改PID以下参数 可以吧飞控调的更加平稳
