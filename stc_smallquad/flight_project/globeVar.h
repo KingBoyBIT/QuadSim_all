@@ -19,7 +19,7 @@ extern int PWM3;
 
 //double g_x=0,g_y=0,g_z=0;       //陀螺仪矫正参数
 /*角度矫正参数*/
-extern char a_x;
+extern char inputAngle_x;
 extern char a_y;
 extern char a_z;
 
@@ -32,11 +32,11 @@ extern double Gyro_z;//Z轴陀螺仪数据暂存
 extern int xdata Angle_ax;//由加速度计算的加速度(弧度制)
 extern int xdata Angle_ay;//由加速度计算的加速度(弧度制)
 extern int xdata Angle_az;//由加速度计算的加速度(弧度制)
-extern int idata Angle_gy;//由角速度计算的角速率(角度制)
-extern int idata Angle_gx;//由角速度计算的角速率(角度制)
-extern int idata Angle_gz;//由角速度计算的角速率(角度制)
+extern int idata Omega_gy;//由角速度计算的角速率(角度制)
+extern int idata Omega_gx;//由角速度计算的角速率(角度制)
+extern int idata Omega_gz;//由角速度计算的角速率(角度制)
 
-extern int data AngleX, AngleY;//四元数解算出的欧拉角  ,AngleZ=0
+extern int data AngleXest, AngleY;//四元数解算出的欧拉角  ,AngleZ=0
 
 extern unsigned char data IMUdata[16];//acc16*3+tempreture16+gyro16*3直接读取MPU6050陀螺仪和加速度的数据包（用掉14字节）
  
@@ -58,25 +58,25 @@ extern unsigned char CKV_match;//CRC 接收效验包
 extern float data PID_Output;//PID最终输出量
 
 extern float xdata Last_Angle_gx;//外环PI输出量  上一次陀螺仪数据
-extern float xdata Last_Angle_gy;//外环PI输出量  上一次陀螺仪数据
+extern float xdata Last_Omega_gy;//外环PI输出量  上一次陀螺仪数据
 
-extern float xdata ErrORX_In;//内环P 内环I 内环D 内环误差积分
+extern float xdata integOmegaErr_X;//内环P 内环I 内环D 内环误差积分
 extern float xdata integAngleErr_X;//外环P 外环I       外环误差积分
 
-extern float xdata ErrORY_In;//内环P 内环I 内环D 内环误差积分
+extern float xdata integOmegaErr_Y;//内环P 内环I 内环D 内环误差积分
 extern float xdata integAngleErr_Y;//外环P 外环I       外环误差积分
 
 extern float xdata integAngleErr_Z;//外环P 外环I       外环误差积分
-extern float xdata AngleZ_late;//Z轴相关??
+extern float xdata LastAngle_Z;//Z轴相关??
 
-extern float xdata Last_Ax;//角度更新
-extern float xdata Last_Ay;//角度更新
+extern float xdata LastAngleErr_X;//角度更新
+extern float xdata LastAngleErr_Y;//角度更新
 
-extern float xdata Last_gx;//角速度更新
-extern float xdata Last_gy;//角速度更新
+extern float xdata LastOmegaErr_X;//角速度更新
+extern float xdata LastOmegaErr_Y;//角速度更新
 
-extern float xdata Ax, Ay, Az;//加入遥控器控制量后的角度
-extern int xdata gx, gy;//加入遥控器控制量后的角速度
+extern float xdata AngleErr_X, AngleErr_Y, AngleErr_Z;//加入遥控器控制量后的角度
+extern int xdata OmegaErr_X, OmegaErr_Y;//加入遥控器控制量后的角速度
 //extern long xdata g_x_aver;//没用到？
 //extern long xdata g_y_aver;//没用到？
 //extern long xdata g_z_aver;//没用到？

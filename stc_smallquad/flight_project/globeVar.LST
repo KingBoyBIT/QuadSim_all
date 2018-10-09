@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   GLOBEVAR                                                              10/09/2018 22:37:18 PAGE 1   
+C51 COMPILER V9.54   GLOBEVAR                                                              10/09/2018 23:49:26 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE GLOBEVAR
@@ -27,7 +27,7 @@ line level    source
   18          
   19          //double g_x=0,g_y=0,g_z=0;                             //陀螺仪矫正参数
   20          /*角度矫正参数*/
-  21          char a_x = 0;
+  21          char inputAngle_x = 0;
   22          char a_y = 0;
   23          char a_z = 0;
   24          
@@ -40,11 +40,11 @@ line level    source
   31          int xdata Angle_ax = 0;                                 //由加速度计算的加速度(弧度制)
   32          int xdata Angle_ay = 0;                                 //由加速度计算的加速度(弧度制)
   33          int xdata Angle_az = 0;                                 //由加速度计算的加速度(弧度制)
-  34          int idata Angle_gy = 0;                                 //由角速度计算的角速率(角度制)
-  35          int idata Angle_gx = 0;                                 //由角速度计算的角速率(角度制)
-  36          int idata Angle_gz = 0;                                 //由角速度计算的角速率(角度制)
+  34          int idata Omega_gy = 0;                                 //由角速度计算的角速率(角度制)
+  35          int idata Omega_gx = 0;                                 //由角速度计算的角速率(角度制)
+  36          int idata Omega_gz = 0;                                 //由角速度计算的角速率(角度制)
   37          
-  38          int data AngleX = 0, AngleY = 0;                //四元数解算出的欧拉角  ,AngleZ=0
+  38          int data AngleXest = 0, AngleY = 0;             //四元数解算出的欧拉角  ,AngleZ=0
   39          
   40          /*acc16*3+tempreture16+gyro16*3直接读取MPU6050陀螺仪和加速度的数据包（用掉14字节）*/
   41          unsigned char data IMUdata[16];                         
@@ -62,41 +62,41 @@ line level    source
   53          unsigned char PitchRoll;                                //俯仰横滚变量
   54          unsigned char CKV_calc;                                 //CRC 算出效验包
   55          unsigned char CKV_match;                                //CRC 接收效验包
-C51 COMPILER V9.54   GLOBEVAR                                                              10/09/2018 22:37:18 PAGE 2   
+C51 COMPILER V9.54   GLOBEVAR                                                              10/09/2018 23:49:26 PAGE 2   
 
   56          
   57          /*PID算法变量*/
   58          float data PID_Output;                                  //PID最终输出量
   59          
   60          float xdata Last_Angle_gx = 0;                  //外环PI输出量  上一次陀螺仪数据
-  61          float xdata Last_Angle_gy = 0;                  //外环PI输出量  上一次陀螺仪数据
+  61          float xdata Last_Omega_gy = 0;                  //外环PI输出量  上一次陀螺仪数据
   62          
-  63          float xdata ErrORX_In = 0;                              //内环P 内环I 内环D 内环误差积分
+  63          float xdata integOmegaErr_X = 0;                                //内环P 内环I 内环D 内环误差积分
   64          float xdata integAngleErr_X = 0;                //外环P 外环I       外环误差积分
   65          
-  66          float xdata ErrORY_In = 0;                              //内环P 内环I 内环D 内环误差积分
+  66          float xdata integOmegaErr_Y = 0;                                //内环P 内环I 内环D 内环误差积分
   67          float xdata integAngleErr_Y = 0;                //外环P 外环I       外环误差积分
   68          
   69          float xdata integAngleErr_Z = 0;                //外环P 外环I       外环误差积分
-  70          float xdata AngleZ_late = 0;                    //Z轴相关??
+  70          float xdata LastAngle_Z = 0;                    //Z轴相关??
   71          
-  72          float xdata Last_Ax = 0;                                //角度更新
-  73          float xdata Last_Ay = 0;                                //角度更新
+  72          float xdata LastAngleErr_X = 0;                         //角度更新
+  73          float xdata LastAngleErr_Y = 0;                         //角度更新
   74          
-  75          float xdata Last_gx = 0;                                //角速度更新
-  76          float xdata Last_gy = 0;                                //角速度更新
+  75          float xdata LastOmegaErr_X = 0;                         //角速度更新
+  76          float xdata LastOmegaErr_Y = 0;                         //角速度更新
   77          
-  78          float xdata Ax = 0, Ay = 0, Az = 0;             //加入遥控器控制量后的角度
-  79          int xdata gx = 0, gy = 0;                               //加入遥控器控制量后的角速度
+  78          float xdata AngleErr_X = 0, AngleErr_Y = 0, AngleErr_Z = 0;             //加入遥控器控制量后的角度
+  79          int xdata OmegaErr_X = 0, OmegaErr_Y = 0;                               //加入遥控器控制量后的角速度
   80          //long xdata g_x_aver = 0;                              //没用到？
   81          //long xdata g_y_aver = 0;                              //没用到？
   82          //long xdata g_z_aver = 0;                              //没用到？
   83          int delta_rc_x = 0;                                             //暂不确定，待更新
   84          int delta_rc_y = 0;                                             //暂不确定，待更新
   85          int delta_rc_z = 0;                                             //暂不确定，待更新
-  86          long idata PID_P;                                               //暂不确定，待更新
-  87          long idata PID_I;                                               //暂不确定，待更新
-  88          long idata PID_D;                                               //暂不确定，待更新
+  86          long idata PID_P;                                               //PID计算临时缓存值
+  87          long idata PID_I;                                               //PID计算临时缓存值
+  88          long idata PID_D;                                               //PID计算临时缓存值
   89          
 
 

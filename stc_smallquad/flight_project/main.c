@@ -45,21 +45,13 @@ void main(void)
 {
 	PWM_Init(); //初始化PWM
 	Set_PWM(1000, 1000, 1000, 1000); //关闭电机
-	LedR = 0;
-	LedG = 1;
-	LedB = 1; //3颗状态灯
+	LedR = 0;LedG = 1;LedB = 1; //3颗状态灯
 	Delay(500); //延时一会
-	LedR = 1;
-	LedG = 0;
-	LedB = 1; //3颗状态灯
+	LedR = 1;LedG = 0;LedB = 1; //3颗状态灯
 	Delay(500); //延时一会
-	LedR = 1;
-	LedG = 1;
-	LedB = 0; //3颗状态灯
+	LedR = 1;LedG = 1;LedB = 0; //3颗状态灯
 	Delay(500); //延时一会
-	LedR = 1;
-	LedG = 1;
-	LedB = 1; //3颗状态灯
+	LedR = 1;LedG = 1;LedB = 1; //3颗状态灯
 	Delay(10);    // 延时 100
 
 	//InitADC();/ADC模数转换 初始化（后期开发）
@@ -77,7 +69,7 @@ void main(void)
 	Roll = 128;     //初始化横滚变量
 	Pitch = 128;    //初始化俯仰变量
 	LedB = 0;       //开启绿灯
-	a_x = 0;        //横滚手动值
+	inputAngle_x = 0;        //横滚手动值
 	a_y = 0;        //俯仰手动值
 	a_z = 0;        //航向手动值
 
@@ -99,7 +91,7 @@ void main(void)
 			Yaw = RxBuf[4];                         //接收 航向变量
 			Roll = RxBuf[5];                        //接收 横滚变量
 			Pitch = RxBuf[6];                       //接收 俯仰变量
-			a_x = RxBuf[7] - 128;                   //读出 X轴保存值
+			inputAngle_x = RxBuf[7] - 128;                   //读出 X轴保存值
 			a_y = RxBuf[8] - 128;                   //读出 Y轴保存值
 			a_z = RxBuf[9] - 128;                   //读出 Z轴保存值
 			LedG = 1;                               //LED 绿灯灭
@@ -108,7 +100,6 @@ void main(void)
 		{
 			LedG = 0;                               //LED 绿灯亮
 		}
-
 		if (LockState == 1)                         //遥控命令 上锁
 		{
 			LedB = 1;                               //航向灯 蓝色灭
@@ -183,15 +174,15 @@ void Flight(void) interrupt 1
 	Angle_ay = RCLowPassFilter_ay(((int *)&IMUdata)[1], RC_KALMAN_Q, RC_KALMAN_R);
 	Angle_az = RCLowPassFilter_az(((int *)&IMUdata)[2], RC_KALMAN_Q, RC_KALMAN_R);
 
-	Angle_gx = ((float)(((int *)&IMUdata)[4])) / 65.5;   //陀螺仪处理	结果单位是 +-度
-	Angle_gy = ((float)(((int *)&IMUdata)[5])) / 65.5;   //陀螺仪量程 +-500度/S, 1度/秒 对应读数 65.536
-	Angle_gz = RCLowPassFilter_gyroz(((int *)&IMUdata)[6], Q15(0.2), Q15(0.8));
-	IMU_gz = Angle_gz / 65.5;
-	Last_Angle_gx = Angle_gx;       //储存上一次角速度数据
-	Last_Angle_gy = Angle_gy;
+	Omega_gx = ((float)(((int *)&IMUdata)[4])) / 65.5;   //陀螺仪处理	结果单位是 +-度
+	Omega_gy = ((float)(((int *)&IMUdata)[5])) / 65.5;   //陀螺仪量程 +-500度/S, 1度/秒 对应读数 65.536
+	Omega_gz = RCLowPassFilter_gyroz(((int *)&IMUdata)[6], Q15(0.2), Q15(0.8));
+	IMU_gz = Omega_gz / 65.5;
+	Last_Angle_gx = Omega_gx;       //储存上一次角速度数据
+	Last_Omega_gy = Omega_gy;
 
 	//*********************************** 四元数解算 ***********************************
-	IMUupdate(Angle_gx * 0.0174533f,Angle_gy * 0.0174533f,IMU_gz * 0.0174533f,Angle_ax,Angle_ay,Angle_az);
+	IMUupdate(Omega_gx * 0.0174533f,Omega_gy * 0.0174533f,IMU_gz * 0.0174533f,Angle_ax,Angle_ay,Angle_az);
 	//姿态解算，精度0.1度
 	//发送到遥控器
 	//	TxBuf[0]=(AngleX+900)/0xff; // 数值是 48~1752 = 0-360度

@@ -4,15 +4,15 @@
 //#include <STC15W4K60S4.h>	//STC15W4K48S4 专用头文件
 //#include <intrins.h>		//STC特殊命令符号声明
 
-void PIDcontrolX()
+void PIDcontrolX(void)
 {
-//************** MPU6050 X轴指向 **************************
+	//************** MPU6050 X轴指向 **************************
 	delta_rc_x = ((float)Roll - 128) * 2; //得到 横滚数据变量
-	Ax = -AngleX - delta_rc_x + a_x * 5; //
-										 //	Ax =-AngleX+a_x*5;
+	AngleErr_X = -AngleXest - delta_rc_x + inputAngle_x * 5; //
+															 //	Ax =-AngleX+a_x*5;
 	if (d_throttle > 20)
 	{
-		integAngleErr_X += Ax;   //外环积分(油门小于某个值时不积分)
+		integAngleErr_X += AngleErr_X;   //外环积分(油门小于某个值时不积分)
 	}
 	else
 	{
@@ -28,38 +28,38 @@ void PIDcontrolX()
 		integAngleErr_X = -INTEG_ANGLE_ERR_MAX;  //积分限幅
 	}
 
-	PID_P = (long)Ax * CTL_PARA_PID_ANGLEY_P;
+	PID_P = (long)AngleErr_X * CTL_PARA_PID_ANGLEY_P;
 	PID_I = ((long)integAngleErr_X * CTL_PARA_PID_ANGLEX_I) >> 15;
-	PID_D = ((Angle_gy + Last_Angle_gy) / 2) * CTL_PARA_PID_ANGLEX_D;
+	PID_D = ((Omega_gy + Last_Omega_gy) / 2) * CTL_PARA_PID_ANGLEX_D;
 	PID_Output = (PID_P + PID_I + PID_D + 5) / 10;  //外环PID
 
-	Last_Ax = Ax;
-	gx = PID_Output - Angle_gy;      //外环 -   陀螺仪Y轴
+	LastAngleErr_X = AngleErr_X;
+	OmegaErr_X = PID_Output - Omega_gy;      //外环 -   陀螺仪Y轴
 
 	if (d_throttle > 20)
 	{
-		ErrORX_In += gx;    //内环积分(油门小于某个值时不积分)
+		integOmegaErr_X += OmegaErr_X;    //内环积分(油门小于某个值时不积分)
 	}
 	else
 	{
-		ErrORX_In = 0; //油门小于定值时清除积分值
+		integOmegaErr_X = 0; //油门小于定值时清除积分值
 	}
 
-	if (ErrORX_In > INTEG_ANGLE_ERR_MAX)
+	if (integOmegaErr_X > INTEG_ANGLE_ERR_MAX)
 	{
-		ErrORX_In = INTEG_ANGLE_ERR_MAX;
+		integOmegaErr_X = INTEG_ANGLE_ERR_MAX;
 	}
-	else if (ErrORX_In < -INTEG_ANGLE_ERR_MAX)
+	else if (integOmegaErr_X < -INTEG_ANGLE_ERR_MAX)
 	{
-		ErrORX_In = -INTEG_ANGLE_ERR_MAX;   //积分限幅
+		integOmegaErr_X = -INTEG_ANGLE_ERR_MAX;   //积分限幅
 	}
 
-	PID_P = ((long)gx * CTL_PARA_PID_OMEGA_X_P) >> 15;
-	PID_I = ((long)ErrORX_In * CTL_PARA_PID_OMEGA_X_I) >> 15;
-	PID_D = ((long)gx - Last_gx) * CTL_PARA_PID_OMEGA_X_D;
+	PID_P = ((long)OmegaErr_X * CTL_PARA_PID_OMEGA_X_P) >> 15;
+	PID_I = ((long)integOmegaErr_X * CTL_PARA_PID_OMEGA_X_I) >> 15;
+	PID_D = ((long)OmegaErr_X - LastOmegaErr_X) * CTL_PARA_PID_OMEGA_X_D;
 	PID_Output = PID_P + PID_I + PID_D;   //内环PID
 
-	Last_gx = gx;
+	LastOmegaErr_X = OmegaErr_X;
 
 	if (PID_Output > 1000)
 	{
@@ -75,15 +75,15 @@ void PIDcontrolX()
 	speed2 = 0 - PID_Output;
 }
 
-void PIDcontrolY()
+void PIDcontrolY(void)
 {
 	//**************MPU6050 Y轴指向**************************************************
 	delta_rc_y = ((float)Pitch - 128) * 2; //得到 俯仰数据变量
-	Ay = -AngleY - delta_rc_y - a_y * 5;
+	AngleErr_Y = -AngleY - delta_rc_y - a_y * 5;
 	//	Ay  =-AngleY-a_y*5;
 	if (d_throttle > 20)
 	{
-		integAngleErr_Y += Ay;               //外环积分(油门小于某个值时不积分)
+		integAngleErr_Y += AngleErr_Y;               //外环积分(油门小于某个值时不积分)
 	}
 	else
 	{
@@ -99,38 +99,38 @@ void PIDcontrolY()
 		integAngleErr_Y = -INTEG_ANGLE_ERR_MAX;  //积分限幅
 	}
 
-	PID_P = (long)Ay * CTL_PARA_PID_ANGLEY_P;
+	PID_P = (long)AngleErr_Y * CTL_PARA_PID_ANGLEY_P;
 	PID_I = ((long)integAngleErr_Y * CTL_PARA_PID_ANGLEY_I) >> 15;
-	PID_D = ((Angle_gx + Last_Angle_gx) / 2) * CTL_PARA_PID_ANGLEY_D;
+	PID_D = ((Omega_gx + Last_Angle_gx) / 2) * CTL_PARA_PID_ANGLEY_D;
 	PID_Output = (PID_P + PID_I + PID_D + 5) / 10; //外环PID，“+5”为了四舍五入?
 
-	Last_Ay = Ay;
-	gy = PID_Output - Angle_gx;
+	LastAngleErr_Y = AngleErr_Y;
+	OmegaErr_Y = PID_Output - Omega_gx;
 
 	if (d_throttle > 20)
 	{
-		ErrORY_In += gy; //内环积分(油门小于某个值时不积分)
+		integOmegaErr_Y += OmegaErr_Y; //内环积分(油门小于某个值时不积分)
 	}
 	else
 	{
-		ErrORY_In = 0;                          //油门小于定值时清除积分值
+		integOmegaErr_Y = 0;                          //油门小于定值时清除积分值
 	}
 
-	if (ErrORY_In > INTEG_ANGLE_ERR_MAX)
+	if (integOmegaErr_Y > INTEG_ANGLE_ERR_MAX)
 	{
-		ErrORY_In = INTEG_ANGLE_ERR_MAX;
+		integOmegaErr_Y = INTEG_ANGLE_ERR_MAX;
 	}
-	else if (ErrORY_In < -INTEG_ANGLE_ERR_MAX)
+	else if (integOmegaErr_Y < -INTEG_ANGLE_ERR_MAX)
 	{
-		ErrORY_In = -INTEG_ANGLE_ERR_MAX;   //积分限幅
+		integOmegaErr_Y = -INTEG_ANGLE_ERR_MAX;   //积分限幅
 	}
 
-	PID_P = ((long)gy * CTL_PARA_PID_OMEGA_Y_P) >> 15;
-	PID_I = ((long)ErrORY_In * CTL_PARA_PID_OMEGA_Y_I) >> 15;
-	PID_D = ((long)gy - Last_gy) * CTL_PARA_PID_OMEGA_Y_D;
+	PID_P = ((long)OmegaErr_Y * CTL_PARA_PID_OMEGA_Y_P) >> 15;
+	PID_I = ((long)integOmegaErr_Y * CTL_PARA_PID_OMEGA_Y_I) >> 15;
+	PID_D = ((long)OmegaErr_Y - LastOmegaErr_Y) * CTL_PARA_PID_OMEGA_Y_D;
 	PID_Output = PID_P + PID_I + PID_D;
 
-	Last_gy = gy;
+	LastOmegaErr_Y = OmegaErr_Y;
 
 	if (PID_Output > 1000)
 	{
@@ -146,10 +146,10 @@ void PIDcontrolY()
 	speed2 = speed2 - PID_Output;
 }
 
-void PIDcontrolZ()
+void PIDcontrolZ(void)
 {
-		//************** MPU6050 Z轴指向 *****************************
-	delta_rc_z = -Angle_gz + ((float)Yaw - 128) * 65 + a_z * 20; //得到 航向数据变量 操作量
+	//************** MPU6050 Z轴指向 *****************************
+	delta_rc_z = -Omega_gz + ((float)Yaw - 128) * 65 + a_z * 20; //得到 航向数据变量 操作量
 	if (d_throttle > 20)
 	{
 		integAngleErr_Z += delta_rc_z;
@@ -168,26 +168,26 @@ void PIDcontrolZ()
 	}
 	PID_P = ((long)delta_rc_z) * CTL_PARA_PID_ANGLEZ_P;
 	PID_I = ((long)integAngleErr_Z * CTL_PARA_PID_ANGLEZ_I) >> 15;
-	PID_D = ((long)delta_rc_z - AngleZ_late) * CTL_PARA_PID_ANGLEZ_D;
+	PID_D = ((long)delta_rc_z - LastAngle_Z) * CTL_PARA_PID_ANGLEZ_D;
 	PID_Output = (PID_P + PID_I + PID_D) >> 6;
 
-	AngleZ_late = delta_rc_z;
+	LastAngle_Z = delta_rc_z;
 	speed0 = speed0 + PID_Output;
 	speed1 = speed1 - PID_Output;
 	speed3 = speed3 - PID_Output;
 	speed2 = speed2 + PID_Output;
 }
 
-void DangerMotionProtect()
+void DangerMotionProtect(void)
 {
-		//****倾斜角度极限控制***********************************************************************
+	//****倾斜角度极限控制***********************************************************************
 	//极限角度值   30度
-	if ((AngleX + 900) > 1200)    //飞控向右倾斜
+	if ((AngleXest + 900) > 1200)    //飞控向右倾斜
 	{
 		LedR = 0;
 		d_throttle = 0;
 	}
-	else if ((AngleX + 900) < 500)    //飞控向左倾斜
+	else if ((AngleXest + 900) < 500)    //飞控向左倾斜
 	{
 		LedR = 0;
 		d_throttle = 0;
@@ -207,9 +207,9 @@ void DangerMotionProtect()
 		LedR = 1;  //红色
 	}
 }
-void PWMoutput()
+void PWMoutput(void)
 {
-		PWM0 = (d_throttle + speed0);
+	PWM0 = (d_throttle + speed0);
 	if (PWM0 > 1000)
 	{
 		PWM0 = 1000;
@@ -246,9 +246,9 @@ void PWMoutput()
 		PWM3 = 0;
 	}
 }
-void LostControlProtect()
+void LostControlProtect(void)
 {
-		if (LostCom == ShiLian)   //如果SSLL的数据没有更新即失联
+	if (LostCom == ShiLian)   //如果SSLL的数据没有更新即失联
 	{
 		if (++ShiLianCount >= 20)
 		{

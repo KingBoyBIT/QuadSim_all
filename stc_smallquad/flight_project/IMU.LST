@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   IMU                                                                   10/09/2018 22:37:18 PAGE 1   
+C51 COMPILER V9.54   IMU                                                                   10/09/2018 23:49:26 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE IMU
@@ -62,7 +62,7 @@ line level    source
   53   1              ey = (az * vx - ax * vz);
   54   1              ez = (ax * vy - ay * vx);
   55   1      
-C51 COMPILER V9.54   IMU                                                                   10/09/2018 22:37:18 PAGE 2   
+C51 COMPILER V9.54   IMU                                                                   10/09/2018 23:49:26 PAGE 2   
 
   56   1              exInt = exInt + ex * NAV_PARA_EST_KI;
   57   1              eyInt = eyInt + ey * NAV_PARA_EST_KI;
@@ -102,7 +102,7 @@ line level    source
   91   1              q2 = q2 * norm;
   92   1              q3 = q3 * norm;
   93   1              AngleY = atan2(2 * q2 * q3 + 2 * q0 * q1, -2 * q1 * q1 - 2 * q2 * q2 + 1) * MATH_180_PI_10;
-  94   1              AngleX = asin(2 * (q0 * q2 - q1 * q3)) * MATH_180_PI_10;
+  94   1              AngleXest = asin(2 * (q0 * q2 - q1 * q3)) * MATH_180_PI_10;
   95   1              //AngleZ = atan2(2 * q1 * q2 + 2 * q0 * q3, -2 * q2 * q2 - 2 * q3 * q3 + 1)* MATH_180_PI_10;
   96   1      
   97   1      }
@@ -126,7 +126,7 @@ line level    source
  115   1              y = y * (1.5f - (halfx * y * y));
  116   1              return (y);
  117   1      }
-C51 COMPILER V9.54   IMU                                                                   10/09/2018 22:37:18 PAGE 3   
+C51 COMPILER V9.54   IMU                                                                   10/09/2018 23:49:26 PAGE 3   
 
 
 
