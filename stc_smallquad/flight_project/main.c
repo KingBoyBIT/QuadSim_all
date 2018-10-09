@@ -64,14 +64,15 @@ void main(void)
 	Timer0Init(); //初始化定时器
 	Delay(100);   //延时一会 1S
 	/*默认值初始化*/
-	throttle = 0;   //初始化油门变量
-	Yaw = 128;      //初始化航向变量
-	Roll = 128;     //初始化横滚变量
-	Pitch = 128;    //初始化俯仰变量
+
+	rc_throttle = 0;   //初始化油门变量
+	rc_Yaw = 128;      //初始化航向变量
+	rc_Roll = 128;     //初始化横滚变量
+	rc_Pitch = 128;    //初始化俯仰变量
 	LedB = 0;       //开启绿灯
-	inputAngle_x = 0;        //横滚手动值
-	a_y = 0;        //俯仰手动值
-	a_z = 0;        //航向手动值
+	rcAngle_X_offset = 0;        //横滚手动值
+	rcAngle_Y_offset = 0;        //俯仰手动值
+	rcAngle_Z_offset = 0;        //航向手动值
 
 	//Flight();//编译后2个警告是说 飞控函数中断量 不在主函数里【不需要纠结】
 	EA = 1;  //开总中断
@@ -85,15 +86,29 @@ void main(void)
 		/*控制指令接收正确*/
 		if (MAC_calc(RxBuf, 10, RxBuf[10]) == 0)
 		{
+#if 0
+			TxBuf[0] = SSLL++;        //发送 失联变量
+			TxBuf[1] = SZML;          //发送 命令值 1=上锁  5=解锁
+			TxBuf[2] = YMout / 0xff;    //发送 油门参数 高2位
+			TxBuf[3] = YMout % 0xff;    //发送 油门参数 低8位
+			TxBuf[4] = HXout;         //发送 航向摇杆参数
+			TxBuf[5] = HGout;         //发送 横滚摇杆参数
+			TxBuf[6] = FYout;         //发送 俯仰摇杆参数
+			TxBuf[7] = HengGun;       //发送 横滚微调变量
+			TxBuf[8] = FuYang;        //发送 俯仰微调变量
+			TxBuf[9] = HangXiang;     //发送 航向微调变量
+			TxBuf[10] = Xiao;         //发送 效验包
+#endif
+
 			LostCom = RxBuf[0];                     //接收 失联变量
 			LockState = RxBuf[1];                   //接收 命令值 1=上锁  5=解锁
-			throttle = RxBuf[2] * 0xff + RxBuf[3];  //接收 油门变量
-			Yaw = RxBuf[4];                         //接收 航向变量
-			Roll = RxBuf[5];                        //接收 横滚变量
-			Pitch = RxBuf[6];                       //接收 俯仰变量
-			inputAngle_x = RxBuf[7] - 128;                   //读出 X轴保存值
-			a_y = RxBuf[8] - 128;                   //读出 Y轴保存值
-			a_z = RxBuf[9] - 128;                   //读出 Z轴保存值
+			rc_throttle = RxBuf[2] * 0xff + RxBuf[3];  //接收 油门变量
+			rc_Yaw = RxBuf[4];                         //接收 航向变量
+			rc_Roll = RxBuf[5];                        //接收 横滚变量
+			rc_Pitch = RxBuf[6];                       //接收 俯仰变量
+			rcAngle_X_offset = RxBuf[7] - 128;                   //读出 X轴保存值
+			rcAngle_Y_offset = RxBuf[8] - 128;                   //读出 Y轴保存值
+			rcAngle_Z_offset = RxBuf[9] - 128;                   //读出 Z轴保存值
 			LedG = 1;                               //LED 绿灯灭
 		}
 		else

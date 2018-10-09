@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   GLOBEVAR                                                              10/10/2018 00:02:20 PAGE 1   
+C51 COMPILER V9.54   GLOBEVAR                                                              10/10/2018 00:45:50 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE GLOBEVAR
@@ -27,9 +27,9 @@ line level    source
   18          
   19          //double g_x=0,g_y=0,g_z=0;                             //陀螺仪矫正参数
   20          /*角度矫正参数*/
-  21          char inputAngle_x = 0;
-  22          char a_y = 0;
-  23          char a_z = 0;
+  21          char rcAngle_X_offset = 0;
+  22          char rcAngle_Y_offset = 0;
+  23          char rcAngle_Z_offset = 0;
   24          
   25          float IMU_gz;//定义未知
   26          
@@ -55,14 +55,14 @@ line level    source
   46          unsigned char LostCom;                                  //通讯状态 变量
   47          unsigned char ShiLian;                                  //失联变量
   48          unsigned char ShiLianCount;                             //失联计数变量
-  49          unsigned int throttle;                                  //油门变量
-  50          unsigned int Yaw;                                               //航向变量
-  51          unsigned int Roll;                                              //横滚变量
-  52          unsigned int Pitch;                                             //俯仰变量
-  53          unsigned char PitchRoll;                                //俯仰横滚变量
+  49          unsigned int rc_throttle;                                       //油门变量
+  50          unsigned int rc_Yaw;                                            //航向变量
+  51          unsigned int rc_Roll;                                           //横滚变量
+  52          unsigned int rc_Pitch;                                          //俯仰变量
+  53          //unsigned char PitchRoll;                              //俯仰横滚变量
   54          unsigned char CKV_calc;                                 //CRC 算出效验包
   55          unsigned char CKV_match;                                //CRC 接收效验包
-C51 COMPILER V9.54   GLOBEVAR                                                              10/10/2018 00:02:20 PAGE 2   
+C51 COMPILER V9.54   GLOBEVAR                                                              10/10/2018 00:45:50 PAGE 2   
 
   56          
   57          /*PID算法变量*/
@@ -103,7 +103,7 @@ line level    source
 MODULE INFORMATION:   STATIC OVERLAYABLE
    CODE SIZE        =   ----    ----
    CONSTANT SIZE    =   ----    ----
-   XDATA SIZE       =    128    ----
+   XDATA SIZE       =    127    ----
    PDATA SIZE       =   ----    ----
    DATA SIZE        =     44    ----
    IDATA SIZE       =     18    ----

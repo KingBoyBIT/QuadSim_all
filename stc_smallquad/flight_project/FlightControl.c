@@ -7,8 +7,8 @@
 void PIDcontrolX(void)
 {
 	//************** MPU6050 X轴指向 **************************
-	delta_rc_x = ((float)Roll - 128) * 2; //得到 横滚数据变量
-	AngleErr_X = -AngleXest - delta_rc_x + inputAngle_x * 5; //
+	delta_rc_x = ((float)rc_Roll - 128) * 2; //得到 横滚数据变量
+	AngleErr_X = -AngleXest - delta_rc_x + rcAngle_X_offset * 5; //
 															 //	Ax =-AngleX+a_x*5;
 	if (d_throttle > 20)
 	{
@@ -78,8 +78,8 @@ void PIDcontrolX(void)
 void PIDcontrolY(void)
 {
 	//**************MPU6050 Y轴指向**************************************************
-	delta_rc_y = ((float)Pitch - 128) * 2; //得到 俯仰数据变量
-	AngleErr_Y = -AngleY - delta_rc_y - a_y * 5;
+	delta_rc_y = ((float)rc_Pitch - 128) * 2; //得到 俯仰数据变量
+	AngleErr_Y = -AngleY - delta_rc_y - rcAngle_Y_offset * 5;
 	//	Ay  =-AngleY-a_y*5;
 	if (d_throttle > 20)
 	{
@@ -149,7 +149,7 @@ void PIDcontrolY(void)
 void PIDcontrolZ(void)
 {
 	//************** MPU6050 Z轴指向 *****************************
-	delta_rc_z = -Omega_gz + ((float)Yaw - 128) * 65 + a_z * 20; //得到 航向数据变量 操作量
+	delta_rc_z = -Omega_gz + ((float)rc_Yaw - 128) * 65 + rcAngle_Z_offset * 20; //得到 航向数据变量 操作量
 	if (d_throttle > 20)
 	{
 		integAngleErr_Z += delta_rc_z;
@@ -253,9 +253,9 @@ void LostControlProtect(void)
 		if (++ShiLianCount >= 20)
 		{
 			ShiLianCount = 19;      //状态标识
-			Yaw = 128;  //航向变量
-			Roll = 128;  //横滚变量
-			Pitch = 128;  //俯仰变量
+			rc_Yaw = 128;  //航向变量
+			rc_Roll = 128;  //横滚变量
+			rc_Pitch = 128;  //俯仰变量
 			if (d_throttle > 20)
 			{
 				d_throttle--; //油门在原值逐渐减小
@@ -265,23 +265,23 @@ void LostControlProtect(void)
 	else
 	{
 		ShiLianCount = 0;
-		if (throttle > 1001)
+		if (rc_throttle > 1001)
 		{
-			throttle = 1000; //油门量0-1000最大值
+			rc_throttle = 1000; //油门量0-1000最大值
 							 //油门优化算法 【将油门摇杆的控制幅度从60%增加到90%控制算法】如下
 		}
 		else
 		{
-			if (throttle > 50)             //摇杆量上50执行
+			if (rc_throttle > 50)             //摇杆量上50执行
 			{
-				d_throttle = (throttle + 300) / 1.3; //摇杆增幅算法
+				d_throttle = (rc_throttle + 300) / 1.3; //摇杆增幅算法
 			}
 			else
 			{
-				d_throttle = throttle;          //摇杆低于直接赋值
+				d_throttle = rc_throttle;          //摇杆低于直接赋值
 			}
 		}
 	}
 	ShiLian = LostCom; //失联变量更新
-	d_throttle = throttle;
+	d_throttle = rc_throttle;
 }

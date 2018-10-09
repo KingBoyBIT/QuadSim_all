@@ -19,9 +19,9 @@ extern int PWM3;
 
 //double g_x=0,g_y=0,g_z=0;       //陀螺仪矫正参数
 /*角度矫正参数*/
-extern char inputAngle_x;
-extern char a_y;
-extern char a_z;
+extern char rcAngle_X_offset;
+extern char rcAngle_Y_offset;
+extern char rcAngle_Z_offset;
 
 extern float IMU_gz;//定义未知
 
@@ -46,11 +46,11 @@ extern unsigned char LockState;//断开/连接 解锁变量
 extern unsigned char LostCom;//通讯状态 变量
 extern unsigned char ShiLian;//失联变量
 extern unsigned char ShiLianCount;//失联计数变量
-extern unsigned int throttle;//油门变量
-extern unsigned int Yaw;//航向变量
-extern unsigned int Roll;//横滚变量
-extern unsigned int Pitch;//俯仰变量
-extern unsigned char PitchRoll;//俯仰横滚变量
+extern unsigned int rc_throttle;//油门变量
+extern unsigned int rc_Yaw;//航向变量
+extern unsigned int rc_Roll;//横滚变量
+extern unsigned int rc_Pitch;//俯仰变量
+//extern unsigned char PitchRoll;//俯仰横滚变量
 extern unsigned char CKV_calc;//CRC 算出效验包
 extern unsigned char CKV_match;//CRC 接收效验包
 

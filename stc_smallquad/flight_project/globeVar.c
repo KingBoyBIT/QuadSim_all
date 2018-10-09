@@ -18,9 +18,9 @@ int PWM3 = 0;
 
 //double g_x=0,g_y=0,g_z=0;				//陀螺仪矫正参数
 /*角度矫正参数*/
-char inputAngle_x = 0;
-char a_y = 0;
-char a_z = 0;
+char rcAngle_X_offset = 0;
+char rcAngle_Y_offset = 0;
+char rcAngle_Z_offset = 0;
 
 float IMU_gz;//定义未知
 
@@ -46,11 +46,11 @@ unsigned char LockState;				//断开/连接 解锁变量
 unsigned char LostCom;					//通讯状态 变量
 unsigned char ShiLian;					//失联变量
 unsigned char ShiLianCount;				//失联计数变量
-unsigned int throttle;					//油门变量
-unsigned int Yaw;						//航向变量
-unsigned int Roll;			   			//横滚变量
-unsigned int Pitch;			   			//俯仰变量
-unsigned char PitchRoll;	   			//俯仰横滚变量
+unsigned int rc_throttle;					//油门变量
+unsigned int rc_Yaw;						//航向变量
+unsigned int rc_Roll;			   			//横滚变量
+unsigned int rc_Pitch;			   			//俯仰变量
+//unsigned char PitchRoll;	   			//俯仰横滚变量
 unsigned char CKV_calc;		   			//CRC 算出效验包
 unsigned char CKV_match;	   			//CRC 接收效验包
 
