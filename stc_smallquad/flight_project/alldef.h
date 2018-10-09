@@ -1,9 +1,23 @@
 #ifndef _ALLDEF_H_
 #define _ALLDEF_H_
 
+#include <STC15W4K60S4.h>	//STC15W4K48S4 专用头文件
+#include <intrins.h>		//STC特殊命令符号声明
+
 typedef unsigned char U8,BYTE,UINT8,UCHAR,uchar;
 typedef unsigned int uint;
 typedef unsigned short u16;
+
+//==================================================//
+//  LED灯 引脚定义
+//==================================================//
+sbit LedR = P0 ^ 1; //LED 红色 R,灌入式，低电平亮
+sbit LedG = P0 ^ 2; //LED 绿色 G,灌入式，低电平亮
+sbit LedB = P0 ^ 3; //LED 蓝色 B,灌入式，低电平亮
+
+sbit KARX = P3 ^ 0; //排针接口 RXD
+sbit KATX = P3 ^ 1; //排针接口 TXD
+
 /*绝对值小于1的小数转为整数*/
 #define Q15(X) ((X < 0.0) ? (int)(32768*(X) - 0.5) : (int)(32767*(X) + 0.5))
 #define RC_KALMAN_Q	Q15(0.20)

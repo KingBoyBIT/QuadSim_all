@@ -131,6 +131,7 @@
 			Name="Source Files"
 			Filters="*.c;*.C;*.cc;*.cpp;*.cp;*.cxx;*.c++;*.prg;*.pas;*.dpr;*.asm;*.s;*.bas;*.java;*.cs;*.sc;*.scala;*.e;*.cob;*.html;*.rc;*.tcl;*.py;*.pl;*.d;*.m;*.mm;*.go;*.groovy;*.gsh"
 			GUID="{22A8CA30-8E92-4E4D-E9BD-673908C172B0}">
+			<F N="../FlightControl.c"/>
 			<F N="../globeVar.c"/>
 			<F N="../IMU.C"/>
 			<F N="../KalmanFilter.c"/>
@@ -145,6 +146,7 @@
 			GUID="{5825F1B6-7776-42F7-B910-7FE93FB685B4}">
 			<F N="../alldef.h"/>
 			<F N="../datatype.h"/>
+			<F N="../FlightControl.h"/>
 			<F N="../globeVar.h"/>
 			<F N="../IMU.H"/>
 			<F N="../KalmanFilter.h"/>

@@ -1,4 +1,4 @@
-#include <STC15W4K48S4.h>	//STC15W4K48S4 单片机头文件
+//#include <STC15W4K48S4.h>	//STC15W4K48S4 单片机头文件
 #include "LT8910.h"			//无线2.4G模块
 uchar RegH;
 uchar RegL;

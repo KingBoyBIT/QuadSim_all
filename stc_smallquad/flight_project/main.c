@@ -8,16 +8,9 @@
 #include <KalmanFilter.h>  //卡尔曼滤波算法
 #include "globeVar.h"
 #include "alldef.h"
+#include "FlightControl.h"
 
-//==================================================//
-//  LED灯 引脚定义
-//==================================================//
-sbit LedR = P0 ^ 1; //LED 红色 R,灌入式，低电平亮
-sbit LedG = P0 ^ 2; //LED 绿色 G,灌入式，低电平亮
-sbit LedB = P0 ^ 3; //LED 蓝色 B,灌入式，低电平亮
 
-sbit KARX = P3 ^ 0; //排针接口 RXD
-sbit KATX = P3 ^ 1; //排针接口 TXD
 
 /**
  * 定时器0 初始化函数
@@ -198,285 +191,26 @@ void Flight(void) interrupt 1
 	Last_Angle_gy = Angle_gy;
 
 	//*********************************** 四元数解算 ***********************************
-	IMUupdate(Angle_gx * 0.0174533f,
-			  Angle_gy * 0.0174533f,
-			  IMU_gz * 0.0174533f,
-			  Angle_ax,
-			  Angle_ay,
-			  Angle_az); //姿态解算，精度0.1度
-						 //发送到遥控器
-						 //	TxBuf[0]=(AngleX+900)/0xff; // 数值是 48~1752 = 0-360度
-						 //	TxBuf[1]=(AngleX+900)%0xff;	// 数值是 48~1752 = 0-360度
-						 //	TxBuf[2]=(AngleY+900)/0xff;	// 数值是 48~1752 = 0-360度
-						 //	TxBuf[3]=(AngleY+900)%0xff;	// 数值是 48~1752 = 0-360度
-						 //****飞控失联判断 自动降落算法*********************
-						 //接收遥控器发来的不断更新数据 判断联机通讯是否正常
-	if (LostCom == ShiLian)   //如果SSLL的数据没有更新即失联
-	{
-		if (++ShiLianCount >= 20)
-		{
-			ShiLianCount = 19;      //状态标识
-			Yaw = 128;  //航向变量
-			Roll = 128;  //横滚变量
-			Pitch = 128;  //俯仰变量
-			if (d_throttle > 20)
-			{
-				d_throttle--; //油门在原值逐渐减小
-			}
-		}
-	}
-	else
-	{
-		ShiLianCount = 0;
-		if (throttle > 1001)
-		{
-			throttle = 1000; //油门量0-1000最大值
-							 //油门优化算法 【将油门摇杆的控制幅度从60%增加到90%控制算法】如下
-		}
-		else
-		{
-			if (throttle > 50)             //摇杆量上50执行
-			{
-				d_throttle = (throttle + 300) / 1.3; //摇杆增幅算法
-			}
-			else
-			{
-				d_throttle = throttle;          //摇杆低于直接赋值
-			}
-		}
-	}
-	ShiLian = LostCom; //失联变量更新
-	d_throttle = throttle;
-	//****倾斜角度极限控制***********************************************************************
-	//极限角度值   30度
-	if ((AngleX + 900) > 1200)    //飞控向右倾斜
-	{
-		LedR = 0;
-		d_throttle = 0;
-	}
-	else if ((AngleX + 900) < 500)    //飞控向左倾斜
-	{
-		LedR = 0;
-		d_throttle = 0;
-	}
-	else if ((AngleY + 900) > 1200)    //飞控向前倾斜
-	{
-		LedR = 0;
-		d_throttle = 0;
-	}
-	else if ((AngleY + 900) < 500)    //飞控向后倾斜
-	{
-		LedR = 0;
-		d_throttle = 0;
-	}
-	else
-	{
-		LedR = 1;  //红色
-	}
+	IMUupdate(Angle_gx * 0.0174533f,Angle_gy * 0.0174533f,IMU_gz * 0.0174533f,Angle_ax,Angle_ay,Angle_az);
+	//姿态解算，精度0.1度
+	//发送到遥控器
+	//	TxBuf[0]=(AngleX+900)/0xff; // 数值是 48~1752 = 0-360度
+	//	TxBuf[1]=(AngleX+900)%0xff;	// 数值是 48~1752 = 0-360度
+	//	TxBuf[2]=(AngleY+900)/0xff;	// 数值是 48~1752 = 0-360度
+	//	TxBuf[3]=(AngleY+900)%0xff;	// 数值是 48~1752 = 0-360度
+	//****飞控失联判断 自动降落算法*********************
+	//接收遥控器发来的不断更新数据 判断联机通讯是否正常
+	LostControlProtect();
+	/*姿态角失控保护*/
+	DangerMotionProtect();
 
 	//****以下是飞行控制算法************************************
-	//************** MPU6050 X轴指向 **************************
-	delta_rc_x = ((float)Roll - 128) * 2; //得到 横滚数据变量
-	Ax = -AngleX - delta_rc_x + a_x * 5; //
-										 //	Ax =-AngleX+a_x*5;
-	if (d_throttle > 20)
-	{
-		integAngleErr_X += Ax;   //外环积分(油门小于某个值时不积分)
-	}
-	else
-	{
-		integAngleErr_X = 0;     //油门小于定值时清除积分值
-	}
-
-	if (integAngleErr_X > INTEG_ANGLE_ERR_MAX)
-	{
-		integAngleErr_X = INTEG_ANGLE_ERR_MAX;  //积分限幅
-	}
-	else if (integAngleErr_X < -INTEG_ANGLE_ERR_MAX)
-	{
-		integAngleErr_X = -INTEG_ANGLE_ERR_MAX;  //积分限幅
-	}
-
-	PID_P = (long)Ax * CTL_PARA_PID_ANGLEY_P;
-	PID_I = ((long)integAngleErr_X * CTL_PARA_PID_ANGLEX_I) >> 15;
-	PID_D = ((Angle_gy + Last_Angle_gy) / 2) * CTL_PARA_PID_ANGLEX_D;
-	PID_Output = (PID_P + PID_I + PID_D + 5) / 10;  //外环PID
-
-	Last_Ax = Ax;
-	gx = PID_Output - Angle_gy;      //外环 -   陀螺仪Y轴
-
-	if (d_throttle > 20)
-	{
-		ErrORX_In += gx;    //内环积分(油门小于某个值时不积分)
-	}
-	else
-	{
-		ErrORX_In = 0; //油门小于定值时清除积分值
-	}
-
-	if (ErrORX_In > INTEG_ANGLE_ERR_MAX)
-	{
-		ErrORX_In = INTEG_ANGLE_ERR_MAX;
-	}
-	else if (ErrORX_In < -INTEG_ANGLE_ERR_MAX)
-	{
-		ErrORX_In = -INTEG_ANGLE_ERR_MAX;   //积分限幅
-	}
-
-	PID_P = ((long)gx * CTL_PARA_PID_OMEGA_X_P) >> 15;
-	PID_I = ((long)ErrORX_In * CTL_PARA_PID_OMEGA_X_I) >> 15;
-	PID_D = ((long)gx - Last_gx) * CTL_PARA_PID_OMEGA_X_D;
-	PID_Output = PID_P + PID_I + PID_D;   //内环PID
-
-	Last_gx = gx;
-
-	if (PID_Output > 1000)
-	{
-		PID_Output = 1000;  //输出量限幅
-	}
-	if (PID_Output < -1000)
-	{
-		PID_Output = -1000;
-	}
-	speed0 = 0 + PID_Output;
-	speed1 = 0 - PID_Output;
-	speed3 = 0 + PID_Output;
-	speed2 = 0 - PID_Output;
-	//**************MPU6050 Y轴指向**************************************************
-	delta_rc_y = ((float)Pitch - 128) * 2; //得到 俯仰数据变量
-	Ay = -AngleY - delta_rc_y - a_y * 5;
-	//	Ay  =-AngleY-a_y*5;
-	if (d_throttle > 20)
-	{
-		integAngleErr_Y += Ay;               //外环积分(油门小于某个值时不积分)
-	}
-	else
-	{
-		integAngleErr_Y = 0;                 //油门小于定值时清除积分值
-	}
-
-	if (integAngleErr_Y > INTEG_ANGLE_ERR_MAX)
-	{
-		integAngleErr_Y = INTEG_ANGLE_ERR_MAX;
-	}
-	else if (integAngleErr_Y < -INTEG_ANGLE_ERR_MAX)
-	{
-		integAngleErr_Y = -INTEG_ANGLE_ERR_MAX;  //积分限幅
-	}
-
-	PID_P = (long)Ay * CTL_PARA_PID_ANGLEY_P;
-	PID_I = ((long)integAngleErr_Y * CTL_PARA_PID_ANGLEY_I) >> 15;
-	PID_D = ((Angle_gx + Last_Angle_gx) / 2) * CTL_PARA_PID_ANGLEY_D;
-	PID_Output = (PID_P + PID_I + PID_D + 5) / 10; //外环PID，“+5”为了四舍五入?
-
-	Last_Ay = Ay;
-	gy = PID_Output - Angle_gx;
-
-	if (d_throttle > 20)
-	{
-		ErrORY_In += gy; //内环积分(油门小于某个值时不积分)
-	}
-	else
-	{
-		ErrORY_In = 0;                          //油门小于定值时清除积分值
-	}
-
-	if (ErrORY_In > INTEG_ANGLE_ERR_MAX)
-	{
-		ErrORY_In = INTEG_ANGLE_ERR_MAX;
-	}
-	else if (ErrORY_In < -INTEG_ANGLE_ERR_MAX)
-	{
-		ErrORY_In = -INTEG_ANGLE_ERR_MAX;   //积分限幅
-	}
-
-	PID_P = ((long)gy * CTL_PARA_PID_OMEGA_Y_P) >> 15;
-	PID_I = ((long)ErrORY_In * CTL_PARA_PID_OMEGA_Y_I) >> 15;
-	PID_D = ((long)gy - Last_gy) * CTL_PARA_PID_OMEGA_Y_D;
-	PID_Output = PID_P + PID_I + PID_D;
-
-	Last_gy = gy;
-
-	if (PID_Output > 1000)
-	{
-		PID_Output = 1000;  //输出量限幅
-	}
-	if (PID_Output < -1000)
-	{
-		PID_Output = -1000;
-	}
-	speed0 = speed0 + PID_Output;
-	speed1 = speed1 + PID_Output; //加载到速度参数
-	speed3 = speed3 - PID_Output;
-	speed2 = speed2 - PID_Output;
-
-	//************** MPU6050 Z轴指向 *****************************
-	delta_rc_z = -Angle_gz + ((float)Yaw - 128) * 65 + a_z * 20; //得到 航向数据变量 操作量
-	if (d_throttle > 20)
-	{
-		integAngleErr_Z += delta_rc_z;
-	}
-	else
-	{
-		integAngleErr_Z = 0;
-	}
-	if (integAngleErr_Z > 50000)
-	{
-		integAngleErr_Z = 50000;
-	}
-	else if (integAngleErr_Z < -50000)
-	{
-		integAngleErr_Z = -50000;    //积分限幅
-	}
-	PID_P = ((long)delta_rc_z) * CTL_PARA_PID_ANGLEZ_P;
-	PID_I = ((long)integAngleErr_Z * CTL_PARA_PID_ANGLEZ_I) >> 15;
-	PID_D = ((long)delta_rc_z - AngleZ_late) * CTL_PARA_PID_ANGLEZ_D;
-	PID_Output = (PID_P + PID_I + PID_D) >> 6;
-
-	AngleZ_late = delta_rc_z;
-	speed0 = speed0 + PID_Output;
-	speed1 = speed1 - PID_Output;
-	speed3 = speed3 - PID_Output;
-	speed2 = speed2 + PID_Output;
-
+	PIDcontrolX();
+	PIDcontrolY();
+	PIDcontrolZ();
 	//**************将速度参数加载至PWM模块*************************************************
 	//速度参数控制，防止超过PWM参数范围0-1000（X型有效）
-	PWM0 = (d_throttle + speed0);
-	if (PWM0 > 1000)
-	{
-		PWM0 = 1000;
-	}
-	else if (PWM0 < 0)
-	{
-		PWM0 = 0;
-	}
-	PWM1 = (d_throttle + speed1);
-	if (PWM1 > 1000)
-	{
-		PWM1 = 1000;
-	}
-	else if (PWM1 < 0)
-	{
-		PWM1 = 0;
-	}
-	PWM2 = (d_throttle + speed2);
-	if (PWM2 > 1000)
-	{
-		PWM2 = 1000;
-	}
-	else if (PWM2 < 0)
-	{
-		PWM2 = 0;
-	}
-	PWM3 = (d_throttle + speed3);
-	if (PWM3 > 1000)
-	{
-		PWM3 = 1000;
-	}
-	else if (PWM3 < 0)
-	{
-		PWM3 = 0;
-	}
+	PWMoutput();
 
 	//满足条件：（解锁：2.4G=5；油门大于30）才能控制电机
 	if (LockState == 5 && d_throttle >= 50)

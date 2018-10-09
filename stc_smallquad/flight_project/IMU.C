@@ -1,4 +1,4 @@
-#include <STC15W4K48S4.h>	//STC15W4K48S4 专用头文件
+//#include <STC15W4K48S4.h>	//STC15W4K48S4 专用头文件
 #include <math.H>
 #include "IMU.H"
 #include "alldef.h"

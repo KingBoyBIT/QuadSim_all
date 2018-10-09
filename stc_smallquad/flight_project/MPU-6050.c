@@ -1,4 +1,4 @@
-#include <STC15W4K48S4.h>	//STC15W4K48S4 单片机头文件
+//#include <STC15W4K48S4.h>	//STC15W4K48S4 单片机头文件
 #include <intrins.h>
 #include <MPU-6050.H>
 sbit SCL = P3 ^ 4;   //IIC时钟引脚定义
