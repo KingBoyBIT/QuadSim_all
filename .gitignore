@@ -1,5 +1,5 @@
 
-**/*.asv
-**/*.LST
+*.asv
+stc_smallquad\flight_project\*.LST
 **/*.OBJ
 **/*.M51
