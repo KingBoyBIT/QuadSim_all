@@ -1,5 +1,6 @@
 
 *.asv
-stc_smallquad\flight_project\*.LST
-**/*.OBJ
-**/*.M51
+*.LST
+*.OBJ
+*.M51
+stc_smallquad/flight_project/stc15_quad
