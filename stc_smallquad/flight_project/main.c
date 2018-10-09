@@ -86,30 +86,16 @@ void main(void)
 		/*控制指令接收正确*/
 		if (MAC_calc(RxBuf, 10, RxBuf[10]) == 0)
 		{
-#if 0
-			TxBuf[0] = SSLL++;        //发送 失联变量
-			TxBuf[1] = SZML;          //发送 命令值 1=上锁  5=解锁
-			TxBuf[2] = YMout / 0xff;    //发送 油门参数 高2位
-			TxBuf[3] = YMout % 0xff;    //发送 油门参数 低8位
-			TxBuf[4] = HXout;         //发送 航向摇杆参数
-			TxBuf[5] = HGout;         //发送 横滚摇杆参数
-			TxBuf[6] = FYout;         //发送 俯仰摇杆参数
-			TxBuf[7] = HengGun;       //发送 横滚微调变量
-			TxBuf[8] = FuYang;        //发送 俯仰微调变量
-			TxBuf[9] = HangXiang;     //发送 航向微调变量
-			TxBuf[10] = Xiao;         //发送 效验包
-#endif
-
-			LostCom = RxBuf[0];                     //接收 失联变量
-			LockState = RxBuf[1];                   //接收 命令值 1=上锁  5=解锁
-			rc_throttle = RxBuf[2] * 0xff + RxBuf[3];  //接收 油门变量
-			rc_Yaw = RxBuf[4];                         //接收 航向变量
-			rc_Roll = RxBuf[5];                        //接收 横滚变量
-			rc_Pitch = RxBuf[6];                       //接收 俯仰变量
-			rcAngle_X_offset = RxBuf[7] - 128;                   //读出 X轴保存值
-			rcAngle_Y_offset = RxBuf[8] - 128;                   //读出 Y轴保存值
-			rcAngle_Z_offset = RxBuf[9] - 128;                   //读出 Z轴保存值
-			LedG = 1;                               //LED 绿灯灭
+			LostCom = RxBuf[0];							//接收 失联变量
+			LockState = RxBuf[1];						//接收 命令值 1=上锁  5=解锁
+			rc_throttle = RxBuf[2] * 0xff + RxBuf[3];	//接收 油门变量
+			rc_Yaw = RxBuf[4];							//接收 航向摇杆参数
+			rc_Roll = RxBuf[5];							//接收 横滚摇杆参数
+			rc_Pitch = RxBuf[6];						//接收 俯仰摇杆参数
+			rcAngle_X_offset = RxBuf[7] - 128;			//读出 横滚微调变量
+			rcAngle_Y_offset = RxBuf[8] - 128;			//读出 俯仰微调变量
+			rcAngle_Z_offset = RxBuf[9] - 128;			//读出 航向微调变量
+			LedG = 1;									//LED 绿灯灭
 		}
 		else
 		{
