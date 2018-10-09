@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   MAIN                                                                  10/09/2018 23:49:25 PAGE 1   
+C51 COMPILER V9.54   MAIN                                                                  10/10/2018 00:02:19 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
@@ -62,7 +62,7 @@ line level    source
   53   1              Delay(500); //延时一会
   54   1              LedR = 1;LedG = 1;LedB = 1; //3颗状态灯
   55   1              Delay(10);    // 延时 100
-C51 COMPILER V9.54   MAIN                                                                  10/09/2018 23:49:25 PAGE 2   
+C51 COMPILER V9.54   MAIN                                                                  10/10/2018 00:02:19 PAGE 2   
 
   56   1      
   57   1              //InitADC();/ADC模数转换 初始化（后期开发）
@@ -126,7 +126,7 @@ line level    source
               #endif
  116   2              }
  117   1      }
-C51 COMPILER V9.54   MAIN                                                                  10/09/2018 23:49:25 PAGE 3   
+C51 COMPILER V9.54   MAIN                                                                  10/10/2018 00:02:19 PAGE 3   
 
  118          
  119          /**
@@ -190,7 +190,7 @@ line level    source
  177   1              Omega_gx = ((float)(((int *)&IMUdata)[4])) / 65.5;   //陀螺仪处理       结果单位是 +-度
  178   1              Omega_gy = ((float)(((int *)&IMUdata)[5])) / 65.5;   //陀螺仪量程 +-500度/S, 1度/秒 对应读数 65.536
  179   1              Omega_gz = RCLowPassFilter_gyroz(((int *)&IMUdata)[6], Q15(0.2), Q15(0.8));
-C51 COMPILER V9.54   MAIN                                                                  10/09/2018 23:49:25 PAGE 4   
+C51 COMPILER V9.54   MAIN                                                                  10/10/2018 00:02:19 PAGE 4   
 
  180   1              IMU_gz = Omega_gz / 65.5;
  181   1              Last_Angle_gx = Omega_gx;       //储存上一次角速度数据
