@@ -90,7 +90,7 @@ dcm(3,3,:) = qin(:,1).^2 - qin(:,2).^2 - qin(:,3).^2 + qin(:,4).^2;
 	q1 = q1 * norm;
 	q2 = q2 * norm;
 	q3 = q3 * norm;
-	AngleY = atan2(2 * q2 * q3 + 2 * q0 * q1, -2 * q1 * q1 - 2 * q2 * q2 + 1) * MATH_180_PI_10;
+	AngleYest = atan2(2 * q2 * q3 + 2 * q0 * q1, -2 * q1 * q1 - 2 * q2 * q2 + 1) * MATH_180_PI_10;
 	AngleXest = asin(2 * (q0 * q2 - q1 * q3)) * MATH_180_PI_10;
 	//AngleZ = atan2(2 * q1 * q2 + 2 * q0 * q3, -2 * q2 * q2 - 2 * q3 * q3 + 1)* MATH_180_PI_10;
 

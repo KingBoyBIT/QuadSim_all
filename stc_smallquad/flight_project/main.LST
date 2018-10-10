@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   MAIN                                                                  10/10/2018 00:49:29 PAGE 1   
+C51 COMPILER V9.54   MAIN                                                                  10/10/2018 23:02:22 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
@@ -62,7 +62,7 @@ line level    source
   53   1              Delay(500); //延时一会
   54   1              LedR = 1;LedG = 1;LedB = 1; //3颗状态灯
   55   1              Delay(10);    // 延时 100
-C51 COMPILER V9.54   MAIN                                                                  10/10/2018 00:49:29 PAGE 2   
+C51 COMPILER V9.54   MAIN                                                                  10/10/2018 23:02:22 PAGE 2   
 
   56   1      
   57   1              //InitADC();/ADC模数转换 初始化（后期开发）
@@ -126,7 +126,7 @@ line level    source
                               ADC_CONTR
               #endif
  117   2              }
-C51 COMPILER V9.54   MAIN                                                                  10/10/2018 00:49:29 PAGE 3   
+C51 COMPILER V9.54   MAIN                                                                  10/10/2018 23:02:22 PAGE 3   
 
  118   1      }
  119          
@@ -190,7 +190,7 @@ line level    source
  177   1      
  178   1              Omega_gx = ((float)(((int *)&IMUdata)[4])) / 65.5;   //陀螺仪处理       结果单位是 +-度
  179   1              Omega_gy = ((float)(((int *)&IMUdata)[5])) / 65.5;   //陀螺仪量程 +-500度/S, 1度/秒 对应读数 65.536
-C51 COMPILER V9.54   MAIN                                                                  10/10/2018 00:49:29 PAGE 4   
+C51 COMPILER V9.54   MAIN                                                                  10/10/2018 23:02:22 PAGE 4   
 
  180   1              Omega_gz = RCLowPassFilter_gyroz(((int *)&IMUdata)[6], Q15(0.2), Q15(0.8));
  181   1              IMU_gz = Omega_gz / 65.5;
@@ -228,12 +228,17 @@ line level    source
  213   1              {
  214   2                      Set_PWM(1000, 1000, 1000, 1000);
  215   2              } //关闭PWM
- 216   1      }
- 217          
+ 216   1      
+ 217   1      #if 1
+ 218   1              //调试强行关闭电机
+ 219   1              Set_PWM(1000, 1000, 1000, 1000);
+ 220   1      #endif
+ 221   1      }
+ 222          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    927    ----
+   CODE SIZE        =    949    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

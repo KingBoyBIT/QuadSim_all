@@ -79,7 +79,7 @@ void PIDcontrolY(void)
 {
 	//**************MPU6050 Y轴指向**************************************************
 	delta_rc_y = ((float)rc_Pitch - 128) * 2; //得到 俯仰数据变量
-	AngleErr_Y = -AngleY - delta_rc_y - rcAngle_Y_offset * 5;
+	AngleErr_Y = -AngleYest - delta_rc_y - rcAngle_Y_offset * 5;
 	//	Ay  =-AngleY-a_y*5;
 	if (d_throttle > 20)
 	{
@@ -192,12 +192,12 @@ void DangerMotionProtect(void)
 		LedR = 0;
 		d_throttle = 0;
 	}
-	else if ((AngleY + 900) > 1200)    //飞控向前倾斜
+	else if ((AngleYest + 900) > 1200)    //飞控向前倾斜
 	{
 		LedR = 0;
 		d_throttle = 0;
 	}
-	else if ((AngleY + 900) < 500)    //飞控向后倾斜
+	else if ((AngleYest + 900) < 500)    //飞控向后倾斜
 	{
 		LedR = 0;
 		d_throttle = 0;

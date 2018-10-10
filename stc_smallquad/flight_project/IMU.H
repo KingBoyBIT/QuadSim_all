@@ -1,7 +1,7 @@
 #ifndef _IMU_H_
 #define _IMU_H_
 
-extern int data AngleXest,AngleY;
+extern int data AngleXest,AngleYest;
 /**
  * IMU¸üÐÂº¯Êý
  *

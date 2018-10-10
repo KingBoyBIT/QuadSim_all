@@ -36,7 +36,7 @@ extern int idata Omega_gy;//由角速度计算的角速率(角度制)
 extern int idata Omega_gx;//由角速度计算的角速率(角度制)
 extern int idata Omega_gz;//由角速度计算的角速率(角度制)
 
-extern int data AngleXest, AngleY;//四元数解算出的欧拉角  ,AngleZ=0
+extern int data AngleXest, AngleYest;//四元数解算出的欧拉角  ,AngleZ=0
 
 extern unsigned char data IMUdata[16];//acc16*3+tempreture16+gyro16*3直接读取MPU6050陀螺仪和加速度的数据包（用掉14字节）
  
