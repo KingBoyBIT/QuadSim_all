@@ -8,6 +8,10 @@ typedef unsigned char U8,BYTE,UINT8,UCHAR,uchar;
 typedef unsigned int uint;
 typedef unsigned short u16;
 
+#define BAUD 115200 //串口波特率
+#define FOSC 24000000L //系统频率
+
+
 //==================================================//
 //  LED灯 引脚定义
 //==================================================//

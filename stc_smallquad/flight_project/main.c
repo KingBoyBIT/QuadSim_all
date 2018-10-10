@@ -10,7 +10,7 @@
 #include "alldef.h"
 #include "FlightControl.h"
 
-
+bit busy;
 
 /**
  * 定时器0 初始化函数
@@ -20,7 +20,7 @@
  *
  * @param void
  */
-void Timer0Init(void);
+void TimerInit(void);
 /**
  * 时间延时 函数
  *
@@ -29,6 +29,37 @@ void Timer0Init(void);
  * @param x
  */
 void Delay(unsigned int x);
+/*----------------------------
+发送串口数据
+----------------------------*/
+void SendData(BYTE dat)
+{
+	while (busy); //等待前面的数据发送完成
+	ACC = dat; //获取校验位P (PSW.0)
+	busy = 1;
+	SBUF = ACC; //写数据到UART数据寄存器
+}
+
+/*----------------------------
+发送字符串
+----------------------------*/
+void SendString(char *s)
+{
+	while (*s) //检测字符串结束标志
+	{
+		SendData(*s++); //发送当前字符
+	}
+} 
+
+void UartInit(void)
+{
+	SCON = 0x50; //8位可变波特率
+	T2L = (65536 - (FOSC / 4 / BAUD));
+	T2H = (65536 - (FOSC / 4 / BAUD)) >> 8;
+	AUXR |= 0X14;
+	AUXR |= 0X01;
+
+}
 
 /**
  * 单片机采用STC15W4K48S4-增强型单片机（IPA需修改EEPROM代码）
@@ -45,13 +76,21 @@ void main(void)
 {
 	PWM_Init(); //初始化PWM
 	Set_PWM(1000, 1000, 1000, 1000); //关闭电机
-	LedR = 0;LedG = 1;LedB = 1; //3颗状态灯
+	LedR = 0;
+	LedG = 1;
+	LedB = 1; //3颗状态灯
 	Delay(500); //延时一会
-	LedR = 1;LedG = 0;LedB = 1; //3颗状态灯
+	LedR = 1;
+	LedG = 0;
+	LedB = 1; //3颗状态灯
 	Delay(500); //延时一会
-	LedR = 1;LedG = 1;LedB = 0; //3颗状态灯
+	LedR = 1;
+	LedG = 1;
+	LedB = 0; //3颗状态灯
 	Delay(500); //延时一会
-	LedR = 1;LedG = 1;LedB = 1; //3颗状态灯
+	LedR = 1;
+	LedG = 1;
+	LedB = 1; //3颗状态灯
 	Delay(10);    // 延时 100
 
 	//InitADC();/ADC模数转换 初始化（后期开发）
@@ -61,10 +100,10 @@ void main(void)
 	LT8910_Init(); //无线2.4G模块初始化
 	Delay(100); //延时一会 1S
 
-	Timer0Init(); //初始化定时器
+	TimerInit(); //初始化定时器
 	Delay(100);   //延时一会 1S
 	/*默认值初始化*/
-
+	UartInit(); //初始化串口
 	rc_throttle = 0;   //初始化油门变量
 	rc_Yaw = 128;      //初始化航向变量
 	rc_Roll = 128;     //初始化横滚变量
@@ -75,6 +114,7 @@ void main(void)
 	rcAngle_Z_offset = 0;        //航向手动值
 
 	//Flight();//编译后2个警告是说 飞控函数中断量 不在主函数里【不需要纠结】
+	ES = 1; //使能串口1中断
 	EA = 1;  //开总中断
 	while (1)
 	{
@@ -83,19 +123,20 @@ void main(void)
 		RX_model();             //接收模式
 		js_shuju(RxBuf, 15);     //读取数据包
 #endif
+		SendString("STC15F2K60S2\r\nUart Test !\r\n");
 		/*控制指令接收正确*/
 		if (MAC_calc(RxBuf, 10, RxBuf[10]) == 0)
 		{
-			LostCom = RxBuf[0];							//接收 失联变量
-			LockState = RxBuf[1];						//接收 命令值 1=上锁  5=解锁
-			rc_throttle = RxBuf[2] * 0xff + RxBuf[3];	//接收 油门变量
-			rc_Yaw = RxBuf[4];							//接收 航向摇杆参数
-			rc_Roll = RxBuf[5];							//接收 横滚摇杆参数
-			rc_Pitch = RxBuf[6];						//接收 俯仰摇杆参数
-			rcAngle_X_offset = RxBuf[7] - 128;			//读出 横滚微调变量
-			rcAngle_Y_offset = RxBuf[8] - 128;			//读出 俯仰微调变量
-			rcAngle_Z_offset = RxBuf[9] - 128;			//读出 航向微调变量
-			LedG = 1;									//LED 绿灯灭
+			LostCom = RxBuf[0];                         //接收 失联变量
+			LockState = RxBuf[1];                       //接收 命令值 1=上锁  5=解锁
+			rc_throttle = RxBuf[2] * 0xff + RxBuf[3];   //接收 油门变量
+			rc_Yaw = RxBuf[4];                          //接收 航向摇杆参数
+			rc_Roll = RxBuf[5];                         //接收 横滚摇杆参数
+			rc_Pitch = RxBuf[6];                        //接收 俯仰摇杆参数
+			rcAngle_X_offset = RxBuf[7] - 128;          //读出 横滚微调变量
+			rcAngle_Y_offset = RxBuf[8] - 128;          //读出 俯仰微调变量
+			rcAngle_Z_offset = RxBuf[9] - 128;          //读出 航向微调变量
+			LedG = 1;                                   //LED 绿灯灭
 		}
 		else
 		{
@@ -114,6 +155,7 @@ void main(void)
 		//ADC电压低压检测自停保护功能 后期开发
 		ADC_CONTR
 #endif
+		//UartPrint();
 	}
 }
 
@@ -125,7 +167,7 @@ void main(void)
  *
  * @param void
  */
-void Timer0Init(void)
+void TimerInit(void)
 {
 	AUXR &= 0x7F;   //定时器时钟12T模式
 	TMOD &= 0xF0;   //设置定时器模式
@@ -183,7 +225,7 @@ void Flight(void) interrupt 1
 	Last_Omega_gy = Omega_gy;
 
 	//*********************************** 四元数解算 ***********************************
-	IMUupdate(Omega_gx * 0.0174533f,Omega_gy * 0.0174533f,IMU_gz * 0.0174533f,Angle_ax,Angle_ay,Angle_az);
+	IMUupdate(Omega_gx * 0.0174533f, Omega_gy * 0.0174533f, IMU_gz * 0.0174533f, Angle_ax, Angle_ay, Angle_az);
 	//姿态解算，精度0.1度
 	//发送到遥控器
 	//	TxBuf[0]=(AngleX+900)/0xff; // 数值是 48~1752 = 0-360度
@@ -220,3 +262,17 @@ void Flight(void) interrupt 1
 #endif
 }
 
+void Uart(void) interrupt 4 using 1
+{
+	if(RI)
+	{
+		RI = 0;
+		P0 = SBUF;
+		P22 = RB8;
+	}
+	if(TI)
+	{
+		TI = 0;
+		busy = 0;
+	}
+}
