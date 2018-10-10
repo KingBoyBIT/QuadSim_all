@@ -116,6 +116,7 @@ void main(void)
 	//Flight();//编译后2个警告是说 飞控函数中断量 不在主函数里【不需要纠结】
 	ES = 1; //使能串口1中断
 	EA = 1;  //开总中断
+	SendString("STC15F2K60S2\r\nUart Test !\r\n");
 	while (1)
 	{
 #if 0
@@ -123,7 +124,7 @@ void main(void)
 		RX_model();             //接收模式
 		js_shuju(RxBuf, 15);     //读取数据包
 #endif
-		SendString("STC15F2K60S2\r\nUart Test !\r\n");
+		
 		/*控制指令接收正确*/
 		if (MAC_calc(RxBuf, 10, RxBuf[10]) == 0)
 		{

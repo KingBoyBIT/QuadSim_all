@@ -1,4 +1,4 @@
-BL51 BANKED LINKER/LOCATER V6.22                                                        10/11/2018  00:05:17  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22                                                        10/11/2018  00:18:39  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
@@ -59,7 +59,7 @@ LINK MAP OF MODULE:  stc15_quad (MAIN)
 
             TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
             -----------------------------------------------------
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:05:17  PAGE 2
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:18:39  PAGE 2
 
 
 
@@ -119,7 +119,7 @@ LINK MAP OF MODULE:  stc15_quad (MAIN)
             CODE    2D32H     003AH     UNIT         ?PR?_SET_PWM?STC15W4K_PWM
             CODE    2D6CH     0033H     UNIT         ?PR?_SENDSTRING?MAIN
             CODE    2D9FH     0026H     UNIT         ?PR?_DELAY?MAIN
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:05:17  PAGE 3
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:18:39  PAGE 3
 
 
             CODE    2DC5H     0023H     UNIT         ?PR?INIT_MPU6050?MPU_6050
@@ -179,7 +179,7 @@ SEGMENT                                            BIT_GROUP          IDATA_GROU
   +--> ?PR?I2C_STOP?MPU_6050
 
 ?PR?I2C_START?MPU_6050                          -----    -----      -----    -----      -----    -----
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:05:17  PAGE 4
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:18:39  PAGE 4
 
 
   +--> ?PR?DELAY2US?MPU_6050
@@ -239,7 +239,7 @@ SEGMENT                                            BIT_GROUP          IDATA_GROU
   +--> ?PR?LT8910_INIT?LT8910
   +--> ?PR?TIMERINIT?MAIN
   +--> ?PR?UARTINIT?MAIN
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:05:17  PAGE 5
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:18:39  PAGE 5
 
 
   +--> ?CO?MAIN
@@ -299,7 +299,7 @@ SYMBOL TABLE OF MODULE:  stc15_quad (MAIN)
   D:0089H         PUBLIC        TMOD
   D:0088H         PUBLIC        TCON
   D:008EH         PUBLIC        AUXR
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:05:17  PAGE 6
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:18:39  PAGE 6
 
 
   B:0020H.2       PUBLIC        busy
@@ -359,7 +359,7 @@ SYMBOL TABLE OF MODULE:  stc15_quad (MAIN)
   C:21F9H         LINE#         82
   C:21FCH         LINE#         83
   C:21FEH         LINE#         84
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:05:17  PAGE 7
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:18:39  PAGE 7
 
 
   C:2200H         LINE#         85
@@ -391,49 +391,49 @@ SYMBOL TABLE OF MODULE:  stc15_quad (MAIN)
   C:2271H         LINE#         117
   C:2273H         LINE#         118
   C:2275H         LINE#         119
-  C:2275H         LINE#         120
-  C:2275H         LINE#         126
-  C:227EH         LINE#         128
-  C:2295H         LINE#         129
+  C:227EH         LINE#         120
+  C:227EH         LINE#         121
+  C:227EH         LINE#         129
   C:2295H         LINE#         130
-  C:229BH         LINE#         131
-  C:22A1H         LINE#         132
-  C:22B6H         LINE#         133
-  C:22BFH         LINE#         134
-  C:22C8H         LINE#         135
-  C:22D1H         LINE#         136
-  C:22D9H         LINE#         137
-  C:22E1H         LINE#         138
-  C:22E9H         LINE#         139
-  C:22EBH         LINE#         140
-  C:22EDH         LINE#         142
+  C:2295H         LINE#         131
+  C:229BH         LINE#         132
+  C:22A1H         LINE#         133
+  C:22B6H         LINE#         134
+  C:22BFH         LINE#         135
+  C:22C8H         LINE#         136
+  C:22D1H         LINE#         137
+  C:22D9H         LINE#         138
+  C:22E1H         LINE#         139
+  C:22E9H         LINE#         140
+  C:22EBH         LINE#         141
   C:22EDH         LINE#         143
-  C:22EFH         LINE#         144
+  C:22EDH         LINE#         144
   C:22EFH         LINE#         145
-  C:22F7H         LINE#         146
+  C:22EFH         LINE#         146
   C:22F7H         LINE#         147
-  C:22F9H         LINE#         148
+  C:22F7H         LINE#         148
   C:22F9H         LINE#         149
-  C:22FDH         LINE#         150
+  C:22F9H         LINE#         150
   C:22FDH         LINE#         151
-  C:22FFH         LINE#         152
+  C:22FDH         LINE#         152
   C:22FFH         LINE#         153
-  C:2306H         LINE#         159
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:05:17  PAGE 8
+  C:22FFH         LINE#         154
+  C:2306H         LINE#         160
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:18:39  PAGE 8
 
 
   -------         ENDPROC       MAIN
   -------         PROC          TIMERINIT
-  C:2E6FH         LINE#         170
   C:2E6FH         LINE#         171
   C:2E6FH         LINE#         172
-  C:2E72H         LINE#         173
-  C:2E75H         LINE#         174
-  C:2E78H         LINE#         175
-  C:2E7BH         LINE#         176
-  C:2E7DH         LINE#         177
-  C:2E7FH         LINE#         178
-  C:2E81H         LINE#         179
+  C:2E6FH         LINE#         173
+  C:2E72H         LINE#         174
+  C:2E75H         LINE#         175
+  C:2E78H         LINE#         176
+  C:2E7BH         LINE#         177
+  C:2E7DH         LINE#         178
+  C:2E7FH         LINE#         179
+  C:2E81H         LINE#         180
   -------         ENDPROC       TIMERINIT
   C:2DA1H         SYMBOL        L?0033
   -------         PROC          L?0032
@@ -445,64 +445,64 @@ SYMBOL TABLE OF MODULE:  stc15_quad (MAIN)
   D:0004H         SYMBOL        i
   D:0002H         SYMBOL        j
   -------         ENDDO         
-  C:2DA5H         LINE#         187
   C:2DA5H         LINE#         188
-  C:2DA5H         LINE#         190
-  C:2DAFH         LINE#         191
+  C:2DA5H         LINE#         189
+  C:2DA5H         LINE#         191
   C:2DAFH         LINE#         192
-  C:2DB2H         LINE#         193
-  C:2DB2H         LINE#         195
-  C:2DBDH         LINE#         196
-  C:2DC4H         LINE#         197
+  C:2DAFH         LINE#         193
+  C:2DB2H         LINE#         194
+  C:2DB2H         LINE#         196
+  C:2DBDH         LINE#         197
+  C:2DC4H         LINE#         198
   -------         ENDPROC       _DELAY
   -------         PROC          FLIGHT
-  C:1977H         LINE#         206
-  C:1994H         LINE#         209
-  C:1997H         LINE#         211
-  C:19A2H         LINE#         214
-  C:19ABH         LINE#         216
-  C:19C2H         LINE#         217
-  C:19D9H         LINE#         218
-  C:19F0H         LINE#         220
-  C:1A0CH         LINE#         221
-  C:1A28H         LINE#         222
-  C:1A3EH         LINE#         223
-  C:1A55H         LINE#         224
-  C:1A66H         LINE#         225
-  C:1A77H         LINE#         228
-  C:1B11H         LINE#         237
-  C:1B14H         LINE#         239
-  C:1B17H         LINE#         242
-  C:1B1AH         LINE#         243
-  C:1B1DH         LINE#         244
-  C:1B20H         LINE#         247
-  C:1B23H         LINE#         250
-  C:1B3AH         LINE#         251
+  C:1977H         LINE#         207
+  C:1994H         LINE#         210
+  C:1997H         LINE#         212
+  C:19A2H         LINE#         215
+  C:19ABH         LINE#         217
+  C:19C2H         LINE#         218
+  C:19D9H         LINE#         219
+  C:19F0H         LINE#         221
+  C:1A0CH         LINE#         222
+  C:1A28H         LINE#         223
+  C:1A3EH         LINE#         224
+  C:1A55H         LINE#         225
+  C:1A66H         LINE#         226
+  C:1A77H         LINE#         229
+  C:1B11H         LINE#         238
+  C:1B14H         LINE#         240
+  C:1B17H         LINE#         243
+  C:1B1AH         LINE#         244
+  C:1B1DH         LINE#         245
+  C:1B20H         LINE#         248
+  C:1B23H         LINE#         251
   C:1B3AH         LINE#         252
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:05:17  PAGE 9
+  C:1B3AH         LINE#         253
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:18:39  PAGE 9
 
 
-  C:1B8BH         LINE#         253
-  C:1B8DH         LINE#         255
+  C:1B8BH         LINE#         254
   C:1B8DH         LINE#         256
-  C:1BA3H         LINE#         257
-  C:1BA3H         LINE#         261
-  C:1BB9H         LINE#         263
+  C:1B8DH         LINE#         257
+  C:1BA3H         LINE#         258
+  C:1BA3H         LINE#         262
+  C:1BB9H         LINE#         264
   -------         ENDPROC       FLIGHT
   -------         PROC          UART
-  C:2E57H         LINE#         265
-  C:2E59H         LINE#         267
-  C:2E5CH         LINE#         268
+  C:2E57H         LINE#         266
+  C:2E59H         LINE#         268
   C:2E5CH         LINE#         269
-  C:2E5EH         LINE#         270
-  C:2E61H         LINE#         271
-  C:2E65H         LINE#         272
+  C:2E5CH         LINE#         270
+  C:2E5EH         LINE#         271
+  C:2E61H         LINE#         272
   C:2E65H         LINE#         273
-  C:2E68H         LINE#         274
+  C:2E65H         LINE#         274
   C:2E68H         LINE#         275
-  C:2E6AH         LINE#         276
-  C:2E6CH         LINE#         277
+  C:2E68H         LINE#         276
+  C:2E6AH         LINE#         277
   C:2E6CH         LINE#         278
+  C:2E6CH         LINE#         279
   -------         ENDPROC       UART
   -------         ENDMOD        MAIN
 
@@ -539,7 +539,7 @@ SYMBOL TABLE OF MODULE:  stc15_quad (MAIN)
   D:00F7H         PUBLIC        PWMFDCR
   D:00B8H         PUBLIC        IP
   D:00D8H         PUBLIC        CCON
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:05:17  PAGE 10
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:18:39  PAGE 10
 
 
   D:0098H         PUBLIC        SCON
@@ -599,7 +599,7 @@ SYMBOL TABLE OF MODULE:  stc15_quad (MAIN)
   C:293CH         LINE#         80
   C:2940H         LINE#         81
   C:2944H         LINE#         84
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:05:17  PAGE 11
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:18:39  PAGE 11
 
 
   C:2947H         LINE#         86
@@ -659,7 +659,7 @@ SYMBOL TABLE OF MODULE:  stc15_quad (MAIN)
   D:0006H         SYMBOL        n
   C:2E82H         LINE#         21
   C:2E82H         LINE#         22
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:05:17  PAGE 12
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:18:39  PAGE 12
 
 
   C:2E82H         LINE#         23
@@ -719,7 +719,7 @@ SYMBOL TABLE OF MODULE:  stc15_quad (MAIN)
   C:2B5BH         LINE#         83
   C:2B66H         LINE#         84
   C:2B69H         LINE#         85
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:05:17  PAGE 13
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:18:39  PAGE 13
 
 
   C:2B69H         LINE#         86
@@ -779,7 +779,7 @@ SYMBOL TABLE OF MODULE:  stc15_quad (MAIN)
   -------         ENDPROC       LT8910_INIT
   -------         PROC          RX_MODEL
   C:2E25H         LINE#         156
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:05:17  PAGE 14
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:18:39  PAGE 14
 
 
   C:2E25H         LINE#         157
@@ -839,7 +839,7 @@ SYMBOL TABLE OF MODULE:  stc15_quad (MAIN)
   C:2AE1H         LINE#         218
   C:2AE1H         LINE#         219
   -------         ENDPROC       _MAC_CALC
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:05:17  PAGE 15
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:18:39  PAGE 15
 
 
   -------         ENDMOD        LT8910
@@ -899,7 +899,7 @@ SYMBOL TABLE OF MODULE:  stc15_quad (MAIN)
   C:00E1H         LINE#         40
   C:00FDH         LINE#         48
   C:0138H         LINE#         49
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:05:17  PAGE 16
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:18:39  PAGE 16
 
 
   C:0173H         LINE#         50
@@ -959,7 +959,7 @@ SYMBOL TABLE OF MODULE:  stc15_quad (MAIN)
   D:00A0H         PUBLIC        P2
   D:00B0H         PUBLIC        P3
   D:00C0H         PUBLIC        P4
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:05:17  PAGE 17
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:18:39  PAGE 17
 
 
   D:00C8H         PUBLIC        P5
@@ -1019,7 +1019,7 @@ SYMBOL TABLE OF MODULE:  stc15_quad (MAIN)
   -------         PROC          I2C_RECVACK
   C:2EB2H         LINE#         62
   C:2EB2H         LINE#         63
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:05:17  PAGE 18
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:18:39  PAGE 18
 
 
   C:2EB2H         LINE#         64
@@ -1079,7 +1079,7 @@ SYMBOL TABLE OF MODULE:  stc15_quad (MAIN)
   C:2E4AH         LINE#         129
   C:2E4FH         LINE#         130
   C:2E54H         LINE#         131
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:05:17  PAGE 19
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:18:39  PAGE 19
 
 
   -------         ENDPROC       _SINGLE_WRITEI2C
@@ -1139,7 +1139,7 @@ SYMBOL TABLE OF MODULE:  stc15_quad (MAIN)
   D:00D8H         PUBLIC        CCON
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:05:17  PAGE 20
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:18:39  PAGE 20
 
 
   C:1F76H         PUBLIC        _RCLowPassFilter_gyroz
@@ -1199,7 +1199,7 @@ SYMBOL TABLE OF MODULE:  stc15_quad (MAIN)
   C:1D16H         LINE#         42
   C:1D26H         LINE#         49
   C:1D2EH         LINE#         50
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:05:17  PAGE 21
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:18:39  PAGE 21
 
 
   C:1D45H         LINE#         51
@@ -1259,7 +1259,7 @@ SYMBOL TABLE OF MODULE:  stc15_quad (MAIN)
   X:008BH         SYMBOL        kg
   X:008DH         SYMBOL        temp
   -------         ENDDO         
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:05:17  PAGE 22
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:18:39  PAGE 22
 
 
   C:1F76H         LINE#         131
@@ -1319,7 +1319,7 @@ SYMBOL TABLE OF MODULE:  stc15_quad (MAIN)
   X:0036H         PUBLIC        AngleErr_X
   X:003AH         PUBLIC        AngleErr_Y
   X:003EH         PUBLIC        OmegaErr_X
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:05:17  PAGE 23
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:18:39  PAGE 23
 
 
   X:0040H         PUBLIC        AngleErr_Z
@@ -1379,7 +1379,7 @@ SYMBOL TABLE OF MODULE:  stc15_quad (MAIN)
   C:13ABH         LINE#         14
   C:13ABH         LINE#         15
   C:13CDH         LINE#         16
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:05:17  PAGE 24
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:18:39  PAGE 24
 
 
   C:13CFH         LINE#         18
@@ -1439,7 +1439,7 @@ SYMBOL TABLE OF MODULE:  stc15_quad (MAIN)
   C:0F35H         LINE#         81
   C:0F5EH         LINE#         82
   C:0F8EH         LINE#         84
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:05:17  PAGE 25
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:18:39  PAGE 25
 
 
   C:0FA0H         LINE#         85
@@ -1499,7 +1499,7 @@ SYMBOL TABLE OF MODULE:  stc15_quad (MAIN)
   -------         PROC          PIDCONTROLZ
   C:1716H         LINE#         149
   C:1716H         LINE#         150
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:05:17  PAGE 26
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:18:39  PAGE 26
 
 
   C:1716H         LINE#         152
@@ -1559,7 +1559,7 @@ SYMBOL TABLE OF MODULE:  stc15_quad (MAIN)
   -------         ENDPROC       DANGERMOTIONPROTECT
   -------         PROC          PWMOUTPUT
   C:254CH         LINE#         210
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:05:17  PAGE 27
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:18:39  PAGE 27
 
 
   C:254CH         LINE#         211
@@ -1619,7 +1619,7 @@ SYMBOL TABLE OF MODULE:  stc15_quad (MAIN)
   C:2780H         LINE#         263
   C:2780H         LINE#         264
   C:2782H         LINE#         266
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:05:17  PAGE 28
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:18:39  PAGE 28
 
 
   C:2782H         LINE#         267
@@ -1679,7 +1679,7 @@ SYMBOL TABLE OF MODULE:  stc15_quad (MAIN)
   X:0097H         PUBLIC        ?_atan2?BYTE
   C:294DH         PUBLIC        _atan2
   -------         ENDMOD        ATAN2
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:05:17  PAGE 29
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:18:39  PAGE 29
 
 
 
@@ -1739,7 +1739,7 @@ SYMBOL TABLE OF MODULE:  stc15_quad (MAIN)
   C:0DD9H         PUBLIC        ?C?LLDXDATA
   -------         ENDMOD        ?C?LLDXDATA
 
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:05:17  PAGE 30
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/11/2018  00:18:39  PAGE 30
 
 
   -------         MODULE        ?C?LLDCODE
