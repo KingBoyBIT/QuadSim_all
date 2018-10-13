@@ -257,7 +257,7 @@ void Flight(void) interrupt 1
 		Set_PWM(1000, 1000, 1000, 1000);
 	} //关闭PWM
 
-#if 1
+#if 0
 	//调试强行关闭电机
 	Set_PWM(1000, 1000, 1000, 1000);
 #endif
