@@ -71,7 +71,7 @@ void main(void)
 	Delay(100); //延时一会 1S
 
 	TimerInit(); //初始化定时器
-	UartInit(); //初始化串口
+	UartInit(BAUD,FOSC); //初始化串口
 	Delay(100);   //延时一会 1S
 	/*默认值初始化*/
 	rc_throttle = 0;   //初始化油门变量

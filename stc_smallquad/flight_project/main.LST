@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   MAIN                                                                  10/14/2018 19:48:41 PAGE 1   
+C51 COMPILER V9.54   MAIN                                                                  10/15/2018 00:12:04 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
@@ -62,7 +62,7 @@ line level    source
   53   1              LedR = 1;
   54   1              LedG = 0;
   55   1              LedB = 1; //3颗状态灯
-C51 COMPILER V9.54   MAIN                                                                  10/14/2018 19:48:41 PAGE 2   
+C51 COMPILER V9.54   MAIN                                                                  10/15/2018 00:12:04 PAGE 2   
 
   56   1              Delay(500); //延时一会
   57   1              LedR = 1;
@@ -82,7 +82,7 @@ line level    source
   71   1              Delay(100); //延时一会 1S
   72   1      
   73   1              TimerInit(); //初始化定时器
-  74   1              UartInit(); //初始化串口
+  74   1              UartInit(BAUD,FOSC); //初始化串口
   75   1              Delay(100);   //延时一会 1S
   76   1              /*默认值初始化*/
   77   1              rc_throttle = 0;   //初始化油门变量
@@ -126,7 +126,7 @@ line level    source
  115   3                      }
  116   2                      if (LockState == RC_LOCK)                         //遥控命令 上锁
  117   2                      {
-C51 COMPILER V9.54   MAIN                                                                  10/14/2018 19:48:41 PAGE 3   
+C51 COMPILER V9.54   MAIN                                                                  10/15/2018 00:12:04 PAGE 3   
 
  118   3                              LedB = 1;                               //航向灯 蓝色灭
  119   3                      }
@@ -190,7 +190,7 @@ line level    source
  177          void Flight(void) interrupt 1
  178          {
  179   1              /*LT8910设置为接收模式*/
-C51 COMPILER V9.54   MAIN                                                                  10/14/2018 19:48:41 PAGE 4   
+C51 COMPILER V9.54   MAIN                                                                  10/15/2018 00:12:04 PAGE 4   
 
  180   1              RX_model();
  181   1              /*接收15字节数据*/
@@ -254,7 +254,7 @@ line level    source
  238          {
  239   1              if(RI)
  240   1              {
-C51 COMPILER V9.54   MAIN                                                                  10/14/2018 19:48:41 PAGE 5   
+C51 COMPILER V9.54   MAIN                                                                  10/15/2018 00:12:04 PAGE 5   
 
  241   2                      RI = 0;
  242   2                      P0 = SBUF;
@@ -269,7 +269,7 @@ line level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    965    ----
+   CODE SIZE        =    973    ----
    CONSTANT SIZE    =     14    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
