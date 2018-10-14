@@ -139,6 +139,7 @@
 			<F N="../main.c"/>
 			<F N="../MPU-6050.c"/>
 			<F N="../STC15W4K-PWM.C"/>
+			<F N="../Uart.c"/>
 		</Folder>
 		<Folder
 			Name="Header Files"
@@ -158,6 +159,7 @@
 			<F N="../STC15W4K-PWM.H"/>
 			<F N="../STC15W4K48S4.H"/>
 			<F N="../STC15W4K60S4.H"/>
+			<F N="../Uart.h"/>
 		</Folder>
 		<Folder
 			Name="Resource Files"

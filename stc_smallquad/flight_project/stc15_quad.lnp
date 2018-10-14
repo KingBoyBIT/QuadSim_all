@@ -5,6 +5,7 @@
 "MPU-6050.obj",
 "KalmanFilter.obj",
 "globeVar.obj",
-"FlightControl.obj" 
+"FlightControl.obj",
+"Uart.obj" 
 TO "stc15_quad" 
 RAMSIZE(256) 

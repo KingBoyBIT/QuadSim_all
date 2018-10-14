@@ -4,7 +4,7 @@
 unsigned char data RxBuf[20];		//设置接收长度，最高为32字节
 
 /*飞控控制参数*/
-unsigned int d_throttle = 0;		//油门变化速度控制，不这样做的话快速变化油门时四轴会失速翻转并坠毁
+unsigned int Ctl_throttle = 0;		//油门变化速度控制，不这样做的话快速变化油门时四轴会失速翻转并坠毁
 /*电机速度参数*/
 int speed0 = 0;
 int speed1 = 0;
@@ -43,9 +43,9 @@ unsigned char data IMUdata[16];
 
 /*飞行控制变量*/
 unsigned char LockState;				//断开/连接 解锁变量
-unsigned char LostCom;					//通讯状态 变量
-unsigned char ShiLian;					//失联变量
-unsigned char ShiLianCount;				//失联计数变量
+unsigned char RCnum;					//通讯状态 变量
+unsigned char RCnum_pre;					//遥控器指令流水号
+unsigned char LostComCount;				//失联计数变量
 unsigned int rc_throttle;					//油门变量
 unsigned int rc_Yaw;						//航向变量
 unsigned int rc_Roll;			   			//横滚变量

@@ -58,7 +58,7 @@ void RX_model(void);
  * @param rx_buf 接收缓存
  * @param Num 数据个数(ushort?)
  */
-void ReceiveData(uchar *rx_buf, uchar Num);
+void ReceiveRC_Data(uchar *rx_buf, uchar Num);
 /**
  * 通讯校验函数
  *

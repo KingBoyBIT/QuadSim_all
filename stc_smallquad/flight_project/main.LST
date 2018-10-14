@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   MAIN                                                                  10/13/2018 18:58:01 PAGE 1   
+C51 COMPILER V9.54   MAIN                                                                  10/14/2018 19:48:41 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
@@ -18,293 +18,264 @@ line level    source
    9          #include "globeVar.h"
   10          #include "alldef.h"
   11          #include "FlightControl.h"
-  12          
-  13          bit busy;
+  12          #include "Uart.h"
+  13          
   14          
-  15          /**
-  16           * 定时器0 初始化函数
-  17           * 12毫秒@24.000MHz
-  18           *
-  19           * @author KingBoy (2018/5/19)
-  20           *
-  21           * @param void
-  22           */
-  23          void TimerInit(void);
-  24          /**
-  25           * 时间延时 函数
-  26           *
-  27           * @author KingBoy (2018/5/20)
-  28           *
-  29           * @param x
-  30           */
-  31          void Delay(unsigned int x);
-  32          /*----------------------------
-  33          发送串口数据
-  34          ----------------------------*/
-  35          void SendData(BYTE dat)
-  36          {
-  37   1              while (busy); //等待前面的数据发送完成
-  38   1              ACC = dat; //获取校验位P (PSW.0)
-  39   1              busy = 1;
-  40   1              SBUF = ACC; //写数据到UART数据寄存器
-  41   1      }
-  42          
-  43          /*----------------------------
-  44          发送字符串
-  45          ----------------------------*/
-  46          void SendString(char *s)
-  47          {
-  48   1              while (*s) //检测字符串结束标志
-  49   1              {
-  50   2                      SendData(*s++); //发送当前字符
-  51   2              }
-  52   1      } 
-  53          
-  54          void UartInit(void)
-  55          {
-C51 COMPILER V9.54   MAIN                                                                  10/13/2018 18:58:01 PAGE 2   
+  15          
+  16          /**
+  17           * 定时器0 初始化函数
+  18           * 12毫秒@24.000MHz
+  19           *
+  20           * @author KingBoy (2018/5/19)
+  21           *
+  22           * @param void
+  23           */
+  24          void TimerInit(void);
+  25          /**
+  26           * 时间延时 函数
+  27           *
+  28           * @author KingBoy (2018/5/20)
+  29           *
+  30           * @param x
+  31           */
+  32          void Delay(unsigned int x);
+  33          
+  34          /**
+  35           * 单片机采用STC15W4K48S4-增强型单片机（IPA需修改EEPROM代码）
+  36           * 工作电压为：5V 晶振频率为：24M 无线通讯模块为：LT8910
+  37           * 本程序中采用了MCU6050做姿态数据采集加PID算法给硬件4路PWM控制MOS管驱动空心杯电机
+  38           * 注意：此程序只兼容：空心杯716电机与45MM专用正反桨（自己的电机或需修改PID参数）
+  39           * 在后期的程序更新中，会增加硬件代码达到预期飞行功能。敬请关注。
+  40           *
+  41           * @author KingBoy (2018/5/19)
+  42           *
+  43           * @param void
+  44           */
+  45          void main(void)
+  46          {
+  47   1              PWM_Init(); //初始化PWM
+  48   1              Set_PWM(1000, 1000, 1000, 1000); //关闭电机
+  49   1              LedR = 0;
+  50   1              LedG = 1;
+  51   1              LedB = 1; //3颗状态灯
+  52   1              Delay(500); //延时一会
+  53   1              LedR = 1;
+  54   1              LedG = 0;
+  55   1              LedB = 1; //3颗状态灯
+C51 COMPILER V9.54   MAIN                                                                  10/14/2018 19:48:41 PAGE 2   
 
-  56   1              SCON = 0x50; //8位可变波特率
-  57   1              T2L = (65536 - (FOSC / 4 / BAUD));
-  58   1              T2H = (65536 - (FOSC / 4 / BAUD)) >> 8;
-  59   1              AUXR |= 0X14;
-  60   1              AUXR |= 0X01;
-  61   1      
-  62   1      }
-  63          
-  64          /**
-  65           * 单片机采用STC15W4K48S4-增强型单片机（IPA需修改EEPROM代码）
-  66           * 工作电压为：5V 晶振频率为：24M 无线通讯模块为：LT8910
-  67           * 本程序中采用了MCU6050做姿态数据采集加PID算法给硬件4路PWM控制MOS管驱动空心杯电机
-  68           * 注意：此程序只兼容：空心杯716电机与45MM专用正反桨（自己的电机或需修改PID参数）
-  69           * 在后期的程序更新中，会增加硬件代码达到预期飞行功能。敬请关注。
-  70           *
-  71           * @author KingBoy (2018/5/19)
-  72           *
-  73           * @param void
-  74           */
-  75          void main(void)
-  76          {
-  77   1              PWM_Init(); //初始化PWM
-  78   1              Set_PWM(1000, 1000, 1000, 1000); //关闭电机
-  79   1              LedR = 0;
-  80   1              LedG = 1;
-  81   1              LedB = 1; //3颗状态灯
-  82   1              Delay(500); //延时一会
-  83   1              LedR = 1;
-  84   1              LedG = 0;
-  85   1              LedB = 1; //3颗状态灯
-  86   1              Delay(500); //延时一会
-  87   1              LedR = 1;
-  88   1              LedG = 1;
-  89   1              LedB = 0; //3颗状态灯
-  90   1              Delay(500); //延时一会
-  91   1              LedR = 1;
-  92   1              LedG = 1;
-  93   1              LedB = 1; //3颗状态灯
-  94   1              Delay(10);    // 延时 100
-  95   1      
-  96   1              //InitADC();/ADC模数转换 初始化（后期开发）
-  97   1              Delay(10); //延时 100
-  98   1              Init_MPU6050(); //初始化MPU-6050
-  99   1              Delay(10); //延时 100
- 100   1              LT8910_Init(); //无线2.4G模块初始化
- 101   1              Delay(100); //延时一会 1S
- 102   1      
- 103   1              TimerInit(); //初始化定时器
- 104   1              Delay(100);   //延时一会 1S
- 105   1              /*默认值初始化*/
- 106   1              UartInit(); //初始化串口
- 107   1              rc_throttle = 0;   //初始化油门变量
- 108   1              rc_Yaw = 128;      //初始化航向变量
- 109   1              rc_Roll = 128;     //初始化横滚变量
- 110   1              rc_Pitch = 128;    //初始化俯仰变量
- 111   1              LedB = 0;       //开启绿灯
- 112   1              rcAngle_X_offset = 0;        //横滚手动值
- 113   1              rcAngle_Y_offset = 0;        //俯仰手动值
- 114   1              rcAngle_Z_offset = 0;        //航向手动值
- 115   1      
- 116   1              //Flight();//编译后2个警告是说 飞控函数中断量 不在主函数里【不需要纠结】
- 117   1              ES = 1; //使能串口1中断
-C51 COMPILER V9.54   MAIN                                                                  10/13/2018 18:58:01 PAGE 3   
-
- 118   1              EA = 1;  //开总中断
- 119   1              SendString("STC15F2K60S2\r\nUart Test !\r\n");
- 120   1              while (1)
- 121   1              {
- 122   2      #if 0
+  56   1              Delay(500); //延时一会
+  57   1              LedR = 1;
+  58   1              LedG = 1;
+  59   1              LedB = 0; //3颗状态灯
+  60   1              Delay(500); //延时一会
+  61   1              LedR = 1;
+  62   1              LedG = 1;
+  63   1              LedB = 1; //3颗状态灯
+  64   1              Delay(10);    // 延时 100
+  65   1      
+  66   1              //InitADC();/ADC模数转换 初始化（后期开发）
+  67   1              Delay(10); //延时 100
+  68   1              Init_MPU6050(); //初始化MPU-6050
+  69   1              Delay(10); //延时 100
+  70   1              LT8910_Init(); //无线2.4G模块初始化
+  71   1              Delay(100); //延时一会 1S
+  72   1      
+  73   1              TimerInit(); //初始化定时器
+  74   1              UartInit(); //初始化串口
+  75   1              Delay(100);   //延时一会 1S
+  76   1              /*默认值初始化*/
+  77   1              rc_throttle = 0;   //初始化油门变量
+  78   1              rc_Yaw = 128;      //初始化航向变量
+  79   1              rc_Roll = 128;     //初始化横滚变量
+  80   1              rc_Pitch = 128;    //初始化俯仰变量
+  81   1              LedB = 0;       //开启绿灯
+  82   1              rcAngle_X_offset = 0;        //横滚手动值
+  83   1              rcAngle_Y_offset = 0;        //俯仰手动值
+  84   1              rcAngle_Z_offset = 0;        //航向手动值
+  85   1      
+  86   1              //Flight();//编译后2个警告是说 飞控函数中断量 不在主函数里【不需要纠结】
+  87   1              ES = 1; //使能串口1中断
+  88   1              EA = 1;  //开总中断
+  89   1              UartSendStr("Uart Test !\r\n");
+  90   1              while (1)
+  91   1              {
+  92   2      #if 0
                               //要放到定时器中断里运行
                               RX_model();             //接收模式
                               js_shuju(RxBuf, 15);     //读取数据包
               #endif
- 127   2                      
- 128   2                      /*控制指令接收正确*/
- 129   2                      if (MAC_calc(RxBuf, 10, RxBuf[10]) == 0)
- 130   2                      {
- 131   3                              LostCom = RxBuf[0];                         //接收 失联变量
- 132   3                              LockState = RxBuf[1];                       //接收 命令值 1=上锁  5=解锁
- 133   3                              rc_throttle = RxBuf[2] * 0xff + RxBuf[3];   //接收 油门变量
- 134   3                              rc_Yaw = RxBuf[4];                          //接收 航向摇杆参数
- 135   3                              rc_Roll = RxBuf[5];                         //接收 横滚摇杆参数
- 136   3                              rc_Pitch = RxBuf[6];                        //接收 俯仰摇杆参数
- 137   3                              rcAngle_X_offset = RxBuf[7] - 128;          //读出 横滚微调变量
- 138   3                              rcAngle_Y_offset = RxBuf[8] - 128;          //读出 俯仰微调变量
- 139   3                              rcAngle_Z_offset = RxBuf[9] - 128;          //读出 航向微调变量
- 140   3                              LedG = 1;                                   //LED 绿灯灭
- 141   3                      }
- 142   2                      else
- 143   2                      {
- 144   3                              LedG = 0;                               //LED 绿灯亮
- 145   3                      }
- 146   2                      if (LockState == 1)                         //遥控命令 上锁
- 147   2                      {
- 148   3                              LedB = 1;                               //航向灯 蓝色灭
- 149   3                      }
- 150   2                      if (LockState == 5)                         //遥控命令 解锁
- 151   2                      {
- 152   3                              LedB = 0;                               //航向灯 蓝色亮
- 153   3                      }
- 154   2                      Delay(3);     //延时一会
- 155   2      #if 0
+  97   2      
+  98   2                      /*控制指令接收正确则缓存，否则丢弃*/
+  99   2                      if (MAC_calc(RxBuf, 10, RxBuf[10]) == 0)
+ 100   2                      {
+ 101   3                              RCnum = RxBuf[0];                         //接收 失联变量
+ 102   3                              LockState = RxBuf[1];                       //接收 命令值 1=上锁  5=解锁
+ 103   3                              rc_throttle = RxBuf[2] * 0xff + RxBuf[3];   //接收 油门变量
+ 104   3                              rc_Yaw = RxBuf[4];                          //接收 航向摇杆参数
+ 105   3                              rc_Roll = RxBuf[5];                         //接收 横滚摇杆参数
+ 106   3                              rc_Pitch = RxBuf[6];                        //接收 俯仰摇杆参数
+ 107   3                              rcAngle_X_offset = RxBuf[7] - 128;          //读出 横滚微调变量
+ 108   3                              rcAngle_Y_offset = RxBuf[8] - 128;          //读出 俯仰微调变量
+ 109   3                              rcAngle_Z_offset = RxBuf[9] - 128;          //读出 航向微调变量
+ 110   3                              LedG = 1;                                   //LED 绿灯灭
+ 111   3                      }
+ 112   2                      else
+ 113   2                      {
+ 114   3                              LedG = 0;                               //LED 绿灯亮
+ 115   3                      }
+ 116   2                      if (LockState == RC_LOCK)                         //遥控命令 上锁
+ 117   2                      {
+C51 COMPILER V9.54   MAIN                                                                  10/14/2018 19:48:41 PAGE 3   
+
+ 118   3                              LedB = 1;                               //航向灯 蓝色灭
+ 119   3                      }
+ 120   2                      if (LockState == RC_UNLOCK)                         //遥控命令 解锁
+ 121   2                      {
+ 122   3                              LedB = 0;                               //航向灯 蓝色亮
+ 123   3                      }
+ 124   2                      Delay(3);     //延时一会
+ 125   2      #if 0
                               //ADC电压低压检测自停保护功能 后期开发
                               ADC_CONTR
               #endif
- 159   2                      //UartPrint();
- 160   2              }
- 161   1      }
- 162          
- 163          /**
- 164           * 定时器0 初始化函数
- 165           * 12毫秒@24.000MHz
- 166           *
- 167           * @author KingBoy (2018/5/19)
- 168           *
- 169           * @param void
- 170           */
- 171          void TimerInit(void)
- 172          {
- 173   1              AUXR &= 0x7F;   //定时器时钟12T模式
- 174   1              TMOD &= 0xF0;   //设置定时器模式
- 175   1              TL0 = 0x40;     //设置定时初值
- 176   1              TH0 = 0xA2;     //设置定时初值
- 177   1              TF0 = 0;        //清除TF0标志
- 178   1              TR0 = 1;        //定时器0开始计时
- 179   1              ET0 = 1;        //Timer0 Interrupt Enable
-C51 COMPILER V9.54   MAIN                                                                  10/13/2018 18:58:01 PAGE 4   
+ 129   2                      //UartPrint();
+ 130   2              }
+ 131   1      }
+ 132          
+ 133          /**
+ 134           * 定时器0 初始化函数
+ 135           * 12毫秒@24.000MHz
+ 136           *
+ 137           * @author KingBoy (2018/5/19)
+ 138           *
+ 139           * @param void
+ 140           */
+ 141          void TimerInit(void)
+ 142          {
+ 143   1              AUXR &= 0x7F;   //定时器时钟12T模式
+ 144   1              TMOD &= 0xF0;   //设置定时器模式
+ 145   1              TL0 = 0x40;     //设置定时初值
+ 146   1              TH0 = 0xA2;     //设置定时初值
+ 147   1              TF0 = 0;        //清除TF0标志
+ 148   1              TR0 = 1;        //定时器0开始计时
+ 149   1              ET0 = 1;        //Timer0 Interrupt Enable
+ 150   1      }
+ 151          /**
+ 152           * 时间延时 函数
+ 153           *
+ 154           * @author KingBoy (2018/5/20)
+ 155           *
+ 156           * @param x
+ 157           */
+ 158          void Delay(unsigned int x)
+ 159          {
+ 160   1              unsigned int i, j;
+ 161   1              for (i = 0; i < x; i++)
+ 162   1              {
+ 163   2                      for (j = 0; j < 250; j++)
+ 164   2                      {
+ 165   3                              ;
+ 166   3                      }
+ 167   2              }
+ 168   1      }
+ 169          
+ 170          /**
+ 171           * PID算法飞控自平衡函数，定时器0中断12毫秒执行一次
+ 172           *
+ 173           * @author KingBoy (2018/5/20)
+ 174           *
+ 175           * @param void
+ 176           */
+ 177          void Flight(void) interrupt 1
+ 178          {
+ 179   1              /*LT8910设置为接收模式*/
+C51 COMPILER V9.54   MAIN                                                                  10/14/2018 19:48:41 PAGE 4   
 
- 180   1      }
- 181          /**
- 182           * 时间延时 函数
- 183           *
- 184           * @author KingBoy (2018/5/20)
- 185           *
- 186           * @param x
- 187           */
- 188          void Delay(unsigned int x)
- 189          {
- 190   1              unsigned int i, j;
- 191   1              for (i = 0; i < x; i++)
- 192   1              {
- 193   2                      for (j = 0; j < 250; j++)
- 194   2                      {
- 195   3                              ;
- 196   3                      }
- 197   2              }
- 198   1      }
- 199          
- 200          /**
- 201           * PID算法飞控自平衡函数，定时器0中断12毫秒执行一次
- 202           *
- 203           * @author KingBoy (2018/5/20)
- 204           *
- 205           * @param void
- 206           */
- 207          void Flight(void) interrupt 1
- 208          {
- 209   1              /*LT8910设置为接收模式*/
- 210   1              RX_model();
- 211   1              /*接收15字节数据*/
- 212   1              ReceiveData(RxBuf, 15);
- 213   1      
- 214   1      
- 215   1              Read_MPU6050(IMUdata); //直接读取MPU6050陀螺仪和加速度的数据包
- 216   1      
- 217   1              Angle_ax = RCLowPassFilter_ax(((int *)&IMUdata)[0], RC_KALMAN_Q, RC_KALMAN_R);  //低通滤波，见文档解释
- 218   1              Angle_ay = RCLowPassFilter_ay(((int *)&IMUdata)[1], RC_KALMAN_Q, RC_KALMAN_R);
- 219   1              Angle_az = RCLowPassFilter_az(((int *)&IMUdata)[2], RC_KALMAN_Q, RC_KALMAN_R);
- 220   1      
- 221   1              Omega_gx = ((float)(((int *)&IMUdata)[4])) / 65.5;   //陀螺仪处理       结果单位是 +-度
- 222   1              Omega_gy = ((float)(((int *)&IMUdata)[5])) / 65.5;   //陀螺仪量程 +-500度/S, 1度/秒 对应读数 65.536
- 223   1              Omega_gz = RCLowPassFilter_gyroz(((int *)&IMUdata)[6], Q15(0.2), Q15(0.8));
- 224   1              IMU_gz = Omega_gz / 65.5;
- 225   1              Last_Angle_gx = Omega_gx;       //储存上一次角速度数据
- 226   1              Last_Omega_gy = Omega_gy;
- 227   1      
- 228   1              //*********************************** 四元数解算 ***********************************
- 229   1              IMUupdate(Omega_gx * 0.0174533f, Omega_gy * 0.0174533f, IMU_gz * 0.0174533f, Angle_ax, Angle_ay, Angle_az
+ 180   1              RX_model();
+ 181   1              /*接收15字节数据*/
+ 182   1              ReceiveRC_Data(RxBuf, 15);
+ 183   1      
+ 184   1      
+ 185   1              Read_MPU6050(IMUdata); //直接读取MPU6050陀螺仪和加速度的数据包
+ 186   1      
+ 187   1              Angle_ax = RCLowPassFilter_ax(((int *)&IMUdata)[0], RC_KALMAN_Q, RC_KALMAN_R);  //低通滤波，见文档解释
+ 188   1              Angle_ay = RCLowPassFilter_ay(((int *)&IMUdata)[1], RC_KALMAN_Q, RC_KALMAN_R);
+ 189   1              Angle_az = RCLowPassFilter_az(((int *)&IMUdata)[2], RC_KALMAN_Q, RC_KALMAN_R);
+ 190   1      
+ 191   1              Omega_gx = ((float)(((int *)&IMUdata)[4])) / 65.5;   //陀螺仪处理       结果单位是 +-度
+ 192   1              Omega_gy = ((float)(((int *)&IMUdata)[5])) / 65.5;   //陀螺仪量程 +-500度/S, 1度/秒 对应读数 65.536
+ 193   1              Omega_gz = RCLowPassFilter_gyroz(((int *)&IMUdata)[6], Q15(0.2), Q15(0.8));
+ 194   1              IMU_gz = Omega_gz / 65.5;
+ 195   1              Last_Angle_gx = Omega_gx;       //储存上一次角速度数据
+ 196   1              Last_Omega_gy = Omega_gy;
+ 197   1      
+ 198   1              //*********************************** 四元数解算 ***********************************
+ 199   1              IMUupdate(Omega_gx * 0.0174533f, Omega_gy * 0.0174533f, IMU_gz * 0.0174533f, Angle_ax, Angle_ay, Angle_az
              -);
- 230   1              //姿态解算，精度0.1度
- 231   1              //发送到遥控器
- 232   1              //      TxBuf[0]=(AngleX+900)/0xff; // 数值是 48~1752 = 0-360度
- 233   1              //      TxBuf[1]=(AngleX+900)%0xff;     // 数值是 48~1752 = 0-360度
- 234   1              //      TxBuf[2]=(AngleY+900)/0xff;     // 数值是 48~1752 = 0-360度
- 235   1              //      TxBuf[3]=(AngleY+900)%0xff;     // 数值是 48~1752 = 0-360度
- 236   1              //****飞控失联判断 自动降落算法*********************
- 237   1              //接收遥控器发来的不断更新数据 判断联机通讯是否正常
- 238   1              LostControlProtect();
- 239   1              /*姿态角失控保护*/
- 240   1              DangerMotionProtect();
-C51 COMPILER V9.54   MAIN                                                                  10/13/2018 18:58:01 PAGE 5   
-
- 241   1      
- 242   1              //****以下是飞行控制算法************************************
- 243   1              PIDcontrolX();
- 244   1              PIDcontrolY();
- 245   1              PIDcontrolZ();
- 246   1              //**************将速度参数加载至PWM模块*************************************************
- 247   1              //速度参数控制，防止超过PWM参数范围0-1000（X型有效）
- 248   1              PWMoutput();
- 249   1      
- 250   1              //满足条件：（解锁：2.4G=5；油门大于30）才能控制电机
- 251   1              if (LockState == 5 && d_throttle >= 50)
- 252   1              {
- 253   2                      Set_PWM(1000 - PWM1, 1000 - PWM2, 1000 - PWM3, 1000 - PWM0);
- 254   2              } //启动PWM
- 255   1              else
- 256   1              {
- 257   2                      Set_PWM(1000, 1000, 1000, 1000);
- 258   2              } //关闭PWM
- 259   1      
- 260   1      #if 0
+ 200   1              //姿态解算，精度0.1度
+ 201   1              //发送到遥控器
+ 202   1              //      TxBuf[0]=(AngleX+900)/0xff; // 数值是 48~1752 = 0-360度
+ 203   1              //      TxBuf[1]=(AngleX+900)%0xff;     // 数值是 48~1752 = 0-360度
+ 204   1              //      TxBuf[2]=(AngleY+900)/0xff;     // 数值是 48~1752 = 0-360度
+ 205   1              //      TxBuf[3]=(AngleY+900)%0xff;     // 数值是 48~1752 = 0-360度
+ 206   1      
+ 207   1              /****飞控失联判断 自动降落算法*********************/
+ 208   1              //接收遥控器发来的不断更新数据 判断联机通讯是否正常
+ 209   1              LostControlProtect();
+ 210   1              /*姿态角失控保护*/
+ 211   1              DangerMotionProtect();
+ 212   1      
+ 213   1              //****以下是飞行控制算法************************************
+ 214   1              PIDcontrolX();
+ 215   1              PIDcontrolY();
+ 216   1              PIDcontrolZ();
+ 217   1              //****将速度参数加载至PWM模块*******************************
+ 218   1              //速度参数控制，防止超过PWM参数范围0-1000（X型有效）
+ 219   1              PWMoutput();
+ 220   1      
+ 221   1              //满足条件：（解锁：2.4G=5；油门大于30）才能控制电机
+ 222   1              if (LockState == RC_UNLOCK && Ctl_throttle >= 50)
+ 223   1              {
+ 224   2                      Set_PWM(1000 - PWM1, 1000 - PWM2, 1000 - PWM3, 1000 - PWM0);
+ 225   2              } //启动PWM
+ 226   1              else
+ 227   1              {
+ 228   2                      Set_PWM(1000, 1000, 1000, 1000);
+ 229   2              } //关闭PWM（1000为关）
+ 230   1      
+ 231   1      #if 0
                       //调试强行关闭电机
                       Set_PWM(1000, 1000, 1000, 1000);
               #endif
- 264   1      }
- 265          
- 266          void Uart(void) interrupt 4 using 1
- 267          {
- 268   1              if(RI)
- 269   1              {
- 270   2                      RI = 0;
- 271   2                      P0 = SBUF;
- 272   2                      P22 = RB8;
- 273   2              }
- 274   1              if(TI)
- 275   1              {
- 276   2                      TI = 0;
- 277   2                      busy = 0;
- 278   2              }
- 279   1      }
+ 235   1      }
+ 236          
+ 237          void Uart(void) interrupt 4 using 1
+ 238          {
+ 239   1              if(RI)
+ 240   1              {
+C51 COMPILER V9.54   MAIN                                                                  10/14/2018 19:48:41 PAGE 5   
+
+ 241   2                      RI = 0;
+ 242   2                      P0 = SBUF;
+ 243   2                      P22 = RB8;
+ 244   2              }
+ 245   1              if(TI)
+ 246   1              {
+ 247   2                      TI = 0;
+ 248   2                      busy = 0;
+ 249   2              }
+ 250   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   1041    ----
-   CONSTANT SIZE    =     28    ----
-   XDATA SIZE       =   ----       3
+   CODE SIZE        =    965    ----
+   CONSTANT SIZE    =     14    ----
+   XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----
-   BIT SIZE         =      1    ----
+   BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.
 
 

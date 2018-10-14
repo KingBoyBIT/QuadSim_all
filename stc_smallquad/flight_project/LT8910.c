@@ -168,7 +168,7 @@ void RX_model(void)
  * @param rx_buf 接收缓存
  * @param Num 数据个数(ushort?)
  */
-void ReceiveData(uchar *rx_buf, uchar Num)
+void ReceiveRC_Data(uchar *rx_buf, uchar Num)
 {
 	uchar i = 0;
 	SPI_ReadReg(50);

@@ -10,7 +10,7 @@ void PIDcontrolX(void)
 	delta_rc_x = ((float)rc_Roll - 128) * 2; //得到 横滚数据变量
 	AngleErr_X = -AngleXest - delta_rc_x + rcAngle_X_offset * 5; //
 															 //	Ax =-AngleX+a_x*5;
-	if (d_throttle > 20)
+	if (Ctl_throttle > 20)
 	{
 		integAngleErr_X += AngleErr_X;   //外环积分(油门小于某个值时不积分)
 	}
@@ -36,7 +36,7 @@ void PIDcontrolX(void)
 	LastAngleErr_X = AngleErr_X;
 	OmegaErr_X = PID_Output - Omega_gy;      //外环 -   陀螺仪Y轴
 
-	if (d_throttle > 20)
+	if (Ctl_throttle > 20)
 	{
 		integOmegaErr_X += OmegaErr_X;    //内环积分(油门小于某个值时不积分)
 	}
@@ -81,7 +81,7 @@ void PIDcontrolY(void)
 	delta_rc_y = ((float)rc_Pitch - 128) * 2; //得到 俯仰数据变量
 	AngleErr_Y = -AngleYest - delta_rc_y - rcAngle_Y_offset * 5;
 	//	Ay  =-AngleY-a_y*5;
-	if (d_throttle > 20)
+	if (Ctl_throttle > 20)
 	{
 		integAngleErr_Y += AngleErr_Y;               //外环积分(油门小于某个值时不积分)
 	}
@@ -107,7 +107,7 @@ void PIDcontrolY(void)
 	LastAngleErr_Y = AngleErr_Y;
 	OmegaErr_Y = PID_Output - Omega_gx;
 
-	if (d_throttle > 20)
+	if (Ctl_throttle > 20)
 	{
 		integOmegaErr_Y += OmegaErr_Y; //内环积分(油门小于某个值时不积分)
 	}
@@ -150,7 +150,7 @@ void PIDcontrolZ(void)
 {
 	//************** MPU6050 Z轴指向 *****************************
 	delta_rc_z = -Omega_gz + ((float)rc_Yaw - 128) * 65 + rcAngle_Z_offset * 20; //得到 航向数据变量 操作量
-	if (d_throttle > 20)
+	if (Ctl_throttle > 20)
 	{
 		integAngleErr_Z += delta_rc_z;
 	}
@@ -185,22 +185,22 @@ void DangerMotionProtect(void)
 	if ((AngleXest + 900) > 1200)    //飞控向右倾斜
 	{
 		LedR = 0;
-		d_throttle = 0;
+		Ctl_throttle = 0;
 	}
 	else if ((AngleXest + 900) < 500)    //飞控向左倾斜
 	{
 		LedR = 0;
-		d_throttle = 0;
+		Ctl_throttle = 0;
 	}
 	else if ((AngleYest + 900) > 1200)    //飞控向前倾斜
 	{
 		LedR = 0;
-		d_throttle = 0;
+		Ctl_throttle = 0;
 	}
 	else if ((AngleYest + 900) < 500)    //飞控向后倾斜
 	{
 		LedR = 0;
-		d_throttle = 0;
+		Ctl_throttle = 0;
 	}
 	else
 	{
@@ -209,7 +209,7 @@ void DangerMotionProtect(void)
 }
 void PWMoutput(void)
 {
-	PWM0 = (d_throttle + speed0);
+	PWM0 = (Ctl_throttle + speed0);
 	if (PWM0 > 1000)
 	{
 		PWM0 = 1000;
@@ -218,7 +218,7 @@ void PWMoutput(void)
 	{
 		PWM0 = 0;
 	}
-	PWM1 = (d_throttle + speed1);
+	PWM1 = (Ctl_throttle + speed1);
 	if (PWM1 > 1000)
 	{
 		PWM1 = 1000;
@@ -227,7 +227,7 @@ void PWMoutput(void)
 	{
 		PWM1 = 0;
 	}
-	PWM2 = (d_throttle + speed2);
+	PWM2 = (Ctl_throttle + speed2);
 	if (PWM2 > 1000)
 	{
 		PWM2 = 1000;
@@ -236,7 +236,7 @@ void PWMoutput(void)
 	{
 		PWM2 = 0;
 	}
-	PWM3 = (d_throttle + speed3);
+	PWM3 = (Ctl_throttle + speed3);
 	if (PWM3 > 1000)
 	{
 		PWM3 = 1000;
@@ -246,42 +246,50 @@ void PWMoutput(void)
 		PWM3 = 0;
 	}
 }
+/**
+ * 失联控制保护
+ *
+ * @author KingBoy (2018/10/14)
+ *
+ * @param void
+ */
 void LostControlProtect(void)
 {
-	if (LostCom == ShiLian)   //如果SSLL的数据没有更新即失联
+	if (RCnum == RCnum_pre)   //如果指令流水号没有更新即失联
 	{
-		if (++ShiLianCount >= 20)
+		//超过20条指令没有响应，降低油门降落
+		if (++LostComCount >= 20)
 		{
-			ShiLianCount = 19;      //状态标识
+			LostComCount = 19;//失联计数
 			rc_Yaw = 128;  //航向变量
 			rc_Roll = 128;  //横滚变量
 			rc_Pitch = 128;  //俯仰变量
-			if (d_throttle > 20)
+			if (Ctl_throttle > 20)
 			{
-				d_throttle--; //油门在原值逐渐减小
+				Ctl_throttle--; //油门在原值逐渐减小
 			}
 		}
 	}
 	else
 	{
-		ShiLianCount = 0;
-		if (rc_throttle > 1001)
+		LostComCount = 0;//失联计数清空
+		if (rc_throttle >= 1001)
 		{
 			rc_throttle = 1000; //油门量0-1000最大值
-							 //油门优化算法 【将油门摇杆的控制幅度从60%增加到90%控制算法】如下
 		}
 		else
 		{
+			//油门优化算法 【将油门摇杆的控制幅度从60%增加到90%控制算法】如下
 			if (rc_throttle > 50)             //摇杆量上50执行
 			{
-				d_throttle = (rc_throttle + 300) / 1.3; //摇杆增幅算法
+				Ctl_throttle = (rc_throttle + 300) / 1.3; //摇杆增幅算法
 			}
 			else
 			{
-				d_throttle = rc_throttle;          //摇杆低于直接赋值
+				Ctl_throttle = rc_throttle;          //摇杆低于直接赋值
 			}
 		}
 	}
-	ShiLian = LostCom; //失联变量更新
-	d_throttle = rc_throttle;
+	RCnum_pre = RCnum; //指令流水号更新
+	Ctl_throttle = rc_throttle;
 }

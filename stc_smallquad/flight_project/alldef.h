@@ -22,6 +22,8 @@ sbit LedB = P0 ^ 3; //LED 蓝色 B,灌入式，低电平亮
 sbit KARX = P3 ^ 0; //排针接口 RXD
 sbit KATX = P3 ^ 1; //排针接口 TXD
 
+
+
 /*绝对值小于1的小数转为整数*/
 #define Q15(X) ((X < 0.0) ? (int)(32768*(X) - 0.5) : (int)(32767*(X) + 0.5))
 #define RC_KALMAN_Q	Q15(0.20)
@@ -60,8 +62,11 @@ sbit KATX = P3 ^ 1; //排针接口 TXD
 #define	NAV_PARA_EST_KI			0.001f			//AHRS递推
 #define NAV_PARA_EST_KD			0.001f			//AHRS递推
 #define	NAV_PARA_EST_HALF_T		0.005f			//滤波更新时间周期
+/*遥控器设置*/
+#define RC_UNLOCK				5
+#define RC_LOCK					1
 
-
+/*MPU6050*/
 #define	SMPLRT_DIV				0x19			//陀螺仪采样率，典型值：0x07(125Hz)
 #define	CONFIG					0x1A			//低通滤波频率，典型值：0x06(5Hz)
 #define	GYRO_CONFIG				0x1B			//陀螺仪自检及测量范围，典型值：0x18(不自检，2000deg/s)

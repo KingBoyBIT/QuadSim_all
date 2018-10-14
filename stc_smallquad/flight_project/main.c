@@ -9,8 +9,9 @@
 #include "globeVar.h"
 #include "alldef.h"
 #include "FlightControl.h"
+#include "Uart.h"
 
-bit busy;
+
 
 /**
  * 定时器0 初始化函数
@@ -29,37 +30,6 @@ void TimerInit(void);
  * @param x
  */
 void Delay(unsigned int x);
-/*----------------------------
-发送串口数据
-----------------------------*/
-void SendData(BYTE dat)
-{
-	while (busy); //等待前面的数据发送完成
-	ACC = dat; //获取校验位P (PSW.0)
-	busy = 1;
-	SBUF = ACC; //写数据到UART数据寄存器
-}
-
-/*----------------------------
-发送字符串
-----------------------------*/
-void SendString(char *s)
-{
-	while (*s) //检测字符串结束标志
-	{
-		SendData(*s++); //发送当前字符
-	}
-} 
-
-void UartInit(void)
-{
-	SCON = 0x50; //8位可变波特率
-	T2L = (65536 - (FOSC / 4 / BAUD));
-	T2H = (65536 - (FOSC / 4 / BAUD)) >> 8;
-	AUXR |= 0X14;
-	AUXR |= 0X01;
-
-}
 
 /**
  * 单片机采用STC15W4K48S4-增强型单片机（IPA需修改EEPROM代码）
@@ -101,9 +71,9 @@ void main(void)
 	Delay(100); //延时一会 1S
 
 	TimerInit(); //初始化定时器
+	UartInit(); //初始化串口
 	Delay(100);   //延时一会 1S
 	/*默认值初始化*/
-	UartInit(); //初始化串口
 	rc_throttle = 0;   //初始化油门变量
 	rc_Yaw = 128;      //初始化航向变量
 	rc_Roll = 128;     //初始化横滚变量
@@ -116,7 +86,7 @@ void main(void)
 	//Flight();//编译后2个警告是说 飞控函数中断量 不在主函数里【不需要纠结】
 	ES = 1; //使能串口1中断
 	EA = 1;  //开总中断
-	SendString("STC15F2K60S2\r\nUart Test !\r\n");
+	UartSendStr("Uart Test !\r\n");
 	while (1)
 	{
 #if 0
@@ -124,11 +94,11 @@ void main(void)
 		RX_model();             //接收模式
 		js_shuju(RxBuf, 15);     //读取数据包
 #endif
-		
-		/*控制指令接收正确*/
+
+		/*控制指令接收正确则缓存，否则丢弃*/
 		if (MAC_calc(RxBuf, 10, RxBuf[10]) == 0)
 		{
-			LostCom = RxBuf[0];                         //接收 失联变量
+			RCnum = RxBuf[0];                         //接收 失联变量
 			LockState = RxBuf[1];                       //接收 命令值 1=上锁  5=解锁
 			rc_throttle = RxBuf[2] * 0xff + RxBuf[3];   //接收 油门变量
 			rc_Yaw = RxBuf[4];                          //接收 航向摇杆参数
@@ -143,11 +113,11 @@ void main(void)
 		{
 			LedG = 0;                               //LED 绿灯亮
 		}
-		if (LockState == 1)                         //遥控命令 上锁
+		if (LockState == RC_LOCK)                         //遥控命令 上锁
 		{
 			LedB = 1;                               //航向灯 蓝色灭
 		}
-		if (LockState == 5)                         //遥控命令 解锁
+		if (LockState == RC_UNLOCK)                         //遥控命令 解锁
 		{
 			LedB = 0;                               //航向灯 蓝色亮
 		}
@@ -209,7 +179,7 @@ void Flight(void) interrupt 1
 	/*LT8910设置为接收模式*/
 	RX_model();
 	/*接收15字节数据*/
-	ReceiveData(RxBuf, 15);
+	ReceiveRC_Data(RxBuf, 15);
 
 
 	Read_MPU6050(IMUdata); //直接读取MPU6050陀螺仪和加速度的数据包
@@ -233,7 +203,8 @@ void Flight(void) interrupt 1
 	//	TxBuf[1]=(AngleX+900)%0xff;	// 数值是 48~1752 = 0-360度
 	//	TxBuf[2]=(AngleY+900)/0xff;	// 数值是 48~1752 = 0-360度
 	//	TxBuf[3]=(AngleY+900)%0xff;	// 数值是 48~1752 = 0-360度
-	//****飞控失联判断 自动降落算法*********************
+
+	/****飞控失联判断 自动降落算法*********************/
 	//接收遥控器发来的不断更新数据 判断联机通讯是否正常
 	LostControlProtect();
 	/*姿态角失控保护*/
@@ -243,19 +214,19 @@ void Flight(void) interrupt 1
 	PIDcontrolX();
 	PIDcontrolY();
 	PIDcontrolZ();
-	//**************将速度参数加载至PWM模块*************************************************
+	//****将速度参数加载至PWM模块*******************************
 	//速度参数控制，防止超过PWM参数范围0-1000（X型有效）
 	PWMoutput();
 
 	//满足条件：（解锁：2.4G=5；油门大于30）才能控制电机
-	if (LockState == 5 && d_throttle >= 50)
+	if (LockState == RC_UNLOCK && Ctl_throttle >= 50)
 	{
 		Set_PWM(1000 - PWM1, 1000 - PWM2, 1000 - PWM3, 1000 - PWM0);
 	} //启动PWM
 	else
 	{
 		Set_PWM(1000, 1000, 1000, 1000);
-	} //关闭PWM
+	} //关闭PWM（1000为关）
 
 #if 0
 	//调试强行关闭电机

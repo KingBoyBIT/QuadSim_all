@@ -5,7 +5,7 @@
 extern unsigned char data RxBuf[20]; //设置接收长度，最高为32字节
 
 /*飞控控制参数*/
-extern unsigned int d_throttle;//油门变化速度控制，不这样做的话快速变化油门时四轴会失速翻转并坠毁
+extern unsigned int Ctl_throttle;//油门变化速度控制，不这样做的话快速变化油门时四轴会失速翻转并坠毁
 /*电机速度参数*/
 extern int speed0;
 extern int speed1;
@@ -43,9 +43,9 @@ extern unsigned char data IMUdata[16];//acc16*3+tempreture16+gyro16*3直接读取MPU
 
 /*飞行控制变量*/
 extern unsigned char LockState;//断开/连接 解锁变量
-extern unsigned char LostCom;//通讯状态 变量
-extern unsigned char ShiLian;//失联变量
-extern unsigned char ShiLianCount;//失联计数变量
+extern unsigned char RCnum;//通讯状态 变量
+extern unsigned char RCnum_pre;//失联变量
+extern unsigned char LostComCount;//失联计数变量
 extern unsigned int rc_throttle;//油门变量
 extern unsigned int rc_Yaw;//航向变量
 extern unsigned int rc_Roll;//横滚变量

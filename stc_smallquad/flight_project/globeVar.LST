@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   GLOBEVAR                                                              10/13/2018 18:58:02 PAGE 1   
+C51 COMPILER V9.54   GLOBEVAR                                                              10/14/2018 19:48:42 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE GLOBEVAR
@@ -13,7 +13,7 @@ line level    source
    4          unsigned char data RxBuf[20];           //设置接收长度，最高为32字节
    5          
    6          /*飞控控制参数*/
-   7          unsigned int d_throttle = 0;            //油门变化速度控制，不这样做的话快速变化油门时四轴会失速翻转并坠毁
+   7          unsigned int Ctl_throttle = 0;          //油门变化速度控制，不这样做的话快速变化油门时四轴会失速翻转并坠毁
    8          /*电机速度参数*/
    9          int speed0 = 0;
   10          int speed1 = 0;
@@ -52,9 +52,9 @@ line level    source
   43          
   44          /*飞行控制变量*/
   45          unsigned char LockState;                                //断开/连接 解锁变量
-  46          unsigned char LostCom;                                  //通讯状态 变量
-  47          unsigned char ShiLian;                                  //失联变量
-  48          unsigned char ShiLianCount;                             //失联计数变量
+  46          unsigned char RCnum;                                    //通讯状态 变量
+  47          unsigned char RCnum_pre;                                        //遥控器指令流水号
+  48          unsigned char LostComCount;                             //失联计数变量
   49          unsigned int rc_throttle;                                       //油门变量
   50          unsigned int rc_Yaw;                                            //航向变量
   51          unsigned int rc_Roll;                                           //横滚变量
@@ -62,7 +62,7 @@ line level    source
   53          //unsigned char PitchRoll;                              //俯仰横滚变量
   54          unsigned char CKV_calc;                                 //CRC 算出效验包
   55          unsigned char CKV_match;                                //CRC 接收效验包
-C51 COMPILER V9.54   GLOBEVAR                                                              10/13/2018 18:58:02 PAGE 2   
+C51 COMPILER V9.54   GLOBEVAR                                                              10/14/2018 19:48:42 PAGE 2   
 
   56          
   57          /*PID算法变量*/
