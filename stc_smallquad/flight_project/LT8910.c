@@ -199,7 +199,7 @@ int MAC_calc(unsigned char * buff,int len, unsigned char mac)
 	unsigned char mac_calc = 0;
 	for (i = 0;i<len;i++)
 	{
-		mac_calc^=(*buff++);
+		mac_calc+=(*buff++);
 	}
 	if (mac == mac_calc)
 	{
