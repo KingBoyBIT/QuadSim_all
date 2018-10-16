@@ -44,6 +44,8 @@ void Delay(unsigned int x);
  */
 void main(void)
 {
+	unsigned char i = 0;
+
 	PWM_Init(); //初始化PWM
 	Set_PWM(1000, 1000, 1000, 1000); //关闭电机
 	LedR = 0;
@@ -126,7 +128,12 @@ void main(void)
 		//ADC电压低压检测自停保护功能 后期开发
 		ADC_CONTR
 #endif
-		//UartPrint();
+#if 1
+		for (i = 0; i < 10; i++)
+		{
+			UartSendByte(RxBuf[i]);
+		}
+#endif
 	}
 }
 
@@ -223,7 +230,7 @@ void Flight(void) interrupt 1
 		Set_PWM(1000, 1000, 1000, 1000);
 	} //关闭PWM（1000为关）
 
-#if 0
+#if 1
 	//调试强行关闭电机
 	Set_PWM(1000, 1000, 1000, 1000);
 #endif

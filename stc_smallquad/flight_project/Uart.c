@@ -28,7 +28,7 @@ void UartInit(unsigned int baud,unsigned int fosc)
  *
  * @param dat 待发送字节
  */
-void SendData(BYTE dat)
+void UartSendByte(BYTE dat)
 {
 	while (busy); //等待前面的数据发送完成
 	ACC = dat; //获取校验位P (PSW.0)
@@ -47,7 +47,7 @@ void UartSendStr(char *s)
 {
 	while (*s) //检测字符串结束标志
 	{
-		SendData(*s++); //发送当前字符
+		UartSendByte(*s++); //发送当前字符
 	}
 }
 

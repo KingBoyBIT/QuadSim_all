@@ -22,7 +22,7 @@ void UartInit(unsigned int baud,unsigned int fosc);
  *
  * @param dat ´ý·¢ËÍ×Ö½Ú
  */
-void SendData(BYTE dat);
+void UartSendByte(BYTE dat);
 /**
  * ·¢ËÍ×Ö·û´®
  *
