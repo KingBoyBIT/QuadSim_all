@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   KALMANFILTER                                                          10/15/2018 00:12:04 PAGE 1   
+C51 COMPILER V9.54   KALMANFILTER                                                          10/15/2018 00:17:19 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE KALMANFILTER
@@ -62,7 +62,7 @@ line level    source
   53   1      
   54   1              ay_now = ay_mid + (((long)kg * (ResrcData - ay_mid)) >> 15);
   55   1              p_now = ((long)p_mid * (32768 - kg)) >> 15;
-C51 COMPILER V9.54   KALMANFILTER                                                          10/15/2018 00:12:04 PAGE 2   
+C51 COMPILER V9.54   KALMANFILTER                                                          10/15/2018 00:17:19 PAGE 2   
 
   56   1              ay_p_last = p_now;
   57   1              ay_last = ay_now;
@@ -126,7 +126,7 @@ line level    source
                       long p_mid;
                       long p_now;
                       int kg;
-C51 COMPILER V9.54   KALMANFILTER                                                          10/15/2018 00:12:04 PAGE 3   
+C51 COMPILER V9.54   KALMANFILTER                                                          10/15/2018 00:17:19 PAGE 3   
 
                       long temp;
                       gyroy_mid = gyroy_last;

@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   STC15W4K_PWM                                                          10/15/2018 00:12:04 PAGE 1   
+C51 COMPILER V9.54   STC15W4K_PWM                                                          10/15/2018 00:17:19 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE STC15W4K_PWM
@@ -62,7 +62,7 @@ line level    source
   53   1              PWMCH = 0x03;     //15位寄存器，决定PWM周期，数值为1-32767，单位：脉冲时钟
   54   1              PWMCL = 0xe9;
   55   1      
-C51 COMPILER V9.54   STC15W4K_PWM                                                          10/15/2018 00:12:04 PAGE 2   
+C51 COMPILER V9.54   STC15W4K_PWM                                                          10/15/2018 00:17:19 PAGE 2   
 
   56   1              // 以下为每个PWM输出口单独设置
   57   1              PWM2CR = 0x00;    //7位6位5位4位   3位      2位       1位        0位
@@ -126,7 +126,7 @@ line level    source
  114   1      }
 
 
-C51 COMPILER V9.54   STC15W4K_PWM                                                          10/15/2018 00:12:04 PAGE 3   
+C51 COMPILER V9.54   STC15W4K_PWM                                                          10/15/2018 00:17:19 PAGE 3   
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
    CODE SIZE        =    226    ----
