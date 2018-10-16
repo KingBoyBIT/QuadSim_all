@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   MAIN                                                                  10/16/2018 22:05:07 PAGE 1   
+C51 COMPILER V9.54   MAIN                                                                  10/16/2018 22:43:45 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
@@ -62,7 +62,7 @@ line level    source
   53   1              LedB = 1; //3颗状态灯
   54   1              Delay(500); //延时一会
   55   1              LedR = 1;
-C51 COMPILER V9.54   MAIN                                                                  10/16/2018 22:05:07 PAGE 2   
+C51 COMPILER V9.54   MAIN                                                                  10/16/2018 22:43:45 PAGE 2   
 
   56   1              LedG = 0;
   57   1              LedB = 1; //3颗状态灯
@@ -109,7 +109,7 @@ line level    source
               #endif
   99   2      
  100   2                      /*控制指令接收正确则缓存，否则丢弃*/
- 101   2                      if (MAC_calc(RxBuf, 9, RxBuf[10]) == 0)
+ 101   2                      if (MAC_calc(RxBuf, 10, RxBuf[10]) == 0)
  102   2                      {
  103   3                              RCnum = RxBuf[0];                         //接收 失联变量
  104   3                              LockState = RxBuf[1];                       //接收 命令值 1=上锁  5=解锁
@@ -126,7 +126,7 @@ line level    source
  115   2                      {
  116   3                              LedG = 0;                               //LED 绿灯亮
  117   3                      }
-C51 COMPILER V9.54   MAIN                                                                  10/16/2018 22:05:07 PAGE 3   
+C51 COMPILER V9.54   MAIN                                                                  10/16/2018 22:43:45 PAGE 3   
 
  118   2                      if (LockState == RC_LOCK)                         //遥控命令 上锁
  119   2                      {
@@ -190,7 +190,7 @@ line level    source
  177          /**
  178           * PID算法飞控自平衡函数，定时器0中断12毫秒执行一次
  179           *
-C51 COMPILER V9.54   MAIN                                                                  10/16/2018 22:05:07 PAGE 4   
+C51 COMPILER V9.54   MAIN                                                                  10/16/2018 22:43:45 PAGE 4   
 
  180           * @author KingBoy (2018/5/20)
  181           *
@@ -254,7 +254,7 @@ line level    source
  239          void Uart(void) interrupt 4 using 1
  240          {
  241   1              if(RI)
-C51 COMPILER V9.54   MAIN                                                                  10/16/2018 22:05:07 PAGE 5   
+C51 COMPILER V9.54   MAIN                                                                  10/16/2018 22:43:45 PAGE 5   
 
  242   1              {
  243   2                      RI = 0;

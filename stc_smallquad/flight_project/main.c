@@ -98,7 +98,7 @@ void main(void)
 #endif
 
 		/*控制指令接收正确则缓存，否则丢弃*/
-		if (MAC_calc(RxBuf, 9, RxBuf[10]) == 0)
+		if (MAC_calc(RxBuf, 10, RxBuf[10]) == 0)
 		{
 			RCnum = RxBuf[0];                         //接收 失联变量
 			LockState = RxBuf[1];                       //接收 命令值 1=上锁  5=解锁
