@@ -188,33 +188,28 @@ void Flight(void) interrupt 1
 	Angle_ay = RCLowPassFilter_ay(((int *)&IMUdata)[1], RC_KALMAN_Q, RC_KALMAN_R);
 	Angle_az = RCLowPassFilter_az(((int *)&IMUdata)[2], RC_KALMAN_Q, RC_KALMAN_R);
 
-	Omega_gx = ((float)(((int *)&IMUdata)[4])) / 65.5;   //陀螺仪处理	结果单位是 +-度
-	Omega_gy = ((float)(((int *)&IMUdata)[5])) / 65.5;   //陀螺仪量程 +-500度/S, 1度/秒 对应读数 65.536
+	Omega_gx = ((float)(((int *)&IMUdata)[4])) / DEGPSEC;   //陀螺仪处理	结果单位是 +-度
+	Omega_gy = ((float)(((int *)&IMUdata)[5])) / DEGPSEC;   //陀螺仪量程 +-500度/S, 1度/秒 对应读数 65.536
 	Omega_gz = RCLowPassFilter_gyroz(((int *)&IMUdata)[6], Q15(0.2), Q15(0.8));
-	IMU_gz = Omega_gz / 65.5;
+	IMU_gz = Omega_gz / DEGPSEC;
 	Last_Angle_gx = Omega_gx;       //储存上一次角速度数据
 	Last_Omega_gy = Omega_gy;
 
-	//*********************************** 四元数解算 ***********************************
-	IMUupdate(Omega_gx * 0.0174533f, Omega_gy * 0.0174533f, IMU_gz * 0.0174533f, Angle_ax, Angle_ay, Angle_az);
+	/*四元数解算*/
 	//姿态解算，精度0.1度
-	//发送到遥控器
-	//	TxBuf[0]=(AngleX+900)/0xff; // 数值是 48~1752 = 0-360度
-	//	TxBuf[1]=(AngleX+900)%0xff;	// 数值是 48~1752 = 0-360度
-	//	TxBuf[2]=(AngleY+900)/0xff;	// 数值是 48~1752 = 0-360度
-	//	TxBuf[3]=(AngleY+900)%0xff;	// 数值是 48~1752 = 0-360度
+	IMUupdate(Omega_gx * DEG2RAD, Omega_gy * DEG2RAD, IMU_gz * DEG2RAD, Angle_ax, Angle_ay, Angle_az);
 
-	/****飞控失联判断 自动降落算法*********************/
+	/*飞控失联判断 自动降落算法*/
 	//接收遥控器发来的不断更新数据 判断联机通讯是否正常
 	LostControlProtect();
 	/*姿态角失控保护*/
 	DangerMotionProtect();
 
-	//****以下是飞行控制算法************************************
+	/*飞行控制算法*/
 	PIDcontrolX();
 	PIDcontrolY();
 	PIDcontrolZ();
-	//****将速度参数加载至PWM模块*******************************
+	/*将速度参数加载至PWM模块*/
 	//速度参数控制，防止超过PWM参数范围0-1000（X型有效）
 	PWMoutput();
 

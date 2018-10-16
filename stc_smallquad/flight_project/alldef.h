@@ -58,6 +58,9 @@ sbit KATX = P3 ^ 1; //排针接口 TXD
 
 #define	MATH_PI_F				3.14159265f
 #define MATH_180_PI_10			572.957795f		//10*180/pi
+#define DEG2RAD					0.0174533f		//角度转弧度
+#define RAD2DEG					57.324841f 		//弧度转角度
+#define DEGPSEC					65.5f			//1度/s
 #define	NAV_PARA_EST_KP			2.0f			//AHRS递推
 #define	NAV_PARA_EST_KI			0.001f			//AHRS递推
 #define NAV_PARA_EST_KD			0.001f			//AHRS递推
