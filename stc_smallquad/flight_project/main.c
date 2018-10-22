@@ -194,7 +194,7 @@ void Flight(void) interrupt 1
 	/*接收15字节数据*/
 	ReceiveRC_Data(RxBuf, 15);
 
-
+	/*获取惯导数据*/
 	Read_MPU6050(IMUdata); //直接读取MPU6050陀螺仪和加速度的数据包
 
 	Angle_ax = RCLowPassFilter_ax(((int *)&IMUdata)[0], RC_KALMAN_Q, RC_KALMAN_R);  //低通滤波，见文档解释
