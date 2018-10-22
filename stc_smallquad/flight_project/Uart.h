@@ -14,15 +14,16 @@ extern bit busy;
  * @param baud 波特率
  * @param fosc 主频
  */
-void UartInit(unsigned int baud,unsigned int fosc);
+void UartInit(unsigned long baud,unsigned long fosc);
 /**
  * 向串口发送一个字节
  *
  * @author KingBoy (2018/10/15)
  *
  * @param dat 待发送字节
+ * @param flag 1为发送字符串
  */
-void UartSendByte(BYTE dat);
+void UartSendByte(BYTE dat, BYTE flag);
 /**
  * 发送字符串
  *

@@ -73,7 +73,7 @@ void main(void)
 	Delay(100); //延时一会 1S
 
 	TimerInit(); //初始化定时器
-	UartInit(BAUD,FOSC); //初始化串口
+	UartInit(BAUD, FOSC); //初始化串口
 	Delay(100);   //延时一会 1S
 	/*默认值初始化*/
 	rc_throttle = 0;   //初始化油门变量
@@ -100,6 +100,17 @@ void main(void)
 		/*控制指令接收正确则缓存，否则丢弃*/
 		if (MAC_calc(RxBuf, 10, RxBuf[10]) == 0)
 		{
+#if 1
+			for (i = 0; i < 10; i++)
+			{
+				UartSendByte((RxBuf[i] & 0xf0) >> 4, 1);
+				UartSendByte(RxBuf[i] & 0x0f, 1);
+			}
+			UartSendByte(0x0d, 0);
+			UartSendByte(0x0a, 0);
+			//UartSendStr("\r\n");
+			//Delay(300);     //延时一会
+#endif
 			RCnum = RxBuf[0];                         //接收 失联变量
 			LockState = RxBuf[1];                       //接收 命令值 1=上锁  5=解锁
 			rc_throttle = RxBuf[2] * 0xff + RxBuf[3];   //接收 油门变量
@@ -128,12 +139,7 @@ void main(void)
 		//ADC电压低压检测自停保护功能 后期开发
 		ADC_CONTR
 #endif
-#if 1
-		for (i = 0; i < 10; i++)
-		{
-			UartSendByte(RxBuf[i]);
-		}
-#endif
+
 	}
 }
 
@@ -238,13 +244,13 @@ void Flight(void) interrupt 1
 
 void Uart(void) interrupt 4 using 1
 {
-	if(RI)
+	while(RI)
 	{
 		RI = 0;
 		P0 = SBUF;
 		P22 = RB8;
 	}
-	if(TI)
+	while(TI)
 	{
 		TI = 0;
 		busy = 0;
