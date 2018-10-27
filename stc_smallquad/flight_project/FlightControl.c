@@ -7,12 +7,12 @@
 void PIDcontrolX(void)
 {
 	//************** MPU6050 X轴指向 **************************
-	delta_rc_x = ((float)rc_Roll - 128) * 2; //得到 横滚数据变量
-	AngleErr_X = -AngleXest - delta_rc_x + rcAngle_X_offset * 5; //
+	delta_rc[0] = ((float)rc_Roll - 128) * 2; //得到 横滚数据变量
+	AngleErr[0] = -AngleXest - delta_rc[0] + rcAngle_X_offset * 5; //
 															 //	Ax =-AngleX+a_x*5;
 	if (Ctl_throttle > 20)
 	{
-		integAngleErr_X += AngleErr_X;   //外环积分(油门小于某个值时不积分)
+		integAngleErr_X += AngleErr[0];   //外环积分(油门小于某个值时不积分)
 	}
 	else
 	{
@@ -28,12 +28,12 @@ void PIDcontrolX(void)
 		integAngleErr_X = -INTEG_ANGLE_ERR_MAX;  //积分限幅
 	}
 
-	PID_P = (long)AngleErr_X * CTL_PARA_PID_ANGLEY_P;
+	PID_P = (long)AngleErr[0] * CTL_PARA_PID_ANGLEY_P;
 	PID_I = ((long)integAngleErr_X * CTL_PARA_PID_ANGLEX_I) >> 15;
 	PID_D = ((Omega_gy + Last_Omega_gy) / 2) * CTL_PARA_PID_ANGLEX_D;
 	PID_Output = (PID_P + PID_I + PID_D + 5) / 10;  //外环PID
 
-	LastAngleErr_X = AngleErr_X;
+	LastAngleErr_X = AngleErr[0];
 	OmegaErr_X = PID_Output - Omega_gy;      //外环 -   陀螺仪Y轴
 
 	if (Ctl_throttle > 20)
@@ -78,12 +78,12 @@ void PIDcontrolX(void)
 void PIDcontrolY(void)
 {
 	//**************MPU6050 Y轴指向**************************************************
-	delta_rc_y = ((float)rc_Pitch - 128) * 2; //得到 俯仰数据变量
-	AngleErr_Y = -AngleYest - delta_rc_y - rcAngle_Y_offset * 5;
+	delta_rc[1] = ((float)rc_Pitch - 128) * 2; //得到 俯仰数据变量
+	AngleErr[1] = -AngleYest - delta_rc[1] - rcAngle_Y_offset * 5;
 	//	Ay  =-AngleY-a_y*5;
 	if (Ctl_throttle > 20)
 	{
-		integAngleErr_Y += AngleErr_Y;               //外环积分(油门小于某个值时不积分)
+		integAngleErr_Y += AngleErr[1];               //外环积分(油门小于某个值时不积分)
 	}
 	else
 	{
@@ -99,12 +99,12 @@ void PIDcontrolY(void)
 		integAngleErr_Y = -INTEG_ANGLE_ERR_MAX;  //积分限幅
 	}
 
-	PID_P = (long)AngleErr_Y * CTL_PARA_PID_ANGLEY_P;
+	PID_P = (long)AngleErr[1] * CTL_PARA_PID_ANGLEY_P;
 	PID_I = ((long)integAngleErr_Y * CTL_PARA_PID_ANGLEY_I) >> 15;
 	PID_D = ((Omega_gx + Last_Angle_gx) / 2) * CTL_PARA_PID_ANGLEY_D;
 	PID_Output = (PID_P + PID_I + PID_D + 5) / 10; //外环PID，“+5”为了四舍五入?
 
-	LastAngleErr_Y = AngleErr_Y;
+	LastAngleErr_Y = AngleErr[1];
 	OmegaErr_Y = PID_Output - Omega_gx;
 
 	if (Ctl_throttle > 20)
@@ -149,10 +149,10 @@ void PIDcontrolY(void)
 void PIDcontrolZ(void)
 {
 	//************** MPU6050 Z轴指向 *****************************
-	delta_rc_z = -Omega_gz + ((float)rc_Yaw - 128) * 65 + rcAngle_Z_offset * 20; //得到 航向数据变量 操作量
+	delta_rc[2] = -Omega_gz + ((float)rc_Yaw - 128) * 65 + rcAngle_Z_offset * 20; //得到 航向数据变量 操作量
 	if (Ctl_throttle > 20)
 	{
-		integAngleErr_Z += delta_rc_z;
+		integAngleErr_Z += delta_rc[2];
 	}
 	else
 	{
@@ -166,12 +166,12 @@ void PIDcontrolZ(void)
 	{
 		integAngleErr_Z = -50000;    //积分限幅
 	}
-	PID_P = ((long)delta_rc_z) * CTL_PARA_PID_ANGLEZ_P;
+	PID_P = ((long)delta_rc[2]) * CTL_PARA_PID_ANGLEZ_P;
 	PID_I = ((long)integAngleErr_Z * CTL_PARA_PID_ANGLEZ_I) >> 15;
-	PID_D = ((long)delta_rc_z - LastAngle_Z) * CTL_PARA_PID_ANGLEZ_D;
+	PID_D = ((long)delta_rc[2] - LastAngle_Z) * CTL_PARA_PID_ANGLEZ_D;
 	PID_Output = (PID_P + PID_I + PID_D) >> 6;
 
-	LastAngle_Z = delta_rc_z;
+	LastAngle_Z = delta_rc[2];
 	speed0 = speed0 + PID_Output;
 	speed1 = speed1 - PID_Output;
 	speed3 = speed3 - PID_Output;

@@ -75,14 +75,14 @@ float xdata LastAngleErr_Y = 0;				//角度更新
 float xdata LastOmegaErr_X = 0;				//角速度更新
 float xdata LastOmegaErr_Y = 0;				//角速度更新
 
-float xdata AngleErr_X = 0, AngleErr_Y = 0, AngleErr_Z = 0;		//加入遥控器控制量后的角度
+float xdata AngleErr[3]={0};				//[x,y,z]加入遥控器控制量后的角度 Z方向未用到
+
 int xdata OmegaErr_X = 0, OmegaErr_Y = 0;				//加入遥控器控制量后的角速度
 //long xdata g_x_aver = 0;				//没用到？
 //long xdata g_y_aver = 0;				//没用到？
 //long xdata g_z_aver = 0;				//没用到？
-int delta_rc_x = 0;						//暂不确定，待更新
-int delta_rc_y = 0;						//暂不确定，待更新
-int delta_rc_z = 0;						//暂不确定，待更新
+int delta_rc[3] = {0};					//[x,y,z]暂不确定，待更新
+
 long idata PID_P;						//PID计算临时缓存值
 long idata PID_I;						//PID计算临时缓存值
 long idata PID_D;						//PID计算临时缓存值

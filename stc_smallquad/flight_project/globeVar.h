@@ -75,14 +75,14 @@ extern float xdata LastAngleErr_Y;//角度更新
 extern float xdata LastOmegaErr_X;//角速度更新
 extern float xdata LastOmegaErr_Y;//角速度更新
 
-extern float xdata AngleErr_X, AngleErr_Y, AngleErr_Z;//加入遥控器控制量后的角度
+extern float xdata AngleErr[3];		//[x,y,z]加入遥控器控制量后的角度 Z未用到
+
 extern int xdata OmegaErr_X, OmegaErr_Y;//加入遥控器控制量后的角速度
 //extern long xdata g_x_aver;//没用到？
 //extern long xdata g_y_aver;//没用到？
 //extern long xdata g_z_aver;//没用到？
-extern int delta_rc_x;//暂不确定，待更新
-extern int delta_rc_y;//暂不确定，待更新
-extern int delta_rc_z;//暂不确定，待更新
+extern int delta_rc[3] = {0};					//[x,y,z] 暂不确定，待更新
+
 extern long idata PID_P;//暂不确定，待更新
 extern long idata PID_I;//暂不确定，待更新
 extern long idata PID_D;//暂不确定，待更新
