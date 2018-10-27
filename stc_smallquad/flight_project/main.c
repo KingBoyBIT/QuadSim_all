@@ -200,20 +200,20 @@ void Flight(void) interrupt 1
 	/*获取惯导数据*/
 	Read_MPU6050(IMUdata); //直接读取MPU6050陀螺仪和加速度的数据包
 
-	Angle_ax = RCLowPassFilter_ax(((int *)&IMUdata)[0], RC_KALMAN_Q, RC_KALMAN_R);  //低通滤波，见文档解释
-	Angle_ay = RCLowPassFilter_ay(((int *)&IMUdata)[1], RC_KALMAN_Q, RC_KALMAN_R);
-	Angle_az = RCLowPassFilter_az(((int *)&IMUdata)[2], RC_KALMAN_Q, RC_KALMAN_R);
+	Angle_a[0] = RCLowPassFilter_ax(((int *)&IMUdata)[0], RC_KALMAN_Q, RC_KALMAN_R);  //低通滤波，见文档解释
+	Angle_a[1] = RCLowPassFilter_ay(((int *)&IMUdata)[1], RC_KALMAN_Q, RC_KALMAN_R);
+	Angle_a[2] = RCLowPassFilter_az(((int *)&IMUdata)[2], RC_KALMAN_Q, RC_KALMAN_R);
 
-	Omega_gx = ((float)(((int *)&IMUdata)[4])) / DEGPSEC;   //陀螺仪处理	结果单位是 +-度
-	Omega_gy = ((float)(((int *)&IMUdata)[5])) / DEGPSEC;   //陀螺仪量程 +-500度/S, 1度/秒 对应读数 65.536
-	Omega_gz = RCLowPassFilter_gyroz(((int *)&IMUdata)[6], Q15(0.2), Q15(0.8));
-	IMU_gz = Omega_gz / DEGPSEC;
-	Last_Angle_gx = Omega_gx;       //储存上一次角速度数据
-	Last_Omega_gy = Omega_gy;
+	Omega_g[0] = ((float)(((int *)&IMUdata)[4])) / DEGPSEC;   //陀螺仪处理	结果单位是 +-度
+	Omega_g[1] = ((float)(((int *)&IMUdata)[5])) / DEGPSEC;   //陀螺仪量程 +-500度/S, 1度/秒 对应读数 65.536
+	Omega_g[2] = RCLowPassFilter_gyroz(((int *)&IMUdata)[6], Q15(0.2), Q15(0.8));
+	IMU_gz = Omega_g[2] / DEGPSEC;
+	Last_Angle_gx = Omega_g[0];       //储存上一次角速度数据
+	Last_Omega_gy = Omega_g[1];
 
 	/*四元数解算*/
 	//姿态解算，精度0.1度
-	IMUupdate(Omega_gx * DEG2RAD, Omega_gy * DEG2RAD, IMU_gz * DEG2RAD, Angle_ax, Angle_ay, Angle_az);
+	IMUupdate(Omega_g[0] * DEG2RAD, Omega_g[1] * DEG2RAD, IMU_gz * DEG2RAD, Angle_a[0], Angle_a[1], Angle_a[2]);
 
 	/*飞控失联判断 自动降落算法*/
 	//接收遥控器发来的不断更新数据 判断联机通讯是否正常

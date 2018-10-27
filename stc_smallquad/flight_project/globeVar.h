@@ -29,12 +29,9 @@ extern float IMU_gz;//定义未知
 extern double Gyro_y;//Y轴陀螺仪数据暂存
 extern double Gyro_x;//X轴陀螺仪数据暂存
 extern double Gyro_z;//Z轴陀螺仪数据暂存
-extern int xdata Angle_ax;//由加速度计算的加速度(弧度制)
-extern int xdata Angle_ay;//由加速度计算的加速度(弧度制)
-extern int xdata Angle_az;//由加速度计算的加速度(弧度制)
-extern int idata Omega_gy;//由角速度计算的角速率(角度制)
-extern int idata Omega_gx;//由角速度计算的角速率(角度制)
-extern int idata Omega_gz;//由角速度计算的角速率(角度制)
+extern int xdata Angle_a[3];//由加速度计算的加速度(弧度制)
+extern int idata Omega_g[3];				//由角速度计算的角速率(角度制)
+
 
 extern int data AngleXest, AngleYest;//四元数解算出的欧拉角  ,AngleZ=0
 
@@ -81,7 +78,7 @@ extern int xdata OmegaErr_X, OmegaErr_Y;//加入遥控器控制量后的角速度
 //extern long xdata g_x_aver;//没用到？
 //extern long xdata g_y_aver;//没用到？
 //extern long xdata g_z_aver;//没用到？
-extern int delta_rc[3] = {0};					//[x,y,z] 暂不确定，待更新
+extern int delta_rc[3];					//[x,y,z] 暂不确定，待更新
 
 extern long idata PID_P;//暂不确定，待更新
 extern long idata PID_I;//暂不确定，待更新

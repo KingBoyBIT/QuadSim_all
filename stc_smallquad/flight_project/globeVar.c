@@ -28,12 +28,9 @@ float IMU_gz;//定义未知
 double Gyro_y = 0;						//Y轴陀螺仪数据暂存
 double Gyro_x = 0;						//X轴陀螺仪数据暂存
 double Gyro_z = 0;						//Z轴陀螺仪数据暂存
-int xdata Angle_ax = 0;					//由加速度计算的加速度(弧度制)
-int xdata Angle_ay = 0;					//由加速度计算的加速度(弧度制)
-int xdata Angle_az = 0;					//由加速度计算的加速度(弧度制)
-int idata Omega_gy = 0;					//由角速度计算的角速率(角度制)
-int idata Omega_gx = 0;					//由角速度计算的角速率(角度制)
-int idata Omega_gz = 0;					//由角速度计算的角速率(角度制)
+int xdata Angle_a[3] = {0};				//由加速度计算的加速度(弧度制)[x,y,z]
+int idata Omega_g[3] = {0};				//由角速度计算的角速率(角度制)[x,y,z]
+
 
 int data AngleXest = 0, AngleYest = 0;		//四元数解算出的欧拉角  ,AngleZ=0
 
@@ -78,7 +75,7 @@ float xdata LastOmegaErr_Y = 0;				//角速度更新
 float xdata AngleErr[3]={0};				//[x,y,z]加入遥控器控制量后的角度 Z方向未用到
 
 int xdata OmegaErr_X = 0, OmegaErr_Y = 0;				//加入遥控器控制量后的角速度
-//long xdata g_x_aver = 0;				//没用到？
+//long xdata g_x_aver = 0;				//没用到？可能是陀螺仪平滑滤波
 //long xdata g_y_aver = 0;				//没用到？
 //long xdata g_z_aver = 0;				//没用到？
 int delta_rc[3] = {0};					//[x,y,z]暂不确定，待更新
