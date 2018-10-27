@@ -101,15 +101,18 @@ void main(void)
 		if (MAC_calc(RxBuf, 10, RxBuf[10]) == 0)
 		{
 #if 1
-			for (i = 0; i < 10; i++)
+			if (RCnum != RxBuf[0])
 			{
-				UartSendByte((RxBuf[i] & 0xf0) >> 4, 1);
-				UartSendByte(RxBuf[i] & 0x0f, 1);
+				for (i = 0; i < 10; i++)
+				{
+					UartSendByte((RxBuf[i] & 0xf0) >> 4, 1);
+					UartSendByte(RxBuf[i] & 0x0f, 1);
+				}
+				UartSendByte(0x0d, 0);
+				UartSendByte(0x0a, 0);
+				//UartSendStr("\r\n");
+				//Delay(300);     //延时一会
 			}
-			UartSendByte(0x0d, 0);
-			UartSendByte(0x0a, 0);
-			//UartSendStr("\r\n");
-			//Delay(300);     //延时一会
 #endif
 			RCnum = RxBuf[0];                         //接收 失联变量
 			LockState = RxBuf[1];                       //接收 命令值 1=上锁  5=解锁
@@ -236,7 +239,7 @@ void Flight(void) interrupt 1
 		Set_PWM(1000, 1000, 1000, 1000);
 	} //关闭PWM（1000为关）
 
-#if 1
+#if 0
 	//调试强行关闭电机
 	Set_PWM(1000, 1000, 1000, 1000);
 #endif
