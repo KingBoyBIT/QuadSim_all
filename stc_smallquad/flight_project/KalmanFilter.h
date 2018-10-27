@@ -1,8 +1,20 @@
 #ifndef _KalmanFilter_H_
 #define _KalmanFilter_H_
-int RCLowPassFilter_ax(int ResrcData, int ProcessNiose_Q, int MeasureNoise_R);
-int RCLowPassFilter_ay(int ResrcData, int ProcessNiose_Q, int MeasureNoise_R);
-int RCLowPassFilter_az(int ResrcData, int ProcessNiose_Q, int MeasureNoise_R);
+/**
+ * Ò»½×¿¨¶ûÂüÂË²¨£¬ÍË»¯Îª¹ßĞÔÂË²¨
+ *
+ * @author KingBoy (2018/10/27)
+ *
+ * @param FilteredData Êä³ö£ºÂË²¨ºóµÄÖµ
+ * @param ResrcData ÊäÈë£º´ıÂË²¨Öµ
+ * @param Q ÊäÈë£ºÔëÉù¾ØÕóQ
+ * @param R ÊäÈë£ºÔëÉù¾ØÕóR
+ * @param axis ÊäÈë£º0-x,1-y,2-z
+ *
+ * @return int 0-success
+ */
+int RCLowPassFilter_Acc(int *FilteredData, int ResrcData, int Q, int R, unsigned char axis);
+
 //int KalmanFilter_gyrox( int ResrcData,int ProcessNiose_Q,int MeasureNoise_R);
 //int KalmanFilter_gyroy( int ResrcData,int ProcessNiose_Q,int MeasureNoise_R);
 int RCLowPassFilter_gz(int ResrcData, int ProcessNiose_Q, int MeasureNoise_R);

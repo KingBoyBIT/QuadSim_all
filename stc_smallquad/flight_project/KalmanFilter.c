@@ -4,82 +4,77 @@
 /**
  * 一阶卡尔曼滤波，退化为惯性滤波
  *
- * @author KingBoy (2018/5/20)
+ * @author KingBoy (2018/10/27)
  *
- * @param ResrcData
- * @param ProcessNiose_Q
- * @param MeasureNoise_R
+ * @param FilteredData 输出：滤波后的值
+ * @param ResrcData 输入：待滤波值
+ * @param Q 输入：噪声矩阵Q
+ * @param R 输入：噪声矩阵R
+ * @param axis 输入：0-x,1-y,2-z
  *
- * @return int
+ * @return int 0-success
  */
-int RCLowPassFilter_ax(int ResrcData, int ProcessNiose_Q, int MeasureNoise_R)
+int RCLowPassFilter_Acc(int *FilteredData, int ResrcData, int Q, int R, unsigned char axis)
 {
-	int R = MeasureNoise_R;
-	int Q = ProcessNiose_Q;
-	static int ax_last;//static 函数退出后变量值保留
-	int ax_mid = ax_last;
-	long ax_now;
+	static int ax_last; //static 函数退出后变量值保留
 	static int ax_p_last;
-	long p_mid;
-	long p_now;
-	int kg;
-	long temp;
-	ax_mid = ax_last;
-	p_mid = ax_p_last + Q;
-	temp = p_mid << 15;
-	kg = (temp / ((long)p_mid + R));
-	ax_now = ax_mid + (((long)kg * (ResrcData - ax_mid)) >> 15);
-	p_now = ((long)p_mid * (32768 - kg)) >> 15;
-	ax_p_last = p_now;
-	ax_last = ax_now;
-	return (ax_now);
-}
-int RCLowPassFilter_ay(int ResrcData, int ProcessNiose_Q, int MeasureNoise_R)
-{
-	int R = MeasureNoise_R;
-	int Q = ProcessNiose_Q;
-	static int ay_last;
-	int ay_mid = ay_last;
-	long ay_now;
+	static int ay_last; //static 函数退出后变量值保留
 	static int ay_p_last;
-	long p_mid;
-	long p_now;
-	int kg;
-	long temp;
-	ay_mid = ay_last;
-	p_mid = ay_p_last + Q;
-	temp = p_mid << 15;
-	kg = (temp / ((long)p_mid + R));
-
-	ay_now = ay_mid + (((long)kg * (ResrcData - ay_mid)) >> 15);
-	p_now = ((long)p_mid * (32768 - kg)) >> 15;
-	ay_p_last = p_now;
-	ay_last = ay_now;
-	return (ay_now);
-}
-int RCLowPassFilter_az(int ResrcData, int ProcessNiose_Q, int MeasureNoise_R)
-{
-	int R = MeasureNoise_R;
-	int Q = ProcessNiose_Q;
-	static int az_last;
-	int az_mid = az_last;
-	long az_now;
+	static int az_last; //static 函数退出后变量值保留
 	static int az_p_last;
+
+	int a_mid;
+	long a_now;
+
 	long p_mid;
 	long p_now;
 	int kg;
 	long temp;
-	az_mid = az_last;
-	p_mid = az_p_last + Q;
+	switch (axis)
+	{
+		case 0:
+			a_mid = ax_last;
+			p_mid = ax_p_last + Q;
+			break;
+		case 1:
+			a_mid = ay_last;
+			p_mid = ay_p_last + Q;
+			break;
+		case 2:
+			a_mid = az_last;
+			p_mid = az_p_last + Q;
+			break;
+		default:
+			return (-1);
+	}
 	temp = p_mid << 15;
 	kg = (temp / ((long)p_mid + R));
-
-	az_now = az_mid + (((long)kg * (ResrcData - az_mid)) >> 15);
+	a_now = a_mid + (((long)kg * (ResrcData - a_mid)) >> 15);
 	p_now = ((long)p_mid * (32768 - kg)) >> 15;
-	az_p_last = p_now;
-	az_last = az_now;
-	return (az_now);
+	switch (axis)
+	{
+		case 0:
+			ax_p_last = p_now;
+			ax_last = a_now;
+			break;
+		case 1:
+			ay_p_last = p_now;
+			ay_last = a_now;
+			break;
+		case 2:
+			az_p_last = p_now;
+			az_last = a_now;
+			break;
+		default:
+			return (-1);
+	}
+	*FilteredData = a_now;
+
+	return (0);
 }
+
+
+
 #if 0
 int KalmanFilter_gyrox(int ResrcData, int ProcessNiose_Q, int MeasureNoise_R)
 {

@@ -1,6 +1,7 @@
 #include "globeVar.h"
 
 /*全局变量定义*/
+int ret = 0;
 unsigned char data RxBuf[20];		//设置接收长度，最高为32字节
 
 /*飞控控制参数*/
@@ -25,9 +26,11 @@ char rcAngle_Z_offset = 0;
 float IMU_gz;//定义未知
 
 /*MPU-6050寄存器数据参数*/
-double Gyro_y = 0;						//Y轴陀螺仪数据暂存
-double Gyro_x = 0;						//X轴陀螺仪数据暂存
-double Gyro_z = 0;						//Z轴陀螺仪数据暂存
+#if 0
+double Gyro_y = 0;                      //Y轴陀螺仪数据暂存
+double Gyro_x = 0;                      //X轴陀螺仪数据暂存
+double Gyro_z = 0;                      //Z轴陀螺仪数据暂存
+#endif
 int xdata Angle_a[3] = {0};				//由加速度计算的加速度(弧度制)[x,y,z]
 int idata Omega_g[3] = {0};				//由角速度计算的角速率(角度制)[x,y,z]
 
@@ -35,7 +38,7 @@ int idata Omega_g[3] = {0};				//由角速度计算的角速率(角度制)[x,y,z]
 int data AngleXest = 0, AngleYest = 0;		//四元数解算出的欧拉角  ,AngleZ=0
 
 /*acc16*3+tempreture16+gyro16*3直接读取MPU6050陀螺仪和加速度的数据包（用掉14字节）*/
-unsigned char data IMUdata[16];				
+unsigned char data IMUdata[16];
  
 
 /*飞行控制变量*/

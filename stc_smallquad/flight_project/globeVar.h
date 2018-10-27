@@ -2,6 +2,7 @@
 #define _GLOBE_VAR_H_
 
 /*全局变量定义*/
+extern int ret;
 extern unsigned char data RxBuf[20]; //设置接收长度，最高为32字节
 
 /*飞控控制参数*/
@@ -26,9 +27,11 @@ extern char rcAngle_Z_offset;
 extern float IMU_gz;//定义未知
 
 /*MPU-6050寄存器数据参数*/
-extern double Gyro_y;//Y轴陀螺仪数据暂存
-extern double Gyro_x;//X轴陀螺仪数据暂存
-extern double Gyro_z;//Z轴陀螺仪数据暂存
+#if 0
+extern double Gyro_y; //Y轴陀螺仪数据暂存
+extern double Gyro_x; //X轴陀螺仪数据暂存
+extern double Gyro_z; //Z轴陀螺仪数据暂存
+#endif
 extern int xdata Angle_a[3];//由加速度计算的加速度(弧度制)
 extern int idata Omega_g[3];				//由角速度计算的角速率(角度制)
 

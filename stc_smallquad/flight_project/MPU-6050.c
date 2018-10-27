@@ -211,11 +211,11 @@ void Read_MPU6050(unsigned char *buf)
 {
 	unsigned char i;
 
-	I2C_Start();                  //起始信号
-	I2C_SendByte(SLAVE_ADDR);   //发送设备地址+写信号
-	I2C_SendByte(ACCEL_XOUT_H);    //内部寄存器地址，
-	I2C_Start();                   //起始信号
-	I2C_SendByte(SLAVE_ADDR + 1);  //发送设备地址+读信号
+	I2C_Start();					//起始信号
+	I2C_SendByte(SLAVE_ADDR);		//发送设备地址+写信号
+	I2C_SendByte(ACCEL_XOUT_H);		//内部寄存器地址，
+	I2C_Start();					//起始信号
+	I2C_SendByte(SLAVE_ADDR + 1);	//发送设备地址+读信号
 	for (i = 0; i < 13; i++)
 	{
 		buf[i] = I2C_RecvByte();    //读出寄存器数据

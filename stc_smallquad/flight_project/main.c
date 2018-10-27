@@ -199,10 +199,22 @@ void Flight(void) interrupt 1
 
 	/*获取惯导数据*/
 	Read_MPU6050(IMUdata); //直接读取MPU6050陀螺仪和加速度的数据包
-
-	Angle_a[0] = RCLowPassFilter_ax(((int *)&IMUdata)[0], RC_KALMAN_Q, RC_KALMAN_R);  //低通滤波，见文档解释
-	Angle_a[1] = RCLowPassFilter_ay(((int *)&IMUdata)[1], RC_KALMAN_Q, RC_KALMAN_R);
-	Angle_a[2] = RCLowPassFilter_az(((int *)&IMUdata)[2], RC_KALMAN_Q, RC_KALMAN_R);
+	/************************************
+	 * 在keil C51或者iar for c8051编译器下:
+	 * int 占2个字节 范围:-32768~+32767
+	 * long 占4个字节 范围:-2147483648~+2147483647
+	 * float 占4个字节 范围:-3.40E+38 ~ +3.40E+38
+	 * double 占8个字节 范围:-1.79E+308 ~ +1.79E+308 
+	 * 因此 RCLowPassFilter_Acc中int16用int表示，而不是short
+	 * ***********************************/
+	ret = 0;//低通滤波，见文档解释
+	ret |= RCLowPassFilter_Acc(Angle_a+0, ((int *)&IMUdata)[0], RC_KALMAN_Q, RC_KALMAN_R, 0);
+	ret |= RCLowPassFilter_Acc(Angle_a+1, ((int *)&IMUdata)[1], RC_KALMAN_Q, RC_KALMAN_R, 1);
+	ret |= RCLowPassFilter_Acc(Angle_a+2, ((int *)&IMUdata)[2], RC_KALMAN_Q, RC_KALMAN_R, 2);
+	if (ret != 0) //这里的设计可能还有些不合理，如果滤波失败就退出了
+	{
+		return;
+	}
 
 	Omega_g[0] = ((float)(((int *)&IMUdata)[4])) / DEGPSEC;   //陀螺仪处理	结果单位是 +-度
 	Omega_g[1] = ((float)(((int *)&IMUdata)[5])) / DEGPSEC;   //陀螺仪量程 +-500度/S, 1度/秒 对应读数 65.536
