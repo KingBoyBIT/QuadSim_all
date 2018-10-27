@@ -128,7 +128,7 @@ int KalmanFilter_gyroy(int ResrcData, int ProcessNiose_Q, int MeasureNoise_R)
 	return (gyroy_now);
 }
 #endif
-int RCLowPassFilter_gyroz(int ResrcData, int ProcessNiose_Q, int MeasureNoise_R)
+int RCLowPassFilter_gz(int ResrcData, int ProcessNiose_Q, int MeasureNoise_R)
 {
 	int R = MeasureNoise_R;
 	int Q = ProcessNiose_Q;

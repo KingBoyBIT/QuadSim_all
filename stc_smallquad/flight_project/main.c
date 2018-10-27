@@ -206,7 +206,7 @@ void Flight(void) interrupt 1
 
 	Omega_g[0] = ((float)(((int *)&IMUdata)[4])) / DEGPSEC;   //陀螺仪处理	结果单位是 +-度
 	Omega_g[1] = ((float)(((int *)&IMUdata)[5])) / DEGPSEC;   //陀螺仪量程 +-500度/S, 1度/秒 对应读数 65.536
-	Omega_g[2] = RCLowPassFilter_gyroz(((int *)&IMUdata)[6], Q15(0.2), Q15(0.8));
+	Omega_g[2] = RCLowPassFilter_gz(((int *)&IMUdata)[6], Q15(0.2), Q15(0.8));
 	IMU_gz = Omega_g[2] / DEGPSEC;
 	Last_Angle_gx = Omega_g[0];       //储存上一次角速度数据
 	Last_Omega_gy = Omega_g[1];
