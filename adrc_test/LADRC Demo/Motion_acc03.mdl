@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.30"
+    ComputedModelVersion    "1.31"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -118,9 +118,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "KingBoy"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Oct 31 21:02:17 2018"
-  RTWModifiedTimeStamp	  462920530
-  ModelVersionFormat	  "1.%<AutoIncrement:30>"
+  LastModifiedDate	  "Wed Oct 31 21:02:38 2018"
+  RTWModifiedTimeStamp	  462920545
+  ModelVersionFormat	  "1.%<AutoIncrement:31>"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
   LibraryLinkDisplay	  "none"
@@ -1330,7 +1330,7 @@ Model {
       Name		      "performance"
       SID		      "17"
       Ports		      [2]
-      Position		      [810, 66, 840, 99]
+      Position		      [810, 1, 840, 34]
       ZOrder		      -17
       ScopeSpecificationString "Simulink.scopes.TimeScopeBlockCfg('CurrentConfiguration', extmgr.ConfigurationSet(extm"
       "gr.Configuration('Core','General UI',true),extmgr.Configuration('Core','Source UI',true),extmgr.Configuration('S"
@@ -1584,7 +1584,7 @@ Model {
       Variant		      off
       System {
 	Name			"trap profile"
-	Location		[360, 52, 850, 521]
+	Location		[128, 52, 1224, 854]
 	Open			off
 	PortBlocksUseCompactNotation off
 	ModelBrowserVisibility	off
@@ -1597,7 +1597,7 @@ Model {
 	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
 	TiledPageScale		1
 	ShowPageBoundaries	off
-	ZoomFactor		"100"
+	ZoomFactor		"125"
 	Block {
 	  BlockType		  Integrator
 	  Name			  "Integrator3"
@@ -1788,7 +1788,7 @@ Model {
 	}
 	Branch {
 	  ZOrder		  11
-	  Points		  [0, -30; 265, 0; 0, 55]
+	  Points		  [0, -40]
 	  DstBlock		  "performance"
 	  DstPort		  2
 	}
@@ -1888,7 +1888,7 @@ Model {
       }
       Branch {
 	ZOrder			32
-	Points			[0, -25; 585, 0; 0, 65]
+	Points			[0, -25]
 	DstBlock		"performance"
 	DstPort			1
       }
