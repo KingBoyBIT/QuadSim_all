@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.29"
+    ComputedModelVersion    "1.30"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -84,7 +84,7 @@ Model {
 	LoadSaveID		"0"
 	Extents			[1042.0, 623.0]
 	ZoomFactor		[1.0]
-	Offset			[-155.63280939037548, -34.184586371985631]
+	Offset			[-28.756634523599246, -222.07299605371145]
       }
       Object {
 	$PropName		"DockComponentsInfo"
@@ -118,9 +118,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "KingBoy"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Oct 31 21:00:23 2018"
-  RTWModifiedTimeStamp	  462920361
-  ModelVersionFormat	  "1.%<AutoIncrement:29>"
+  LastModifiedDate	  "Wed Oct 31 21:02:17 2018"
+  RTWModifiedTimeStamp	  462920530
+  ModelVersionFormat	  "1.%<AutoIncrement:30>"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
   LibraryLinkDisplay	  "none"
@@ -1275,7 +1275,7 @@ Model {
       Name		      "Sum1"
       SID		      "10"
       Ports		      [2, 1]
-      Position		      [125, 40, 145, 60]
+      Position		      [125, 25, 145, 45]
       ZOrder		      -10
       IconShape		      "round"
       Inputs		      "|+-"
@@ -1285,7 +1285,7 @@ Model {
       Name		      "Sum3"
       SID		      "11"
       Ports		      [3, 1]
-      Position		      [295, 41, 320, 89]
+      Position		      [295, 21, 320, 109]
       ZOrder		      -11
       Inputs		      "++-"
     }
@@ -1311,7 +1311,7 @@ Model {
       BlockType		      Gain
       Name		      "kd"
       SID		      "15"
-      Position		      [185, 85, 225, 125]
+      Position		      [185, 70, 225, 110]
       ZOrder		      -15
       ShowName		      off
       Gain		      "kd"
@@ -1320,7 +1320,7 @@ Model {
       BlockType		      Gain
       Name		      "kp"
       SID		      "16"
-      Position		      [185, 30, 225, 70]
+      Position		      [185, 15, 225, 55]
       ZOrder		      -16
       ShowName		      off
       Gain		      "kp"
@@ -1578,7 +1578,7 @@ Model {
       Name		      "trap profile"
       SID		      "32"
       Ports		      [0, 1]
-      Position		      [50, 24, 80, 76]
+      Position		      [50, 9, 80, 61]
       ZOrder		      -19
       RequestExecContextInheritance off
       Variant		      off
@@ -1745,7 +1745,7 @@ Model {
       ZOrder		      2
       SrcBlock		      "kd"
       SrcPort		      1
-      Points		      [35, 0; 0, -40]
+      Points		      [35, 0; 0, -25]
       DstBlock		      "Sum3"
       DstPort		      2
     }
@@ -1818,7 +1818,7 @@ Model {
       ZOrder		      14
       SrcBlock		      "Demux1"
       SrcPort		      3
-      Points		      [0, 50; -345, 0; 0, -290]
+      Points		      [0, 50; -345, 0; 0, -275]
       DstBlock		      "Sum3"
       DstPort		      3
     }
@@ -1826,7 +1826,7 @@ Model {
       ZOrder		      17
       SrcBlock		      "Demux1"
       SrcPort		      2
-      Points		      [15, 0; 0, 79; -475, 0; 0, -279]
+      Points		      [15, 0; 0, 79; -475, 0; 0, -294]
       DstBlock		      "kd"
       DstPort		      1
     }
@@ -1888,7 +1888,7 @@ Model {
       }
       Branch {
 	ZOrder			32
-	Points			[0, -40; 585, 0; 0, 65]
+	Points			[0, -25; 585, 0; 0, 65]
 	DstBlock		"performance"
 	DstPort			1
       }
