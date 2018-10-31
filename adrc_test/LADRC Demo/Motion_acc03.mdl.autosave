@@ -47,6 +47,7 @@ Model {
   MinMaxOverflowArchiveMode "Overwrite"
   FPTRunName		  "Run 1"
   MaxMDLFileLineLength	  120
+  InitFcn		  "clear,clc,close all\ntuning"
   LastSavedArchitecture	  "win64"
   Object {
     $PropName		    "BdWindowsInfo"
@@ -118,7 +119,7 @@ Model {
   LastModifiedBy	  "KingBoy"
   ModifiedDateFormat	  "%<Auto>"
   LastModifiedDate	  "Wed Oct 31 20:52:54 2018"
-  RTWModifiedTimeStamp	  462919962
+  RTWModifiedTimeStamp	  462920017
   ModelVersionFormat	  "1.%<AutoIncrement:26>"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1699,10 +1700,12 @@ Model {
 	  Ports			  [0, 1]
 	  Position		  [25, 40, 55, 70]
 	  ZOrder		  -2
+	  LibraryVersion	  "1.401"
 	  SourceBlock		  "simulink/Sources/Ramp"
 	  SourceType		  "Ramp"
 	  SourceProductName	  "Simulink"
 	  SourceProductBaseCode	  "SL"
+	  ContentPreviewEnabled	  off
 	  slope			  "1"
 	  start			  "0"
 	  X0			  "0"
