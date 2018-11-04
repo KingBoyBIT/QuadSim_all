@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.34"
+    ComputedModelVersion    "1.35"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -118,9 +118,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "KingBoy"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Nov 02 22:59:05 2018"
-  RTWModifiedTimeStamp	  463100339
-  ModelVersionFormat	  "1.%<AutoIncrement:34>"
+  LastModifiedDate	  "Sun Nov 04 23:55:03 2018"
+  RTWModifiedTimeStamp	  463276498
+  ModelVersionFormat	  "1.%<AutoIncrement:35>"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
   LibraryLinkDisplay	  "none"
@@ -1428,7 +1428,7 @@ Model {
       Name		      "performance"
       SID		      "17"
       Ports		      [2]
-      Position		      [640, -54, 670, -21]
+      Position		      [640, -69, 670, -36]
       ZOrder		      -17
       ScopeSpecificationString "Simulink.scopes.TimeScopeBlockCfg('CurrentConfiguration', extmgr.ConfigurationSet(extm"
       "gr.Configuration('Core','General UI',true),extmgr.Configuration('Core','Source UI',true),extmgr.Configuration('S"
@@ -1930,7 +1930,7 @@ Model {
 	}
 	Branch {
 	  ZOrder		  11
-	  Points		  [0, -95]
+	  Points		  [0, -110]
 	  DstBlock		  "performance"
 	  DstPort		  2
 	}
@@ -2023,7 +2023,7 @@ Model {
       }
       Branch {
 	ZOrder			32
-	Points			[0, -50]
+	Points			[0, -65]
 	DstBlock		"performance"
 	DstPort			1
       }
