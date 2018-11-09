@@ -11,7 +11,7 @@ typedef unsigned short u16;
 #define BAUD 115200 //串口波特率
 #define FOSC 24000000L //系统频率
 
-#define ADRC_CONTROL 1
+#define ADRC_CONTROL 0
 //==================================================//
 //  LED灯 引脚定义
 //==================================================//
