@@ -10,7 +10,7 @@
 #include "alldef.h"
 #include "FlightControl.h"
 #include "Uart.h"
-
+#include "adrc.h"
 
 
 /**
@@ -84,7 +84,9 @@ void main(void)
 	rcAngle_X_offset = 0;        //横滚手动值
 	rcAngle_Y_offset = 0;        //俯仰手动值
 	rcAngle_Z_offset = 0;        //航向手动值
-
+#if ADRC_CONTROL
+	ADRC_Init(&ADRC_Pitch_Controller,&ADRC_Roll_Controller);
+#endif
 	//Flight();//编译后2个警告是说 飞控函数中断量 不在主函数里【不需要纠结】
 	ES = 1; //使能串口1中断
 	EA = 1;  //开总中断

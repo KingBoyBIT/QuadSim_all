@@ -408,6 +408,11 @@
               <FileType>1</FileType>
               <FilePath>.\Uart.c</FilePath>
             </File>
+            <File>
+              <FileName>adrc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\adrc.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

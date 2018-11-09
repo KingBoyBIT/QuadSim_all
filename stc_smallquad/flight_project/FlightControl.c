@@ -1,6 +1,7 @@
 #include "FlightControl.h"
 #include "globeVar.h"
 #include "alldef.h"
+#include "adrc.h"
 //#include <STC15W4K60S4.h>	//STC15W4K48S4 专用头文件
 //#include <intrins.h>		//STC特殊命令符号声明
 
@@ -60,9 +61,13 @@ void PIDcontrolX(void)
 	PID_I = ((long)integOmegaErr_X * CTL_PARA_PID_OMEGA_X_I) >> 15;
 	PID_D = ((long)OmegaErr_X - LastOmegaErr_X) * CTL_PARA_PID_OMEGA_X_D;
 	PID_Output = PID_P + PID_I + PID_D;   //内环PID
-
+#if ADRC_CONTROL
+	ADRC_Control(&ADRC_Pitch_Controller,delta_rc[0],AngleXest);
+	PID_Output = ADRC_Pitch_Controller.u;
+#endif
 	LastOmegaErr_X = OmegaErr_X;
 
+	
 	if (PID_Output > 1000)
 	{
 		PID_Output = 1000;  //输出量限幅
