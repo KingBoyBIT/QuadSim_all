@@ -6,6 +6,7 @@
 "KalmanFilter.obj",
 "globeVar.obj",
 "FlightControl.obj",
-"Uart.obj" 
+"Uart.obj",
+"adrc.obj" 
 TO "stc15_quad" 
 RAMSIZE(256) 
