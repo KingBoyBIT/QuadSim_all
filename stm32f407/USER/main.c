@@ -13,8 +13,9 @@ int main(void)
 	uart_init(115200);
 	delay_init(84);
 	
-  while(1){
-    printf("t:%d\r\n",t);
+	while(1)
+	{
+		printf("t:%d\r\n",t);
 		delay_ms(500);
 		t++;
 	}
