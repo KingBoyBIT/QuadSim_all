@@ -1,0 +1,239 @@
+<!DOCTYPE Project SYSTEM "http://www.slickedit.com/dtd/vse/10.0/vpj.dtd">
+<Project
+	Version="10.0"
+	VendorName="SlickEdit"
+	TemplateName="Other C/C++"
+	WorkingDir=".">
+	<Config
+		Name="Debug"
+		Type="cpp"
+		DebugCallbackName="gdb"
+		OutputFile="%bdSTM32F4"
+		CompilerConfigName="Latest Version">
+		<Menu>
+			<Target
+				Name="Compile"
+				MenuCaption="&amp;Compile"
+				CaptureOutputWith="ProcessBuffer"
+				OutputExts="*.o"
+				SaveOption="SaveCurrent"
+				RunFromDir="%rw">
+				<Exec CmdLine='cc -c -g %i %defd -o "%bd%n.o" "%f"'/>
+			</Target>
+			<Target
+				Name="Link"
+				MenuCaption="&amp;Link">
+				<Exec CmdLine='cc -g -o "%o" %f %libs'/>
+			</Target>
+			<Target
+				Name="Build"
+				MenuCaption="&amp;Build"
+				CaptureOutputWith="ProcessBuffer"
+				SaveOption="SaveWorkspaceFiles"
+				RunFromDir="%rw">
+				<Exec CmdLine='"%(VSLICKBIN1)vsbuild" build "%w" "%r"'/>
+			</Target>
+			<Target
+				Name="Rebuild"
+				MenuCaption="&amp;Rebuild"
+				CaptureOutputWith="ProcessBuffer"
+				SaveOption="SaveWorkspaceFiles"
+				RunFromDir="%rw">
+				<Exec CmdLine='"%(VSLICKBIN1)vsbuild" rebuild "%w" "%r"'/>
+			</Target>
+			<Target
+				Name="Debug"
+				MenuCaption="&amp;Debug"
+				SaveOption="SaveNone"
+				BuildFirst="1"
+				CaptureOutputWith="ProcessBuffer"
+				RunFromDir="%rw">
+				<Exec CmdLine='vsdebugio -prog "%o"'/>
+			</Target>
+			<Target
+				Name="Execute"
+				MenuCaption="E&amp;xecute"
+				SaveOption="SaveNone"
+				BuildFirst="1"
+				CaptureOutputWith="ProcessBuffer"
+				RunFromDir="%rw">
+				<Exec CmdLine='"%o"'/>
+			</Target>
+		</Menu>
+	</Config>
+	<Config
+		Name="Release"
+		Type="cpp"
+		DebugCallbackName="gdb"
+		OutputFile="%bdSTM32F4"
+		CompilerConfigName="Latest Version">
+		<Menu>
+			<Target
+				Name="Compile"
+				MenuCaption="&amp;Compile"
+				CaptureOutputWith="ProcessBuffer"
+				SaveOption="SaveCurrent"
+				OutputExts="*.o"
+				RunFromDir="%rw">
+				<Exec CmdLine='cc -c -O %i %defd -o "%bd%n.o" "%f"'/>
+			</Target>
+			<Target
+				Name="Link"
+				MenuCaption="&amp;Link">
+				<Exec CmdLine='cc -O -o "%o" %f %libs'/>
+			</Target>
+			<Target
+				Name="Build"
+				MenuCaption="&amp;Build"
+				CaptureOutputWith="ProcessBuffer"
+				SaveOption="SaveWorkspaceFiles"
+				RunFromDir="%rw">
+				<Exec CmdLine='"%(VSLICKBIN1)vsbuild" build "%w" "%r"'/>
+			</Target>
+			<Target
+				Name="Rebuild"
+				MenuCaption="&amp;Rebuild"
+				CaptureOutputWith="ProcessBuffer"
+				SaveOption="SaveWorkspaceFiles"
+				RunFromDir="%rw">
+				<Exec CmdLine='"%(VSLICKBIN1)vsbuild" rebuild "%w" "%r"'/>
+			</Target>
+			<Target
+				Name="Debug"
+				MenuCaption="&amp;Debug"
+				SaveOption="SaveNone"
+				BuildFirst="1"
+				CaptureOutputWith="ProcessBuffer"
+				RunFromDir="%rw">
+				<Exec CmdLine='vsdebugio -prog "%o"'/>
+			</Target>
+			<Target
+				Name="Execute"
+				MenuCaption="E&amp;xecute"
+				SaveOption="SaveNone"
+				BuildFirst="1"
+				CaptureOutputWith="ProcessBuffer"
+				RunFromDir="%rw">
+				<Exec CmdLine='"%o"'/>
+			</Target>
+		</Menu>
+	</Config>
+	<Rules Name="Compile">
+		<Rule
+			InputExts="*.s"
+			OutputExts="*.o"
+			LinkObject="1">
+			<Exec CmdLine='as -o "%bd%n.o" "%f"'/>
+		</Rule>
+	</Rules>
+	<Files>
+		<Folder
+			Name="Source Files"
+			Filters="*.c;*.C;*.cc;*.cpp;*.cp;*.cxx;*.c++;*.prg;*.pas;*.dpr;*.asm;*.s;*.bas;*.java;*.cs;*.sc;*.scala;*.e;*.cob;*.html;*.rc;*.tcl;*.py;*.pl;*.d;*.m;*.mm;*.go;*.groovy;*.gsh"
+			GUID="{C6266594-B212-40B2-C3F9-F1B9B12C5B87}">
+			<F N="../SYSTEM/delay/delay.c"/>
+			<F N="../USER/main.c"/>
+			<F N="../FWLIB/src/misc.c"/>
+			<F N="../FWLIB/src/stm32f4xx_adc.c"/>
+			<F N="../FWLIB/src/stm32f4xx_can.c"/>
+			<F N="../FWLIB/src/stm32f4xx_crc.c"/>
+			<F N="../FWLIB/src/stm32f4xx_cryp.c"/>
+			<F N="../FWLIB/src/stm32f4xx_cryp_aes.c"/>
+			<F N="../FWLIB/src/stm32f4xx_cryp_des.c"/>
+			<F N="../FWLIB/src/stm32f4xx_cryp_tdes.c"/>
+			<F N="../FWLIB/src/stm32f4xx_dac.c"/>
+			<F N="../FWLIB/src/stm32f4xx_dbgmcu.c"/>
+			<F N="../FWLIB/src/stm32f4xx_dcmi.c"/>
+			<F N="../FWLIB/src/stm32f4xx_dma.c"/>
+			<F N="../FWLIB/src/stm32f4xx_dma2d.c"/>
+			<F N="../FWLIB/src/stm32f4xx_exti.c"/>
+			<F N="../FWLIB/src/stm32f4xx_flash.c"/>
+			<F N="../FWLIB/src/stm32f4xx_flash_ramfunc.c"/>
+			<F N="../FWLIB/src/stm32f4xx_fmc.c"/>
+			<F N="../FWLIB/src/stm32f4xx_fsmc.c"/>
+			<F N="../FWLIB/src/stm32f4xx_gpio.c"/>
+			<F N="../FWLIB/src/stm32f4xx_hash.c"/>
+			<F N="../FWLIB/src/stm32f4xx_hash_md5.c"/>
+			<F N="../FWLIB/src/stm32f4xx_hash_sha1.c"/>
+			<F N="../FWLIB/src/stm32f4xx_i2c.c"/>
+			<F N="../USER/stm32f4xx_it.c"/>
+			<F N="../FWLIB/src/stm32f4xx_iwdg.c"/>
+			<F N="../FWLIB/src/stm32f4xx_ltdc.c"/>
+			<F N="../FWLIB/src/stm32f4xx_pwr.c"/>
+			<F N="../FWLIB/src/stm32f4xx_rcc.c"/>
+			<F N="../FWLIB/src/stm32f4xx_rng.c"/>
+			<F N="../FWLIB/src/stm32f4xx_rtc.c"/>
+			<F N="../FWLIB/src/stm32f4xx_sai.c"/>
+			<F N="../FWLIB/src/stm32f4xx_sdio.c"/>
+			<F N="../FWLIB/src/stm32f4xx_spi.c"/>
+			<F N="../FWLIB/src/stm32f4xx_syscfg.c"/>
+			<F N="../FWLIB/src/stm32f4xx_tim.c"/>
+			<F N="../FWLIB/src/stm32f4xx_usart.c"/>
+			<F N="../FWLIB/src/stm32f4xx_wwdg.c"/>
+			<F N="../SYSTEM/sys/sys.c"/>
+			<F N="../USER/system_stm32f4xx.c"/>
+			<F N="../USER/RTE/Device/STM32F407ZETx/system_stm32f4xx.c"/>
+			<F N="../HARDWARE/TFT1_8.c"/>
+			<F N="../SYSTEM/usart/usart.c"/>
+		</Folder>
+		<Folder
+			Name="Header Files"
+			Filters="*.h;*.H;*.hh;*.hpp;*.hxx;*.h++;*.inc;*.sh;*.cpy;*.if"
+			GUID="{DBB688B6-4676-41B0-8DEA-54E207D8E1AD}">
+			<F N="../CORE/core_cm4.h"/>
+			<F N="../CORE/core_cm4_simd.h"/>
+			<F N="../SYSTEM/delay/delay.h"/>
+			<F N="../FWLIB/inc/misc.h"/>
+			<F N="../USER/RTE/RTE_Components.h"/>
+			<F N="../USER/stm32f4xx.h"/>
+			<F N="../FWLIB/inc/stm32f4xx_adc.h"/>
+			<F N="../FWLIB/inc/stm32f4xx_can.h"/>
+			<F N="../USER/stm32f4xx_conf.h"/>
+			<F N="../FWLIB/inc/stm32f4xx_crc.h"/>
+			<F N="../FWLIB/inc/stm32f4xx_cryp.h"/>
+			<F N="../FWLIB/inc/stm32f4xx_dac.h"/>
+			<F N="../FWLIB/inc/stm32f4xx_dbgmcu.h"/>
+			<F N="../FWLIB/inc/stm32f4xx_dcmi.h"/>
+			<F N="../FWLIB/inc/stm32f4xx_dma.h"/>
+			<F N="../FWLIB/inc/stm32f4xx_dma2d.h"/>
+			<F N="../FWLIB/inc/stm32f4xx_exti.h"/>
+			<F N="../FWLIB/inc/stm32f4xx_flash.h"/>
+			<F N="../FWLIB/inc/stm32f4xx_flash_ramfunc.h"/>
+			<F N="../FWLIB/inc/stm32f4xx_fmc.h"/>
+			<F N="../FWLIB/inc/stm32f4xx_fsmc.h"/>
+			<F N="../FWLIB/inc/stm32f4xx_gpio.h"/>
+			<F N="../FWLIB/inc/stm32f4xx_hash.h"/>
+			<F N="../FWLIB/inc/stm32f4xx_i2c.h"/>
+			<F N="../USER/stm32f4xx_it.h"/>
+			<F N="../FWLIB/inc/stm32f4xx_iwdg.h"/>
+			<F N="../FWLIB/inc/stm32f4xx_ltdc.h"/>
+			<F N="../FWLIB/inc/stm32f4xx_pwr.h"/>
+			<F N="../FWLIB/inc/stm32f4xx_rcc.h"/>
+			<F N="../FWLIB/inc/stm32f4xx_rng.h"/>
+			<F N="../FWLIB/inc/stm32f4xx_rtc.h"/>
+			<F N="../FWLIB/inc/stm32f4xx_sai.h"/>
+			<F N="../FWLIB/inc/stm32f4xx_sdio.h"/>
+			<F N="../FWLIB/inc/stm32f4xx_spi.h"/>
+			<F N="../FWLIB/inc/stm32f4xx_syscfg.h"/>
+			<F N="../FWLIB/inc/stm32f4xx_tim.h"/>
+			<F N="../FWLIB/inc/stm32f4xx_usart.h"/>
+			<F N="../FWLIB/inc/stm32f4xx_wwdg.h"/>
+			<F N="../SYSTEM/sys/sys.h"/>
+			<F N="../USER/system_stm32f4xx.h"/>
+			<F N="../HARDWARE/TFT1_8.h"/>
+			<F N="../SYSTEM/usart/usart.h"/>
+		</Folder>
+		<Folder
+			Name="Resource Files"
+			Filters="*.ico;*.cur;*.dlg"
+			GUID="{7502E682-3B8A-4DF3-EB87-E415A28399BB}"/>
+		<Folder
+			Name="Bitmaps"
+			Filters="*.bmp"
+			GUID="{D95F2D70-39E4-4B93-25AB-E35F4D8EAAB0}"/>
+		<Folder
+			Name="Other Files"
+			Filters=""
+			GUID="{8E8B9EFE-1B0F-4343-0005-CB02A353F48C}"/>
+	</Files>
+</Project>

@@ -41,6 +41,7 @@
 "..\obj\delay.o"
 "..\obj\sys.o"
 "..\obj\usart.o"
+"..\obj\tft1_8.o"
 --strict --scatter "..\OBJ\SystemDev.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

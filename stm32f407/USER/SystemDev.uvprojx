@@ -646,6 +646,21 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>HARDWARE</GroupName>
+          <Files>
+            <File>
+              <FileName>TFT1_8.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\TFT1_8.c</FilePath>
+            </File>
+            <File>
+              <FileName>TFT1_8.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\HARDWARE\TFT1_8.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>::CMSIS</GroupName>
         </Group>
       </Groups>

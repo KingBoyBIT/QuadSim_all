@@ -22,11 +22,14 @@ Dialog DLL:      TCM.DLL V1.14.4.0
  
 <h2>Project:</h2>
 D:\Codes\githubcodes\QuadSim_all\stm32f407\USER\SystemDev.uvprojx
-Project File Date:  01/27/2019
+Project File Date:  03/02/2019
 
 <h2>Output:</h2>
 Rebuild target 'SystemDev'
 compiling main.c...
+../HARDWARE/TFT1_8.h(18): warning:  #1295-D: Deprecated declaration LCD_MM - give arg types
+  void LCD_MM();
+main.c: 1 warning, 0 errors
 compiling stm32f4xx_it.c...
 compiling system_stm32f4xx.c...
 assembling startup_stm32f40_41xxx.s...
@@ -68,10 +71,18 @@ compiling stm32f4xx_wwdg.c...
 compiling delay.c...
 compiling sys.c...
 compiling usart.c...
+compiling TFT1_8.c...
+..\HARDWARE\TFT1_8.h(18): warning:  #1295-D: Deprecated declaration LCD_MM - give arg types
+  void LCD_MM();
+..\HARDWARE\TFT1_8.c(226): warning:  #223-D: function "delay_ms" declared implicitly
+        delay_ms(200);
+..\HARDWARE\TFT1_8.c(233): warning:  #223-D: function "delay_us" declared implicitly
+      delay_us(1000);
+..\HARDWARE\TFT1_8.c: 3 warnings, 0 errors
 linking...
-Program Size: Code=5696 RO-data=424 RW-data=48 ZI-data=1832  
+Program Size: Code=6806 RO-data=3626 RW-data=48 ZI-data=1832  
 FromELF: creating hex file...
-"..\OBJ\SystemDev.axf" - 0 Error(s), 0 Warning(s).
+"..\OBJ\SystemDev.axf" - 0 Error(s), 4 Warning(s).
 
 <h2>Software Packages used:</h2>
 
