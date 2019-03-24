@@ -1,17 +1,16 @@
-#include <STC15W4K60S4.h>	//STC15W4K48S4 专用头文件
-#include <intrins.h>		//STC特殊命令符号声明
-#include <MPU-6050.H>		//MPU6050数字陀螺仪
-#include <STC15W4K-PWM.H>	//单片机所有IO口初始化-PWM口初始化
-#include <LT8910.h>			//无线2.4G模块
+#include <STC15W4K60S4.h> //STC15W4K48S4 专用头文件
+#include <intrins.h>	  //STC特殊命令符号声明
+#include <MPU-6050.H>	 //MPU6050数字陀螺仪
+#include <STC15W4K-PWM.H> //单片机所有IO口初始化-PWM口初始化
+#include <LT8910.h>		  //无线2.4G模块
 //#include <STC15W4K-ADC.h>	//STC15W4K-ADC	硬件ADC模数转换
-#include <IMU.H>			//IMU飞行核心算法
-#include <KalmanFilter.h>  //卡尔曼滤波算法
+#include <IMU.H>		  //IMU飞行核心算法
+#include <KalmanFilter.h> //卡尔曼滤波算法
 #include "globeVar.h"
 #include "alldef.h"
 #include "FlightControl.h"
 #include "Uart.h"
 #include "adrc.h"
-
 
 /**
  * 定时器0 初始化函数
@@ -46,50 +45,50 @@ void main(void)
 {
 	unsigned char i = 0;
 
-	PWM_Init(); //初始化PWM
+	PWM_Init();						 //初始化PWM
 	Set_PWM(1000, 1000, 1000, 1000); //关闭电机
 	LedR = 0;
 	LedG = 1;
-	LedB = 1; //3颗状态灯
+	LedB = 1;   //3颗状态灯
 	Delay(500); //延时一会
 	LedR = 1;
 	LedG = 0;
-	LedB = 1; //3颗状态灯
+	LedB = 1;   //3颗状态灯
 	Delay(500); //延时一会
 	LedR = 1;
 	LedG = 1;
-	LedB = 0; //3颗状态灯
+	LedB = 0;   //3颗状态灯
 	Delay(500); //延时一会
 	LedR = 1;
 	LedG = 1;
-	LedB = 1; //3颗状态灯
-	Delay(10);    // 延时 100
+	LedB = 1;  //3颗状态灯
+	Delay(10); // 延时 100
 
 	//InitADC();/ADC模数转换 初始化（后期开发）
-	Delay(10); //延时 100
+	Delay(10);		//延时 100
 	Init_MPU6050(); //初始化MPU-6050
-	Delay(10); //延时 100
-	LT8910_Init(); //无线2.4G模块初始化
-	Delay(100); //延时一会 1S
+	Delay(10);		//延时 100
+	LT8910_Init();  //无线2.4G模块初始化
+	Delay(100);		//延时一会 1S
 
-	TimerInit(); //初始化定时器
+	TimerInit();		  //初始化定时器
 	UartInit(BAUD, FOSC); //初始化串口
-	Delay(100);   //延时一会 1S
+	Delay(100);			  //延时一会 1S
 	/*默认值初始化*/
-	rc_throttle = 0;   //初始化油门变量
-	rc_Yaw = 128;      //初始化航向变量
-	rc_Roll = 128;     //初始化横滚变量
-	rc_Pitch = 128;    //初始化俯仰变量
-	LedB = 0;       //开启绿灯
-	rcAngle_X_offset = 0;        //横滚手动值
-	rcAngle_Y_offset = 0;        //俯仰手动值
-	rcAngle_Z_offset = 0;        //航向手动值
+	rc_throttle = 0;	  //初始化油门变量
+	rc_Yaw = 128;		  //初始化航向变量
+	rc_Roll = 128;		  //初始化横滚变量
+	rc_Pitch = 128;		  //初始化俯仰变量
+	LedB = 0;			  //开启绿灯
+	rcAngle_X_offset = 0; //横滚手动值
+	rcAngle_Y_offset = 0; //俯仰手动值
+	rcAngle_Z_offset = 0; //航向手动值
 #if ADRC_CONTROL
-	ADRC_Init(&ADRC_Pitch_Controller,&ADRC_Roll_Controller);
+	ADRC_Init(&ADRC_Pitch_Controller, &ADRC_Roll_Controller);
 #endif
 	//Flight();//编译后2个警告是说 飞控函数中断量 不在主函数里【不需要纠结】
 	ES = 1; //使能串口1中断
-	EA = 1;  //开总中断
+	EA = 1; //开总中断
 	UartSendStr("Uart Test !\r\n");
 	while (1)
 	{
@@ -116,35 +115,34 @@ void main(void)
 				//Delay(300);     //延时一会
 			}
 #endif
-			RCnum = RxBuf[0];                         //接收 失联变量
-			LockState = RxBuf[1];                       //接收 命令值 1=上锁  5=解锁
-			rc_throttle = RxBuf[2] * 0xff + RxBuf[3];   //接收 油门变量
-			rc_Yaw = RxBuf[4];                          //接收 航向摇杆参数
-			rc_Roll = RxBuf[5];                         //接收 横滚摇杆参数
-			rc_Pitch = RxBuf[6];                        //接收 俯仰摇杆参数
-			rcAngle_X_offset = RxBuf[7] - 128;          //读出 横滚微调变量
-			rcAngle_Y_offset = RxBuf[8] - 128;          //读出 俯仰微调变量
-			rcAngle_Z_offset = RxBuf[9] - 128;          //读出 航向微调变量
-			LedG = 1;                                   //LED 绿灯灭
+			RCnum = RxBuf[0];						  //接收 失联变量
+			LockState = RxBuf[1];					  //接收 命令值 1=上锁  5=解锁
+			rc_throttle = RxBuf[2] * 0xff + RxBuf[3]; //接收 油门变量
+			rc_Yaw = RxBuf[4];						  //接收 航向摇杆参数
+			rc_Roll = RxBuf[5];						  //接收 横滚摇杆参数
+			rc_Pitch = RxBuf[6];					  //接收 俯仰摇杆参数
+			rcAngle_X_offset = RxBuf[7] - 128;		  //读出 横滚微调变量
+			rcAngle_Y_offset = RxBuf[8] - 128;		  //读出 俯仰微调变量
+			rcAngle_Z_offset = RxBuf[9] - 128;		  //读出 航向微调变量
+			LedG = 1;								  //LED 绿灯灭
 		}
 		else
 		{
-			LedG = 0;                               //LED 绿灯亮
+			LedG = 0; //LED 绿灯亮
 		}
-		if (LockState == RC_LOCK)                         //遥控命令 上锁
+		if (LockState == RC_LOCK) //遥控命令 上锁
 		{
-			LedB = 1;                               //航向灯 蓝色灭
+			LedB = 1; //航向灯 蓝色灭
 		}
-		if (LockState == RC_UNLOCK)                         //遥控命令 解锁
+		if (LockState == RC_UNLOCK) //遥控命令 解锁
 		{
-			LedB = 0;                               //航向灯 蓝色亮
+			LedB = 0; //航向灯 蓝色亮
 		}
-		Delay(3);     //延时一会
+		Delay(3); //延时一会
 #if 0
 		//ADC电压低压检测自停保护功能 后期开发
 		ADC_CONTR
 #endif
-
 	}
 }
 
@@ -158,13 +156,13 @@ void main(void)
  */
 void TimerInit(void)
 {
-	AUXR &= 0x7F;   //定时器时钟12T模式
-	TMOD &= 0xF0;   //设置定时器模式
-	TL0 = 0x40;     //设置定时初值
-	TH0 = 0xA2;     //设置定时初值
-	TF0 = 0;        //清除TF0标志
-	TR0 = 1;        //定时器0开始计时
-	ET0 = 1;        //Timer0 Interrupt Enable
+	AUXR &= 0x7F; //定时器时钟12T模式
+	TMOD &= 0xF0; //设置定时器模式
+	TL0 = 0x40;   //设置定时初值
+	TH0 = 0xA2;   //设置定时初值
+	TF0 = 0;	  //清除TF0标志
+	TR0 = 1;	  //定时器0开始计时
+	ET0 = 1;	  //Timer0 Interrupt Enable
 }
 /**
  * 时间延时 函数
@@ -209,20 +207,20 @@ void Flight(void) interrupt 1
 	 * double 占8个字节 范围:-1.79E+308 ~ +1.79E+308 
 	 * 因此 RCLowPassFilter_Acc中int16用int表示，而不是short
 	 * ***********************************/
-	ret = 0;//低通滤波，见文档解释
-	ret |= RCLowPassFilter_Acc(Angle_a+0, ((int *)&IMUdata)[0], RC_KALMAN_Q, RC_KALMAN_R, 0);
-	ret |= RCLowPassFilter_Acc(Angle_a+1, ((int *)&IMUdata)[1], RC_KALMAN_Q, RC_KALMAN_R, 1);
-	ret |= RCLowPassFilter_Acc(Angle_a+2, ((int *)&IMUdata)[2], RC_KALMAN_Q, RC_KALMAN_R, 2);
+	ret = 0; //低通滤波，见文档解释
+	ret |= RCLowPassFilter_Acc(Angle_a + 0, ((int *)&IMUdata)[0], RC_KALMAN_Q, RC_KALMAN_R, 0);
+	ret |= RCLowPassFilter_Acc(Angle_a + 1, ((int *)&IMUdata)[1], RC_KALMAN_Q, RC_KALMAN_R, 1);
+	ret |= RCLowPassFilter_Acc(Angle_a + 2, ((int *)&IMUdata)[2], RC_KALMAN_Q, RC_KALMAN_R, 2);
 	if (ret != 0) //这里的设计可能还有些不合理，如果滤波失败就退出了
 	{
 		return;
 	}
 
-	Omega_g[0] = ((float)(((int *)&IMUdata)[4])) / DEGPSEC;   //陀螺仪处理	结果单位是 +-度
-	Omega_g[1] = ((float)(((int *)&IMUdata)[5])) / DEGPSEC;   //陀螺仪量程 +-500度/S, 1度/秒 对应读数 65.536
+	Omega_g[0] = ((float)(((int *)&IMUdata)[4])) / DEGPSEC; //陀螺仪处理	结果单位是 +-度
+	Omega_g[1] = ((float)(((int *)&IMUdata)[5])) / DEGPSEC; //陀螺仪量程 +-500度/S, 1度/秒 对应读数 65.536
 	Omega_g[2] = RCLowPassFilter_gz(((int *)&IMUdata)[6], Q15(0.2), Q15(0.8));
 	IMU_gz = Omega_g[2] / DEGPSEC;
-	Last_Angle_gx = Omega_g[0];       //储存上一次角速度数据
+	Last_Angle_gx = Omega_g[0]; //储存上一次角速度数据
 	Last_Omega_gy = Omega_g[1];
 
 	/*四元数解算*/
@@ -261,13 +259,13 @@ void Flight(void) interrupt 1
 
 void Uart(void) interrupt 4 using 1
 {
-	while(RI)
+	while (RI)
 	{
 		RI = 0;
 		P0 = SBUF;
 		P22 = RB8;
 	}
-	while(TI)
+	while (TI)
 	{
 		TI = 0;
 		busy = 0;
