@@ -13,7 +13,7 @@
 #include "adrc.h"
 
 /**
- * 定时器0 初始化函数
+ * @brief 定时器0 初始化函数
  * 12毫秒@24.000MHz
  *
  * @author KingBoy (2018/5/19)
@@ -22,7 +22,7 @@
  */
 void TimerInit(void);
 /**
- * 时间延时 函数
+ * @brief 时间延时 函数
  *
  * @author KingBoy (2018/5/20)
  *
@@ -31,7 +31,7 @@ void TimerInit(void);
 void Delay(unsigned int x);
 
 /**
- * 单片机采用STC15W4K48S4-增强型单片机（IPA需修改EEPROM代码）
+ * @brief 单片机采用STC15W4K48S4-增强型单片机（IPA需修改EEPROM代码）
  * 工作电压为：5V 晶振频率为：24M 无线通讯模块为：LT8910
  * 本程序中采用了MCU6050做姿态数据采集加PID算法给硬件4路PWM控制MOS管驱动空心杯电机
  * 注意：此程序只兼容：空心杯716电机与45MM专用正反桨（自己的电机或需修改PID参数）
