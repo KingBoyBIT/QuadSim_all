@@ -1,0 +1,94 @@
+%implements s6_b0_txg0g_SystemInitialize "C"
+
+%function SystemInitialize(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%<SLibInsertAsyncTaskInitializeCode(system)>
+%<SLibWriteMachineInitialize()>
+/* InitializeConditions for Integrator: '<S4>/Integrator' */
+memcpy(&saturateModel_X.Integrator_CSTATE[0], &saturateModel_P.state0[0], 12U * sizeof(real_T));
+/* InitializeConditions for Derivative: '<S1>/Derivative2' */
+saturateModel_DW.TimeStampA = %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>;
+saturateModel_DW.TimeStampB = %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>;
+/* InitializeConditions for Derivative: '<S1>/Derivative' */
+saturateModel_DW.TimeStampA_g = %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>;
+saturateModel_DW.TimeStampB_c = %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>;
+/* InitializeConditions for Derivative: '<S1>/Derivative1' */
+saturateModel_DW.TimeStampA_e = %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>;
+saturateModel_DW.TimeStampB_g = %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>;
+/* InitializeConditions for Derivative: '<S7>/Derivative2' */
+saturateModel_DW.TimeStampA_b = %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>;
+saturateModel_DW.TimeStampB_d = %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>;
+/* InitializeConditions for Derivative: '<S7>/Derivative1' */
+saturateModel_DW.TimeStampA_i = %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>;
+saturateModel_DW.TimeStampB_e = %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>;
+/* InitializeConditions for Derivative: '<S7>/Derivative7' */
+saturateModel_DW.TimeStampA_k = %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>;
+saturateModel_DW.TimeStampB_k = %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>;
+/* InitializeConditions for Integrator: '<S7>/Integrator1' incorporates:
+ *  Integrator: '<S8>/Integrator1'
+ */
+if (%<(LibIsFirstInitCond())>) {
+    saturateModel_X.Integrator1_CSTATE = 0.0;
+    saturateModel_X.Integrator1_CSTATE_j = 0.0;
+}
+saturateModel_DW.Integrator1_IWORK = 1;
+/* End of InitializeConditions for Integrator: '<S7>/Integrator1' */
+
+/* InitializeConditions for Derivative: '<S8>/Derivative2' */
+saturateModel_DW.TimeStampA_m = %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>;
+saturateModel_DW.TimeStampB_ch = %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>;
+/* InitializeConditions for Derivative: '<S8>/Derivative1' */
+saturateModel_DW.TimeStampA_g5 = %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>;
+saturateModel_DW.TimeStampB_g2 = %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>;
+/* InitializeConditions for Derivative: '<S8>/Derivative7' */
+saturateModel_DW.TimeStampA_ey = %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>;
+saturateModel_DW.TimeStampB_b = %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>;
+/* InitializeConditions for Integrator: '<S8>/Integrator1' */
+saturateModel_DW.Integrator1_IWORK_n = 1;
+/* InitializeConditions for Derivative: '<S9>/Derivative2' */
+saturateModel_DW.TimeStampA_bt = %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>;
+saturateModel_DW.TimeStampB_bw = %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>;
+/* InitializeConditions for Derivative: '<S9>/Derivative1' */
+saturateModel_DW.TimeStampA_i0 = %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>;
+saturateModel_DW.TimeStampB_a = %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>;
+/* InitializeConditions for Derivative: '<S9>/Derivative7' */
+saturateModel_DW.TimeStampA_h = %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>;
+saturateModel_DW.TimeStampB_p = %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>;
+/* InitializeConditions for Integrator: '<S9>/Integrator1' incorporates:
+ *  Integrator: '<S7>/Integrator'
+ */
+if (%<(LibIsFirstInitCond())>) {
+    saturateModel_X.Integrator1_CSTATE_d = 0.0;
+    saturateModel_X.Integrator_CSTATE_k = 0.0;
+}
+saturateModel_DW.Integrator1_IWORK_g = 1;
+/* End of InitializeConditions for Integrator: '<S9>/Integrator1' */
+
+/* InitializeConditions for Integrator: '<S7>/Integrator' */
+saturateModel_DW.Integrator_IWORK = 1;
+/* InitializeConditions for Integrator: '<S8>/Integrator' incorporates:
+ *  Integrator: '<S9>/Integrator'
+ */
+if (%<(LibIsFirstInitCond())>) {
+    saturateModel_X.Integrator_CSTATE_h = 0.0;
+    saturateModel_X.Integrator_CSTATE_n = 0.0;
+}
+saturateModel_DW.Integrator_IWORK_g = 1;
+/* End of InitializeConditions for Integrator: '<S8>/Integrator' */
+
+/* InitializeConditions for Integrator: '<S9>/Integrator' */
+saturateModel_DW.Integrator_IWORK_m = 1;
+%<SLibInsertInitPeriodicCStatesFcn(system)>
+%closefile cfgTxt
+%<cfgTxt>
+%endfunction
+%function SystemInitializeFcnProtoType(block, system) Output
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void SystemInitialize(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 1, fcnProtoType)>
+%endfunction

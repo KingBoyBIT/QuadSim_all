@@ -1,0 +1,67 @@
+%implements s6_b0_txg0g_Terminate "C"
+
+%function Terminate(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%assign tlcTerminateFcnOfS6B8 = OpaqueTLCBlockFcn("Terminate", 6, 8, 0, 6)
+%assign tlcTerminateFcnOfS6B9 = OpaqueTLCBlockFcn("Terminate", 6, 9, 0, 6)
+%assign tlcTerminateFcnOfS6B10 = OpaqueTLCBlockFcn("Terminate", 6, 10, 0, 6)
+%assign tlcTerminateFcnOfS6B11 = OpaqueTLCBlockFcn("Terminate", 6, 11, 0, 6)
+%assign tlcTerminateFcnOfS6B27 = OpaqueTLCBlockFcn("Terminate", 6, 27, 0, 6)
+%assign tlcTerminateFcnOfS6B30 = OpaqueTLCBlockFcn("Terminate", 6, 30, 0, 6)
+%assign tlcTerminateFcnOfS6B31 = OpaqueTLCBlockFcn("Terminate", 6, 31, 0, 6)
+%assign tlcTerminateFcnOfS6B32 = OpaqueTLCBlockFcn("Terminate", 6, 32, 0, 6)
+%assign tlcTerminateFcnOfS6B33 = OpaqueTLCBlockFcn("Terminate", 6, 33, 0, 6)
+%assign tlcTerminateFcnOfS6B34 = OpaqueTLCBlockFcn("Terminate", 6, 34, 0, 6)
+%if !WHITE_SPACE(tlcTerminateFcnOfS6B8)
+/* Terminate for ToWorkspace: '<S3>/To Workspace' */
+%<tlcTerminateFcnOfS6B8>\
+%endif
+%if !WHITE_SPACE(tlcTerminateFcnOfS6B9)
+/* Terminate for ToWorkspace: '<S3>/To Workspace1' */
+%<tlcTerminateFcnOfS6B9>\
+%endif
+%if !WHITE_SPACE(tlcTerminateFcnOfS6B10)
+/* Terminate for ToWorkspace: '<S3>/To Workspace2' */
+%<tlcTerminateFcnOfS6B10>\
+%endif
+%if !WHITE_SPACE(tlcTerminateFcnOfS6B11)
+/* Terminate for ToWorkspace: '<S3>/To Workspace3' */
+%<tlcTerminateFcnOfS6B11>\
+%endif
+%if !WHITE_SPACE(tlcTerminateFcnOfS6B27)
+/* Terminate for ToWorkspace: '<S2>/To Workspace' */
+%<tlcTerminateFcnOfS6B27>\
+%endif
+%if !WHITE_SPACE(tlcTerminateFcnOfS6B30)
+/* Terminate for ToWorkspace: '<S5>/To Workspace' */
+%<tlcTerminateFcnOfS6B30>\
+%endif
+%if !WHITE_SPACE(tlcTerminateFcnOfS6B31)
+/* Terminate for ToWorkspace: '<S5>/To Workspace1' */
+%<tlcTerminateFcnOfS6B31>\
+%endif
+%if !WHITE_SPACE(tlcTerminateFcnOfS6B32)
+/* Terminate for ToWorkspace: '<S5>/To Workspace2' */
+%<tlcTerminateFcnOfS6B32>\
+%endif
+%if !WHITE_SPACE(tlcTerminateFcnOfS6B33)
+/* Terminate for ToWorkspace: '<S5>/To Workspace3' */
+%<tlcTerminateFcnOfS6B33>\
+%endif
+%if !WHITE_SPACE(tlcTerminateFcnOfS6B34)
+/* Terminate for ToWorkspace: '<S5>/To Workspace4' */
+%<tlcTerminateFcnOfS6B34>\
+%endif
+%closefile cfgTxt
+%<cfgTxt>
+%endfunction
+%function TerminateFcnProtoType(block, system) Output
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Terminate(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 6, fcnProtoType)>
+%endfunction

@@ -1,0 +1,157 @@
+%implements s6_b0_txg0g_Start "C"
+
+%function Start(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%assign tlcStartFcnOfS6B6 = OpaqueTLCBlockFcn("Start", 6, 6, 0, 0)
+%assign tlcStartFcnOfS6B7 = OpaqueTLCBlockFcn("Start", 6, 7, 0, 0)
+%assign tlcStartFcnOfS6B8 = OpaqueTLCBlockFcn("Start", 6, 8, 0, 0)
+%assign tlcStartFcnOfS6B9 = OpaqueTLCBlockFcn("Start", 6, 9, 0, 0)
+%assign tlcStartFcnOfS6B10 = OpaqueTLCBlockFcn("Start", 6, 10, 0, 0)
+%assign tlcStartFcnOfS6B11 = OpaqueTLCBlockFcn("Start", 6, 11, 0, 0)
+%assign tlcStartFcnOfS6B12 = OpaqueTLCBlockFcn("Start", 6, 12, 0, 0)
+%assign tlcStartFcnOfS6B13 = OpaqueTLCBlockFcn("Start", 6, 13, 0, 0)
+%assign tlcStartFcnOfS6B14 = OpaqueTLCBlockFcn("Start", 6, 14, 0, 0)
+%assign tlcStartFcnOfS6B15 = OpaqueTLCBlockFcn("Start", 6, 15, 0, 0)
+%assign tlcStartFcnOfS6B16 = OpaqueTLCBlockFcn("Start", 6, 16, 0, 0)
+%assign tlcStartFcnOfS6B17 = OpaqueTLCBlockFcn("Start", 6, 17, 0, 0)
+%assign tlcStartFcnOfS6B18 = OpaqueTLCBlockFcn("Start", 6, 18, 0, 0)
+%assign tlcStartFcnOfS6B19 = OpaqueTLCBlockFcn("Start", 6, 19, 0, 0)
+%assign tlcStartFcnOfS6B20 = OpaqueTLCBlockFcn("Start", 6, 20, 0, 0)
+%assign tlcStartFcnOfS6B21 = OpaqueTLCBlockFcn("Start", 6, 21, 0, 0)
+%assign tlcStartFcnOfS6B22 = OpaqueTLCBlockFcn("Start", 6, 22, 0, 0)
+%assign tlcStartFcnOfS6B23 = OpaqueTLCBlockFcn("Start", 6, 23, 0, 0)
+%assign tlcStartFcnOfS6B24 = OpaqueTLCBlockFcn("Start", 6, 24, 0, 0)
+%assign tlcStartFcnOfS6B25 = OpaqueTLCBlockFcn("Start", 6, 25, 0, 0)
+%assign tlcStartFcnOfS6B26 = OpaqueTLCBlockFcn("Start", 6, 26, 0, 0)
+%assign tlcStartFcnOfS6B27 = OpaqueTLCBlockFcn("Start", 6, 27, 0, 0)
+%assign tlcStartFcnOfS6B28 = OpaqueTLCBlockFcn("Start", 6, 28, 0, 0)
+%assign tlcStartFcnOfS6B30 = OpaqueTLCBlockFcn("Start", 6, 30, 0, 0)
+%assign tlcStartFcnOfS6B31 = OpaqueTLCBlockFcn("Start", 6, 31, 0, 0)
+%assign tlcStartFcnOfS6B32 = OpaqueTLCBlockFcn("Start", 6, 32, 0, 0)
+%assign tlcStartFcnOfS6B33 = OpaqueTLCBlockFcn("Start", 6, 33, 0, 0)
+%assign tlcStartFcnOfS6B34 = OpaqueTLCBlockFcn("Start", 6, 34, 0, 0)
+%if !WHITE_SPACE(tlcStartFcnOfS6B6)
+/* Start for Scope: '<Root>/des' */
+%<tlcStartFcnOfS6B6>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B7)
+/* Start for Scope: '<S3>/Scope1' */
+%<tlcStartFcnOfS6B7>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B8)
+/* Start for ToWorkspace: '<S3>/To Workspace' */
+%<tlcStartFcnOfS6B8>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B9)
+/* Start for ToWorkspace: '<S3>/To Workspace1' */
+%<tlcStartFcnOfS6B9>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B10)
+/* Start for ToWorkspace: '<S3>/To Workspace2' */
+%<tlcStartFcnOfS6B10>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B11)
+/* Start for ToWorkspace: '<S3>/To Workspace3' */
+%<tlcStartFcnOfS6B11>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B12)
+/* Start for Scope: '<S6>/Scope' */
+%<tlcStartFcnOfS6B12>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B13)
+/* Start for Scope: '<S6>/Scope1' */
+%<tlcStartFcnOfS6B13>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B14)
+/* Start for Scope: '<S6>/Scope2' */
+%<tlcStartFcnOfS6B14>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B15)
+/* Start for Scope: '<S6>/Scope3' */
+%<tlcStartFcnOfS6B15>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B16)
+/* Start for Scope: '<S10>/Scope3' */
+%<tlcStartFcnOfS6B16>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B17)
+/* Start for Scope: '<S11>/Scope3' */
+%<tlcStartFcnOfS6B17>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B18)
+/* Start for Scope: '<S7>/Scope' */
+%<tlcStartFcnOfS6B18>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B19)
+/* Start for Scope: '<S7>/Scope1' */
+%<tlcStartFcnOfS6B19>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B20)
+/* Start for Scope: '<S8>/Scope' */
+%<tlcStartFcnOfS6B20>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B21)
+/* Start for Scope: '<S8>/Scope1' */
+%<tlcStartFcnOfS6B21>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B22)
+/* Start for Scope: '<S9>/Scope' */
+%<tlcStartFcnOfS6B22>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B23)
+/* Start for Scope: '<S9>/Scope1' */
+%<tlcStartFcnOfS6B23>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B24)
+/* Start for Scope: '<S2>/Scope' */
+%<tlcStartFcnOfS6B24>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B25)
+/* Start for Scope: '<S2>/Scope1' */
+%<tlcStartFcnOfS6B25>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B26)
+/* Start for Scope: '<S2>/Scope2' */
+%<tlcStartFcnOfS6B26>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B27)
+/* Start for ToWorkspace: '<S2>/To Workspace' */
+%<tlcStartFcnOfS6B27>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B28)
+/* Start for Scope: '<S2>/real' */
+%<tlcStartFcnOfS6B28>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B30)
+/* Start for ToWorkspace: '<S5>/To Workspace' */
+%<tlcStartFcnOfS6B30>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B31)
+/* Start for ToWorkspace: '<S5>/To Workspace1' */
+%<tlcStartFcnOfS6B31>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B32)
+/* Start for ToWorkspace: '<S5>/To Workspace2' */
+%<tlcStartFcnOfS6B32>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B33)
+/* Start for ToWorkspace: '<S5>/To Workspace3' */
+%<tlcStartFcnOfS6B33>\
+%endif
+%if !WHITE_SPACE(tlcStartFcnOfS6B34)
+/* Start for ToWorkspace: '<S5>/To Workspace4' */
+%<tlcStartFcnOfS6B34>\
+%endif
+%closefile cfgTxt
+%<cfgTxt>
+%endfunction
+%function StartFcnProtoType(block, system) Output
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Start(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 0, fcnProtoType)>
+%endfunction

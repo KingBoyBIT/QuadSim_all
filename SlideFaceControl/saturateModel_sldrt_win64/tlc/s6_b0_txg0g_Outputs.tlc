@@ -1,0 +1,828 @@
+%implements s6_b0_txg0g_Outputs "C"
+
+%function Outputs(block, system) Output
+%<SLibCGIRAccessLocalVar(57, 0)> %% rtb_ManualSwitch1
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+real_T *lastU;
+real_T lastTime;
+real_T rtb_ManualSwitch;
+real_T rtb_Derivative7;
+real_T rtb_Integrator;
+real_T Divide1_tmp;
+real_T Divide1_tmp_0;
+%closefile localVarDecl
+%assign tlcOutputsFcnOfS6B6 = OpaqueTLCBlockFcn("Outputs", 6, 6, 0, 2)
+%assign tlcOutputsFcnOfS6B7 = OpaqueTLCBlockFcn("Outputs", 6, 7, 0, 2)
+%assign tlcOutputsFcnOfS6B8 = OpaqueTLCBlockFcn("Outputs", 6, 8, 0, 2)
+%assign tlcOutputsFcnOfS6B9 = OpaqueTLCBlockFcn("Outputs", 6, 9, 0, 2)
+%assign tlcOutputsFcnOfS6B10 = OpaqueTLCBlockFcn("Outputs", 6, 10, 0, 2)
+%assign tlcOutputsFcnOfS6B11 = OpaqueTLCBlockFcn("Outputs", 6, 11, 0, 2)
+%assign tlcOutputsFcnOfS6B12 = OpaqueTLCBlockFcn("Outputs", 6, 12, 0, 2)
+%assign tlcOutputsFcnOfS6B13 = OpaqueTLCBlockFcn("Outputs", 6, 13, 0, 2)
+%assign tlcOutputsFcnOfS6B14 = OpaqueTLCBlockFcn("Outputs", 6, 14, 0, 2)
+%assign tlcOutputsFcnOfS6B15 = OpaqueTLCBlockFcn("Outputs", 6, 15, 0, 2)
+%assign tlcOutputsFcnOfS6B16 = OpaqueTLCBlockFcn("Outputs", 6, 16, 0, 2)
+%assign tlcOutputsFcnOfS6B17 = OpaqueTLCBlockFcn("Outputs", 6, 17, 0, 2)
+%assign tlcOutputsFcnOfS6B18 = OpaqueTLCBlockFcn("Outputs", 6, 18, 0, 2)
+%assign tlcOutputsFcnOfS6B19 = OpaqueTLCBlockFcn("Outputs", 6, 19, 0, 2)
+%assign tlcOutputsFcnOfS6B20 = OpaqueTLCBlockFcn("Outputs", 6, 20, 0, 2)
+%assign tlcOutputsFcnOfS6B21 = OpaqueTLCBlockFcn("Outputs", 6, 21, 0, 2)
+%assign tlcOutputsFcnOfS6B22 = OpaqueTLCBlockFcn("Outputs", 6, 22, 0, 2)
+%assign tlcOutputsFcnOfS6B23 = OpaqueTLCBlockFcn("Outputs", 6, 23, 0, 2)
+%assign tlcOutputsFcnOfS6B24 = OpaqueTLCBlockFcn("Outputs", 6, 24, 0, 2)
+%assign tlcOutputsFcnOfS6B25 = OpaqueTLCBlockFcn("Outputs", 6, 25, 0, 2)
+%assign tlcOutputsFcnOfS6B26 = OpaqueTLCBlockFcn("Outputs", 6, 26, 0, 2)
+%assign tlcOutputsFcnOfS6B27 = OpaqueTLCBlockFcn("Outputs", 6, 27, 0, 2)
+%assign tlcOutputsFcnOfS6B28 = OpaqueTLCBlockFcn("Outputs", 6, 28, 0, 2)
+%assign tlcOutputsFcnOfS6B29 = OpaqueTLCBlockFcn("Outputs", 6, 29, 0, 2)
+%assign tlcOutputsFcnOfS6B30 = OpaqueTLCBlockFcn("Outputs", 6, 30, 0, 2)
+%assign tlcOutputsFcnOfS6B31 = OpaqueTLCBlockFcn("Outputs", 6, 31, 0, 2)
+%assign tlcOutputsFcnOfS6B32 = OpaqueTLCBlockFcn("Outputs", 6, 32, 0, 2)
+%assign tlcOutputsFcnOfS6B33 = OpaqueTLCBlockFcn("Outputs", 6, 33, 0, 2)
+%assign tlcOutputsFcnOfS6B34 = OpaqueTLCBlockFcn("Outputs", 6, 34, 0, 2)
+%<SLibGenerateExtModeOutput(system)>
+/* Integrator: '<S4>/Integrator' */
+memcpy(&saturateModel_B.Integrator[0], &saturateModel_X.Integrator_CSTATE[0], 12U * sizeof(real_T));
+/* Clock: '<S5>/Clock' */
+saturateModel_B.Clock = %<(SLibCG_SE(LibGetT()))>;
+/* Fcn: '<S5>/Fcn' */
+saturateModel_B.Fcn = sin(saturateModel_B.Clock / 2.0);
+/* Fcn: '<S5>/Fcn2' */
+saturateModel_B.Fcn2 = cos(saturateModel_B.Clock / 2.0);
+/* Fcn: '<S5>/Fcn1' */
+saturateModel_B.Fcn1 = saturateModel_B.Clock;
+if (%<(SLibCGIRIsSampleHit(1, 6))>) {
+    /* Constant: '<S5>/Constant' */
+    saturateModel_B.Constant = saturateModel_P.Constant_Value;
+    /* Constant: '<Root>/Constant1' */
+    saturateModel_B.Constant1[0] = saturateModel_P.state_des[0];
+    saturateModel_B.Constant1[1] = saturateModel_P.state_des[1];
+    saturateModel_B.Constant1[2] = saturateModel_P.state_des[2];
+    saturateModel_B.Constant1[3] = saturateModel_P.state_des[3];
+}
+/* ManualSwitch: '<Root>/Manual Switch' */
+if (saturateModel_P.ManualSwitch_CurrentSetting == 1) {
+    saturateModel_B.ManualSwitch[0] = saturateModel_B.Fcn;
+    saturateModel_B.ManualSwitch[1] = saturateModel_B.Fcn2;
+    saturateModel_B.ManualSwitch[2] = saturateModel_B.Fcn1;
+    saturateModel_B.ManualSwitch[3] = saturateModel_B.Constant;
+} else {
+    saturateModel_B.ManualSwitch[0] = saturateModel_B.Constant1[0];
+    saturateModel_B.ManualSwitch[1] = saturateModel_B.Constant1[1];
+    saturateModel_B.ManualSwitch[2] = saturateModel_B.Constant1[2];
+    saturateModel_B.ManualSwitch[3] = saturateModel_B.Constant1[3];
+}
+/* End of ManualSwitch: '<Root>/Manual Switch' */
+
+/* Derivative: '<S1>/Derivative2' */
+if ((saturateModel_DW.TimeStampA >= %<(SLibCG_SE(LibGetT()))>) && (saturateModel_DW.TimeStampB >= %<(SLibCG_SE(LibGetT()))>)) {
+    rtb_ManualSwitch = 0.0;
+} else {
+    lastTime = saturateModel_DW.TimeStampA;
+    lastU = &saturateModel_DW.LastUAtTimeA;
+    if (saturateModel_DW.TimeStampA < saturateModel_DW.TimeStampB) {
+        if (saturateModel_DW.TimeStampB < %<(SLibCG_SE(LibGetT()))>) {
+            lastTime = saturateModel_DW.TimeStampB;
+            lastU = &saturateModel_DW.LastUAtTimeB;
+        }
+    } else {
+        if (saturateModel_DW.TimeStampA >= %<(SLibCG_SE(LibGetT()))>) {
+            lastTime = saturateModel_DW.TimeStampB;
+            lastU = &saturateModel_DW.LastUAtTimeB;
+        }
+    }
+    rtb_ManualSwitch = (saturateModel_B.ManualSwitch[2] - *lastU) / (%<(SLibCG_SE(LibGetT()))> - lastTime);
+}
+/* End of Derivative: '<S1>/Derivative2' */
+if (%<(SLibCGIRIsSampleHit(1, 6))>) {
+    /* Constant: '<S1>/Constant' */
+    saturateModel_B.Constant_j = saturateModel_P.g;
+}
+/* Sum: '<S1>/Sum2' incorporates:
+ *  Gain: '<S1>/Gain2'
+ *  Gain: '<S1>/Gain5'
+ *  Sum: '<S1>/Subtract2'
+ *  Sum: '<S1>/Subtract5'
+ */
+rtb_ManualSwitch = ((saturateModel_B.Integrator[2] - saturateModel_B.ManualSwitch[2]) * -saturateModel_P.k_p_z + (saturateModel_B.Integrator[5] - rtb_ManualSwitch) * -saturateModel_P.k_d_z) + saturateModel_B.Constant_j;
+/* Derivative: '<S1>/Derivative' */
+if ((saturateModel_DW.TimeStampA_g >= %<(SLibCG_SE(LibGetT()))>) && (saturateModel_DW.TimeStampB_c >= %<(SLibCG_SE(LibGetT()))>)) {
+    rtb_Derivative7 = 0.0;
+} else {
+    lastTime = saturateModel_DW.TimeStampA_g;
+    lastU = &saturateModel_DW.LastUAtTimeA_j;
+    if (saturateModel_DW.TimeStampA_g < saturateModel_DW.TimeStampB_c) {
+        if (saturateModel_DW.TimeStampB_c < %<(SLibCG_SE(LibGetT()))>) {
+            lastTime = saturateModel_DW.TimeStampB_c;
+            lastU = &saturateModel_DW.LastUAtTimeB_k;
+        }
+    } else {
+        if (saturateModel_DW.TimeStampA_g >= %<(SLibCG_SE(LibGetT()))>) {
+            lastTime = saturateModel_DW.TimeStampB_c;
+            lastU = &saturateModel_DW.LastUAtTimeB_k;
+        }
+    }
+    rtb_Derivative7 = (saturateModel_B.ManualSwitch[0] - *lastU) / (%<(SLibCG_SE(LibGetT()))> - lastTime);
+}
+/* End of Derivative: '<S1>/Derivative' */
+
+/* Sum: '<S1>/Sum' incorporates:
+ *  Gain: '<S1>/Gain'
+ *  Gain: '<S1>/Gain3'
+ *  Sum: '<S1>/Subtract'
+ *  Sum: '<S1>/Subtract3'
+ */
+rtb_Derivative7 = (saturateModel_B.Integrator[0] - saturateModel_B.ManualSwitch[0]) * -saturateModel_P.k_p_x + (saturateModel_B.Integrator[3] - rtb_Derivative7) * -saturateModel_P.k_d_x;
+/* Derivative: '<S1>/Derivative1' */
+if ((saturateModel_DW.TimeStampA_e >= %<(SLibCG_SE(LibGetT()))>) && (saturateModel_DW.TimeStampB_g >= %<(SLibCG_SE(LibGetT()))>)) {
+    rtb_Integrator = 0.0;
+} else {
+    lastTime = saturateModel_DW.TimeStampA_e;
+    lastU = &saturateModel_DW.LastUAtTimeA_f;
+    if (saturateModel_DW.TimeStampA_e < saturateModel_DW.TimeStampB_g) {
+        if (saturateModel_DW.TimeStampB_g < %<(SLibCG_SE(LibGetT()))>) {
+            lastTime = saturateModel_DW.TimeStampB_g;
+            lastU = &saturateModel_DW.LastUAtTimeB_a;
+        }
+    } else {
+        if (saturateModel_DW.TimeStampA_e >= %<(SLibCG_SE(LibGetT()))>) {
+            lastTime = saturateModel_DW.TimeStampB_g;
+            lastU = &saturateModel_DW.LastUAtTimeB_a;
+        }
+    }
+    rtb_Integrator = (saturateModel_B.ManualSwitch[1] - *lastU) / (%<(SLibCG_SE(LibGetT()))> - lastTime);
+}
+/* End of Derivative: '<S1>/Derivative1' */
+
+/* Sum: '<S1>/Sum1' incorporates:
+ *  Gain: '<S1>/Gain1'
+ *  Gain: '<S1>/Gain4'
+ *  Sum: '<S1>/Subtract1'
+ *  Sum: '<S1>/Subtract4'
+ */
+rtb_Integrator = (saturateModel_B.Integrator[1] - saturateModel_B.ManualSwitch[1]) * -saturateModel_P.k_p_y + (saturateModel_B.Integrator[4] - rtb_Integrator) * -saturateModel_P.k_d_y;
+/* Trigonometry: '<S11>/Trigonometric Function1' incorporates:
+ *  Trigonometry: '<S10>/Trigonometric Function1'
+ */
+Divide1_tmp = sin(saturateModel_B.Integrator[8]);
+/* Trigonometry: '<S11>/Trigonometric Function' incorporates:
+ *  Trigonometry: '<S10>/Trigonometric Function4'
+ */
+Divide1_tmp_0 = cos(saturateModel_B.Integrator[8]);
+/* Product: '<S11>/Divide1' incorporates:
+ *  Product: '<S11>/Product'
+ *  Product: '<S11>/Product1'
+ *  Sum: '<S11>/Subtract3'
+ *  Trigonometry: '<S11>/Trigonometric Function'
+ *  Trigonometry: '<S11>/Trigonometric Function1'
+ */
+saturateModel_B.Divide1 = (rtb_Derivative7 * Divide1_tmp_0 + Divide1_tmp * rtb_Integrator) / rtb_ManualSwitch;
+/* Trigonometry: '<S11>/Trigonometric Function2' */
+saturateModel_B.TrigonometricFunction2 = atan(saturateModel_B.Divide1);
+/* Trigonometry: '<S10>/Trigonometric Function3' incorporates:
+ *  Trigonometry: '<S6>/Trigonometric Function1'
+ */
+lastTime = cos(saturateModel_B.TrigonometricFunction2);
+/* Product: '<S10>/Divide1' incorporates:
+ *  Product: '<S10>/Product'
+ *  Product: '<S10>/Product1'
+ *  Sum: '<S10>/Subtract3'
+ *  Trigonometry: '<S10>/Trigonometric Function3'
+ */
+saturateModel_B.Divide1_p = (rtb_Derivative7 * Divide1_tmp - Divide1_tmp_0 * rtb_Integrator) * lastTime / rtb_ManualSwitch;
+/* Trigonometry: '<S10>/Trigonometric Function2' */
+saturateModel_B.TrigonometricFunction2_p = atan(saturateModel_B.Divide1_p);
+/* Trigonometry: '<S6>/Trigonometric Function' */
+saturateModel_B.TrigonometricFunction = cos(saturateModel_B.TrigonometricFunction2_p);
+/* Trigonometry: '<S6>/Trigonometric Function1' */
+saturateModel_B.TrigonometricFunction1 = lastTime;
+/* Product: '<S6>/Divide' incorporates:
+ *  Product: '<S6>/Product'
+ */
+saturateModel_B.Divide = rtb_ManualSwitch / (saturateModel_B.TrigonometricFunction * saturateModel_B.TrigonometricFunction1);
+/* Derivative: '<S7>/Derivative2' */
+if ((saturateModel_DW.TimeStampA_b >= %<(SLibCG_SE(LibGetT()))>) && (saturateModel_DW.TimeStampB_d >= %<(SLibCG_SE(LibGetT()))>)) {
+    saturateModel_B.Derivative2 = 0.0;
+} else {
+    lastTime = saturateModel_DW.TimeStampA_b;
+    lastU = &saturateModel_DW.LastUAtTimeA_k;
+    if (saturateModel_DW.TimeStampA_b < saturateModel_DW.TimeStampB_d) {
+        if (saturateModel_DW.TimeStampB_d < %<(SLibCG_SE(LibGetT()))>) {
+            lastTime = saturateModel_DW.TimeStampB_d;
+            lastU = &saturateModel_DW.LastUAtTimeB_d;
+        }
+    } else {
+        if (saturateModel_DW.TimeStampA_b >= %<(SLibCG_SE(LibGetT()))>) {
+            lastTime = saturateModel_DW.TimeStampB_d;
+            lastU = &saturateModel_DW.LastUAtTimeB_d;
+        }
+    }
+    saturateModel_B.Derivative2 = (saturateModel_B.TrigonometricFunction2_p - *lastU) / (%<(SLibCG_SE(LibGetT()))> - lastTime);
+}
+/* End of Derivative: '<S7>/Derivative2' */
+
+/* Derivative: '<S7>/Derivative1' */
+if ((saturateModel_DW.TimeStampA_i >= %<(SLibCG_SE(LibGetT()))>) && (saturateModel_DW.TimeStampB_e >= %<(SLibCG_SE(LibGetT()))>)) {
+    rtb_Integrator = 0.0;
+} else {
+    lastTime = saturateModel_DW.TimeStampA_i;
+    lastU = &saturateModel_DW.LastUAtTimeA_m;
+    if (saturateModel_DW.TimeStampA_i < saturateModel_DW.TimeStampB_e) {
+        if (saturateModel_DW.TimeStampB_e < %<(SLibCG_SE(LibGetT()))>) {
+            lastTime = saturateModel_DW.TimeStampB_e;
+            lastU = &saturateModel_DW.LastUAtTimeB_n;
+        }
+    } else {
+        if (saturateModel_DW.TimeStampA_i >= %<(SLibCG_SE(LibGetT()))>) {
+            lastTime = saturateModel_DW.TimeStampB_e;
+            lastU = &saturateModel_DW.LastUAtTimeB_n;
+        }
+    }
+    rtb_Integrator = (saturateModel_B.Derivative2 - *lastU) / (%<(SLibCG_SE(LibGetT()))> - lastTime);
+}
+/* End of Derivative: '<S7>/Derivative1' */
+
+/* Sum: '<S7>/Subtract1' */
+saturateModel_B.Subtract1 = saturateModel_B.Integrator[6] - saturateModel_B.TrigonometricFunction2_p;
+/* Derivative: '<S7>/Derivative7' */
+if ((saturateModel_DW.TimeStampA_k >= %<(SLibCG_SE(LibGetT()))>) && (saturateModel_DW.TimeStampB_k >= %<(SLibCG_SE(LibGetT()))>)) {
+    rtb_Derivative7 = 0.0;
+} else {
+    lastTime = saturateModel_DW.TimeStampA_k;
+    lastU = &saturateModel_DW.LastUAtTimeA_o;
+    if (saturateModel_DW.TimeStampA_k < saturateModel_DW.TimeStampB_k) {
+        if (saturateModel_DW.TimeStampB_k < %<(SLibCG_SE(LibGetT()))>) {
+            lastTime = saturateModel_DW.TimeStampB_k;
+            lastU = &saturateModel_DW.LastUAtTimeB_nb;
+        }
+    } else {
+        if (saturateModel_DW.TimeStampA_k >= %<(SLibCG_SE(LibGetT()))>) {
+            lastTime = saturateModel_DW.TimeStampB_k;
+            lastU = &saturateModel_DW.LastUAtTimeB_nb;
+        }
+    }
+    rtb_Derivative7 = (saturateModel_B.Subtract1 - *lastU) / (%<(SLibCG_SE(LibGetT()))> - lastTime);
+}
+/* End of Derivative: '<S7>/Derivative7' */
+
+/* Integrator: '<S7>/Integrator1' */
+if (saturateModel_DW.Integrator1_IWORK != 0) {
+    saturateModel_X.Integrator1_CSTATE = saturateModel_B.Subtract1;
+}
+/* Sum: '<S7>/Subtract3' incorporates:
+ *  Gain: '<S7>/Gain2'
+ *  Integrator: '<S7>/Integrator1'
+ */
+saturateModel_B.Subtract3 = (saturateModel_P.k_1_phi * saturateModel_B.Subtract1 + rtb_Derivative7) + saturateModel_X.Integrator1_CSTATE;
+/* ManualSwitch: '<S7>/Manual Switch' incorporates:
+ *  Saturate: '<S7>/Saturation'
+ */
+if (saturateModel_P.ManualSwitch_CurrentSetting_i == 1) {
+    /* Signum: '<S7>/Sign1' */
+    if (saturateModel_B.Subtract3 < 0.0) {
+        rtb_ManualSwitch = -1.0;
+    } else if (saturateModel_B.Subtract3 > 0.0) {
+        rtb_ManualSwitch = 1.0;
+    } else if (saturateModel_B.Subtract3 == 0.0) {
+        rtb_ManualSwitch = 0.0;
+    } else {
+        rtb_ManualSwitch = %<LibGetMathConstant(LibRealNonFinite("nan"), FcnGetDataTypeIdFromName("double"))>;
+    }
+    /* End of Signum: '<S7>/Sign1' */
+} else if (saturateModel_B.Subtract3 > saturateModel_P.Saturation_UpperSat) {
+    /* Saturate: '<S7>/Saturation' */
+    rtb_ManualSwitch = saturateModel_P.Saturation_UpperSat;
+} else if (saturateModel_B.Subtract3 < saturateModel_P.Saturation_LowerSat) {
+    /* Saturate: '<S7>/Saturation' */
+    rtb_ManualSwitch = saturateModel_P.Saturation_LowerSat;
+} else {
+    /* Saturate: '<S7>/Saturation' */
+    rtb_ManualSwitch = saturateModel_B.Subtract3;
+}
+/* End of ManualSwitch: '<S7>/Manual Switch' */
+
+/* Gain: '<S7>/Gain8' incorporates:
+ *  Gain: '<S7>/Gain3'
+ */
+Divide1_tmp = saturateModel_P.k_2_phi * saturateModel_B.Subtract1;
+/* Sum: '<S7>/Subtract2' incorporates:
+ *  Gain: '<S7>/Gain4'
+ *  Gain: '<S7>/Gain5'
+ *  Gain: '<S7>/Gain6'
+ *  Gain: '<S7>/Gain7'
+ *  Gain: '<S7>/Gain8'
+ */
+saturateModel_B.Subtract2 = ((((saturateModel_P.K_4 * saturateModel_P.l / saturateModel_P.I_1 * saturateModel_B.Integrator[9] + rtb_Integrator) - saturateModel_P.M_phi * rtb_ManualSwitch) - saturateModel_P.k_phi * saturateModel_B.Subtract3) - saturateModel_P.k_1_phi * rtb_Derivative7) - Divide1_tmp;
+/* Derivative: '<S8>/Derivative2' */
+if ((saturateModel_DW.TimeStampA_m >= %<(SLibCG_SE(LibGetT()))>) && (saturateModel_DW.TimeStampB_ch >= %<(SLibCG_SE(LibGetT()))>)) {
+    saturateModel_B.Derivative2_c = 0.0;
+} else {
+    lastTime = saturateModel_DW.TimeStampA_m;
+    lastU = &saturateModel_DW.LastUAtTimeA_g;
+    if (saturateModel_DW.TimeStampA_m < saturateModel_DW.TimeStampB_ch) {
+        if (saturateModel_DW.TimeStampB_ch < %<(SLibCG_SE(LibGetT()))>) {
+            lastTime = saturateModel_DW.TimeStampB_ch;
+            lastU = &saturateModel_DW.LastUAtTimeB_g;
+        }
+    } else {
+        if (saturateModel_DW.TimeStampA_m >= %<(SLibCG_SE(LibGetT()))>) {
+            lastTime = saturateModel_DW.TimeStampB_ch;
+            lastU = &saturateModel_DW.LastUAtTimeB_g;
+        }
+    }
+    saturateModel_B.Derivative2_c = (saturateModel_B.TrigonometricFunction2 - *lastU) / (%<(SLibCG_SE(LibGetT()))> - lastTime);
+}
+/* End of Derivative: '<S8>/Derivative2' */
+
+/* Derivative: '<S8>/Derivative1' */
+if ((saturateModel_DW.TimeStampA_g5 >= %<(SLibCG_SE(LibGetT()))>) && (saturateModel_DW.TimeStampB_g2 >= %<(SLibCG_SE(LibGetT()))>)) {
+    rtb_Integrator = 0.0;
+} else {
+    lastTime = saturateModel_DW.TimeStampA_g5;
+    lastU = &saturateModel_DW.LastUAtTimeA_p;
+    if (saturateModel_DW.TimeStampA_g5 < saturateModel_DW.TimeStampB_g2) {
+        if (saturateModel_DW.TimeStampB_g2 < %<(SLibCG_SE(LibGetT()))>) {
+            lastTime = saturateModel_DW.TimeStampB_g2;
+            lastU = &saturateModel_DW.LastUAtTimeB_l;
+        }
+    } else {
+        if (saturateModel_DW.TimeStampA_g5 >= %<(SLibCG_SE(LibGetT()))>) {
+            lastTime = saturateModel_DW.TimeStampB_g2;
+            lastU = &saturateModel_DW.LastUAtTimeB_l;
+        }
+    }
+    rtb_Integrator = (saturateModel_B.Derivative2_c - *lastU) / (%<(SLibCG_SE(LibGetT()))> - lastTime);
+}
+/* End of Derivative: '<S8>/Derivative1' */
+
+/* Sum: '<S8>/Subtract1' */
+saturateModel_B.Subtract1_i = saturateModel_B.Integrator[7] - saturateModel_B.TrigonometricFunction2;
+/* Derivative: '<S8>/Derivative7' */
+if ((saturateModel_DW.TimeStampA_ey >= %<(SLibCG_SE(LibGetT()))>) && (saturateModel_DW.TimeStampB_b >= %<(SLibCG_SE(LibGetT()))>)) {
+    rtb_Derivative7 = 0.0;
+} else {
+    lastTime = saturateModel_DW.TimeStampA_ey;
+    lastU = &saturateModel_DW.LastUAtTimeA_c;
+    if (saturateModel_DW.TimeStampA_ey < saturateModel_DW.TimeStampB_b) {
+        if (saturateModel_DW.TimeStampB_b < %<(SLibCG_SE(LibGetT()))>) {
+            lastTime = saturateModel_DW.TimeStampB_b;
+            lastU = &saturateModel_DW.LastUAtTimeB_f;
+        }
+    } else {
+        if (saturateModel_DW.TimeStampA_ey >= %<(SLibCG_SE(LibGetT()))>) {
+            lastTime = saturateModel_DW.TimeStampB_b;
+            lastU = &saturateModel_DW.LastUAtTimeB_f;
+        }
+    }
+    rtb_Derivative7 = (saturateModel_B.Subtract1_i - *lastU) / (%<(SLibCG_SE(LibGetT()))> - lastTime);
+}
+/* End of Derivative: '<S8>/Derivative7' */
+
+/* Integrator: '<S8>/Integrator1' */
+if (saturateModel_DW.Integrator1_IWORK_n != 0) {
+    saturateModel_X.Integrator1_CSTATE_j = saturateModel_B.Subtract1_i;
+}
+/* Sum: '<S8>/Subtract3' incorporates:
+ *  Gain: '<S8>/Gain2'
+ *  Integrator: '<S8>/Integrator1'
+ */
+saturateModel_B.Subtract3_f = (saturateModel_P.k_1_theta * saturateModel_B.Subtract1_i + rtb_Derivative7) + saturateModel_X.Integrator1_CSTATE_j;
+/* ManualSwitch: '<S8>/Manual Switch' incorporates:
+ *  Saturate: '<S8>/Saturation'
+ */
+if (saturateModel_P.ManualSwitch_CurrentSetting_d == 1) {
+    /* Signum: '<S8>/Sign2' */
+    if (saturateModel_B.Subtract3_f < 0.0) {
+        rtb_ManualSwitch = -1.0;
+    } else if (saturateModel_B.Subtract3_f > 0.0) {
+        rtb_ManualSwitch = 1.0;
+    } else if (saturateModel_B.Subtract3_f == 0.0) {
+        rtb_ManualSwitch = 0.0;
+    } else {
+        rtb_ManualSwitch = %<LibGetMathConstant(LibRealNonFinite("nan"), FcnGetDataTypeIdFromName("double"))>;
+    }
+    /* End of Signum: '<S8>/Sign2' */
+} else if (saturateModel_B.Subtract3_f > saturateModel_P.Saturation_UpperSat_j) {
+    /* Saturate: '<S8>/Saturation' */
+    rtb_ManualSwitch = saturateModel_P.Saturation_UpperSat_j;
+} else if (saturateModel_B.Subtract3_f < saturateModel_P.Saturation_LowerSat_c) {
+    /* Saturate: '<S8>/Saturation' */
+    rtb_ManualSwitch = saturateModel_P.Saturation_LowerSat_c;
+} else {
+    /* Saturate: '<S8>/Saturation' */
+    rtb_ManualSwitch = saturateModel_B.Subtract3_f;
+}
+/* End of ManualSwitch: '<S8>/Manual Switch' */
+
+/* Gain: '<S8>/Gain8' incorporates:
+ *  Gain: '<S8>/Gain3'
+ */
+Divide1_tmp_0 = saturateModel_P.k_2_theta * saturateModel_B.Subtract1_i;
+/* Sum: '<S8>/Subtract2' incorporates:
+ *  Gain: '<S8>/Gain4'
+ *  Gain: '<S8>/Gain5'
+ *  Gain: '<S8>/Gain6'
+ *  Gain: '<S8>/Gain7'
+ *  Gain: '<S8>/Gain8'
+ */
+saturateModel_B.Subtract2_e = ((((saturateModel_P.K_5 * saturateModel_P.l / saturateModel_P.I_1 * saturateModel_B.Integrator[10] + rtb_Integrator) - saturateModel_P.M_theta * rtb_ManualSwitch) - saturateModel_P.k_theta * saturateModel_B.Subtract3_f) - saturateModel_P.k_1_theta * rtb_Derivative7) - Divide1_tmp_0;
+/* Derivative: '<S9>/Derivative2' */
+if ((saturateModel_DW.TimeStampA_bt >= %<(SLibCG_SE(LibGetT()))>) && (saturateModel_DW.TimeStampB_bw >= %<(SLibCG_SE(LibGetT()))>)) {
+    saturateModel_B.Derivative2_i = 0.0;
+} else {
+    lastTime = saturateModel_DW.TimeStampA_bt;
+    lastU = &saturateModel_DW.LastUAtTimeA_pk;
+    if (saturateModel_DW.TimeStampA_bt < saturateModel_DW.TimeStampB_bw) {
+        if (saturateModel_DW.TimeStampB_bw < %<(SLibCG_SE(LibGetT()))>) {
+            lastTime = saturateModel_DW.TimeStampB_bw;
+            lastU = &saturateModel_DW.LastUAtTimeB_kn;
+        }
+    } else {
+        if (saturateModel_DW.TimeStampA_bt >= %<(SLibCG_SE(LibGetT()))>) {
+            lastTime = saturateModel_DW.TimeStampB_bw;
+            lastU = &saturateModel_DW.LastUAtTimeB_kn;
+        }
+    }
+    saturateModel_B.Derivative2_i = (saturateModel_B.ManualSwitch[3] - *lastU) / (%<(SLibCG_SE(LibGetT()))> - lastTime);
+}
+/* End of Derivative: '<S9>/Derivative2' */
+
+/* Derivative: '<S9>/Derivative1' */
+if ((saturateModel_DW.TimeStampA_i0 >= %<(SLibCG_SE(LibGetT()))>) && (saturateModel_DW.TimeStampB_a >= %<(SLibCG_SE(LibGetT()))>)) {
+    rtb_Integrator = 0.0;
+} else {
+    lastTime = saturateModel_DW.TimeStampA_i0;
+    lastU = &saturateModel_DW.LastUAtTimeA_pq;
+    if (saturateModel_DW.TimeStampA_i0 < saturateModel_DW.TimeStampB_a) {
+        if (saturateModel_DW.TimeStampB_a < %<(SLibCG_SE(LibGetT()))>) {
+            lastTime = saturateModel_DW.TimeStampB_a;
+            lastU = &saturateModel_DW.LastUAtTimeB_m;
+        }
+    } else {
+        if (saturateModel_DW.TimeStampA_i0 >= %<(SLibCG_SE(LibGetT()))>) {
+            lastTime = saturateModel_DW.TimeStampB_a;
+            lastU = &saturateModel_DW.LastUAtTimeB_m;
+        }
+    }
+    rtb_Integrator = (saturateModel_B.Derivative2_i - *lastU) / (%<(SLibCG_SE(LibGetT()))> - lastTime);
+}
+/* End of Derivative: '<S9>/Derivative1' */
+
+/* Sum: '<S9>/Subtract1' */
+saturateModel_B.Subtract1_k = saturateModel_B.Integrator[8] - saturateModel_B.ManualSwitch[3];
+/* Derivative: '<S9>/Derivative7' */
+if ((saturateModel_DW.TimeStampA_h >= %<(SLibCG_SE(LibGetT()))>) && (saturateModel_DW.TimeStampB_p >= %<(SLibCG_SE(LibGetT()))>)) {
+    rtb_Derivative7 = 0.0;
+} else {
+    lastTime = saturateModel_DW.TimeStampA_h;
+    lastU = &saturateModel_DW.LastUAtTimeA_d;
+    if (saturateModel_DW.TimeStampA_h < saturateModel_DW.TimeStampB_p) {
+        if (saturateModel_DW.TimeStampB_p < %<(SLibCG_SE(LibGetT()))>) {
+            lastTime = saturateModel_DW.TimeStampB_p;
+            lastU = &saturateModel_DW.LastUAtTimeB_ko;
+        }
+    } else {
+        if (saturateModel_DW.TimeStampA_h >= %<(SLibCG_SE(LibGetT()))>) {
+            lastTime = saturateModel_DW.TimeStampB_p;
+            lastU = &saturateModel_DW.LastUAtTimeB_ko;
+        }
+    }
+    rtb_Derivative7 = (saturateModel_B.Subtract1_k - *lastU) / (%<(SLibCG_SE(LibGetT()))> - lastTime);
+}
+/* End of Derivative: '<S9>/Derivative7' */
+
+/* Integrator: '<S9>/Integrator1' */
+if (saturateModel_DW.Integrator1_IWORK_g != 0) {
+    saturateModel_X.Integrator1_CSTATE_d = saturateModel_B.Subtract1_k;
+}
+/* Sum: '<S9>/Subtract3' incorporates:
+ *  Gain: '<S9>/Gain2'
+ *  Integrator: '<S9>/Integrator1'
+ */
+saturateModel_B.Subtract3_e = (saturateModel_P.k_1_psi * saturateModel_B.Subtract1_k + rtb_Derivative7) + saturateModel_X.Integrator1_CSTATE_d;
+/* ManualSwitch: '<S9>/Manual Switch' incorporates:
+ *  Saturate: '<S9>/Saturation'
+ */
+if (saturateModel_P.ManualSwitch_CurrentSetting_b == 1) {
+    /* Signum: '<S9>/Sign2' */
+    if (saturateModel_B.Subtract3_e < 0.0) {
+        rtb_ManualSwitch = -1.0;
+    } else if (saturateModel_B.Subtract3_e > 0.0) {
+        rtb_ManualSwitch = 1.0;
+    } else if (saturateModel_B.Subtract3_e == 0.0) {
+        rtb_ManualSwitch = 0.0;
+    } else {
+        rtb_ManualSwitch = %<LibGetMathConstant(LibRealNonFinite("nan"), FcnGetDataTypeIdFromName("double"))>;
+    }
+    /* End of Signum: '<S9>/Sign2' */
+} else if (saturateModel_B.Subtract3_e > saturateModel_P.Saturation_UpperSat_ja) {
+    /* Saturate: '<S9>/Saturation' */
+    rtb_ManualSwitch = saturateModel_P.Saturation_UpperSat_ja;
+} else if (saturateModel_B.Subtract3_e < saturateModel_P.Saturation_LowerSat_e) {
+    /* Saturate: '<S9>/Saturation' */
+    rtb_ManualSwitch = saturateModel_P.Saturation_LowerSat_e;
+} else {
+    /* Saturate: '<S9>/Saturation' */
+    rtb_ManualSwitch = saturateModel_B.Subtract3_e;
+}
+/* End of ManualSwitch: '<S9>/Manual Switch' */
+
+/* Gain: '<S9>/Gain8' incorporates:
+ *  Gain: '<S9>/Gain3'
+ */
+lastTime = saturateModel_P.k_2_psi * saturateModel_B.Subtract1_k;
+/* Sum: '<S9>/Subtract2' incorporates:
+ *  Gain: '<S9>/Gain4'
+ *  Gain: '<S9>/Gain5'
+ *  Gain: '<S9>/Gain6'
+ *  Gain: '<S9>/Gain7'
+ *  Gain: '<S9>/Gain8'
+ */
+saturateModel_B.Subtract2_i = ((((saturateModel_P.K_6 / saturateModel_P.I_1 * saturateModel_B.Integrator[11] + rtb_Integrator) - saturateModel_P.M_psi * rtb_ManualSwitch) - saturateModel_P.k_psi * saturateModel_B.Subtract3_e) - saturateModel_P.k_1_psi * rtb_Derivative7) - lastTime;
+if (%<(SLibCGIRIsSampleHit(1, 6))>) {
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B6)
+    /* Scope: '<Root>/des' */
+%<tlcOutputsFcnOfS6B6>\
+%endif
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B7)
+    /* Scope: '<S3>/Scope1' */
+%<tlcOutputsFcnOfS6B7>\
+%endif
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B8)
+    /* ToWorkspace: '<S3>/To Workspace' */
+%<tlcOutputsFcnOfS6B8>\
+%endif
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B9)
+    /* ToWorkspace: '<S3>/To Workspace1' */
+%<tlcOutputsFcnOfS6B9>\
+%endif
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B10)
+    /* ToWorkspace: '<S3>/To Workspace2' */
+%<tlcOutputsFcnOfS6B10>\
+%endif
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B11)
+    /* ToWorkspace: '<S3>/To Workspace3' */
+%<tlcOutputsFcnOfS6B11>\
+%endif
+}
+/* Saturate: '<S2>/Saturation10' */
+if (saturateModel_B.Divide > saturateModel_P.Saturation10_UpperSat) {
+    saturateModel_B.Saturation10 = saturateModel_P.Saturation10_UpperSat;
+} else if (saturateModel_B.Divide < saturateModel_P.Saturation10_LowerSat) {
+    saturateModel_B.Saturation10 = saturateModel_P.Saturation10_LowerSat;
+} else {
+    saturateModel_B.Saturation10 = saturateModel_B.Divide;
+}
+/* End of Saturate: '<S2>/Saturation10' */
+
+/* Saturate: '<S2>/Saturation8' */
+if (saturateModel_B.Subtract2 > saturateModel_P.Saturation8_UpperSat) {
+    saturateModel_B.Saturation8 = saturateModel_P.Saturation8_UpperSat;
+} else if (saturateModel_B.Subtract2 < saturateModel_P.Saturation8_LowerSat) {
+    saturateModel_B.Saturation8 = saturateModel_P.Saturation8_LowerSat;
+} else {
+    saturateModel_B.Saturation8 = saturateModel_B.Subtract2;
+}
+/* End of Saturate: '<S2>/Saturation8' */
+
+/* Saturate: '<S2>/Saturation9' */
+if (saturateModel_B.Subtract2_e > saturateModel_P.Saturation9_UpperSat) {
+    saturateModel_B.Saturation9 = saturateModel_P.Saturation9_UpperSat;
+} else if (saturateModel_B.Subtract2_e < saturateModel_P.Saturation9_LowerSat) {
+    saturateModel_B.Saturation9 = saturateModel_P.Saturation9_LowerSat;
+} else {
+    saturateModel_B.Saturation9 = saturateModel_B.Subtract2_e;
+}
+/* End of Saturate: '<S2>/Saturation9' */
+
+/* Saturate: '<S2>/Saturation11' */
+if (saturateModel_B.Subtract2_i > saturateModel_P.Saturation11_UpperSat) {
+    saturateModel_B.Saturation11 = saturateModel_P.Saturation11_UpperSat;
+} else if (saturateModel_B.Subtract2_i < saturateModel_P.Saturation11_LowerSat) {
+    saturateModel_B.Saturation11 = saturateModel_P.Saturation11_LowerSat;
+} else {
+    saturateModel_B.Saturation11 = saturateModel_B.Subtract2_i;
+}
+/* End of Saturate: '<S2>/Saturation11' */
+
+/* ManualSwitch: '<Root>/Manual Switch1' */
+if (saturateModel_P.ManualSwitch1_CurrentSetting == 1) {
+    rtb_ManualSwitch1[0] = saturateModel_B.Divide;
+    rtb_ManualSwitch1[1] = saturateModel_B.Subtract2;
+    rtb_ManualSwitch1[2] = saturateModel_B.Subtract2_e;
+    rtb_ManualSwitch1[3] = saturateModel_B.Subtract2_i;
+} else {
+    rtb_ManualSwitch1[0] = saturateModel_B.Saturation10;
+    rtb_ManualSwitch1[1] = saturateModel_B.Saturation8;
+    rtb_ManualSwitch1[2] = saturateModel_B.Saturation9;
+    rtb_ManualSwitch1[3] = saturateModel_B.Saturation11;
+}
+/* End of ManualSwitch: '<Root>/Manual Switch1' */
+if (%<(SLibCGIRIsSampleHit(1, 6))>) {
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B12)
+    /* Scope: '<S6>/Scope' */
+%<tlcOutputsFcnOfS6B12>\
+%endif
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B13)
+    /* Scope: '<S6>/Scope1' */
+%<tlcOutputsFcnOfS6B13>\
+%endif
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B14)
+    /* Scope: '<S6>/Scope2' */
+%<tlcOutputsFcnOfS6B14>\
+%endif
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B15)
+    /* Scope: '<S6>/Scope3' */
+%<tlcOutputsFcnOfS6B15>\
+%endif
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B16)
+    /* Scope: '<S10>/Scope3' */
+%<tlcOutputsFcnOfS6B16>\
+%endif
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B17)
+    /* Scope: '<S11>/Scope3' */
+%<tlcOutputsFcnOfS6B17>\
+%endif
+}
+/* Integrator: '<S7>/Integrator' */
+if (saturateModel_DW.Integrator_IWORK != 0) {
+    saturateModel_X.Integrator_CSTATE_k = saturateModel_B.Subtract3;
+}
+/* Signum: '<S7>/Sign' incorporates:
+ *  Integrator: '<S7>/Integrator'
+ */
+if (saturateModel_X.Integrator_CSTATE_k < 0.0) {
+    rtb_ManualSwitch = -1.0;
+} else if (saturateModel_X.Integrator_CSTATE_k > 0.0) {
+    rtb_ManualSwitch = 1.0;
+} else if (saturateModel_X.Integrator_CSTATE_k == 0.0) {
+    rtb_ManualSwitch = 0.0;
+} else {
+    rtb_ManualSwitch = %<LibGetMathConstant(LibRealNonFinite("nan"), FcnGetDataTypeIdFromName("double"))>;
+}
+/* End of Signum: '<S7>/Sign' */
+
+/* Sum: '<S7>/Subtract' incorporates:
+ *  Gain: '<S7>/Gain'
+ *  Gain: '<S7>/Gain1'
+ *  Integrator: '<S7>/Integrator'
+ */
+saturateModel_B.Subtract = -saturateModel_P.M_phi * rtb_ManualSwitch - saturateModel_P.k_phi * saturateModel_X.Integrator_CSTATE_k;
+if (%<(SLibCGIRIsSampleHit(1, 6))>) {
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B18)
+    /* Scope: '<S7>/Scope' */
+%<tlcOutputsFcnOfS6B18>\
+%endif
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B19)
+    /* Scope: '<S7>/Scope1' */
+%<tlcOutputsFcnOfS6B19>\
+%endif
+}
+/* Gain: '<S7>/Gain3' */
+saturateModel_B.Gain3 = Divide1_tmp;
+/* Integrator: '<S8>/Integrator' */
+if (saturateModel_DW.Integrator_IWORK_g != 0) {
+    saturateModel_X.Integrator_CSTATE_h = saturateModel_B.Subtract3_f;
+}
+/* Signum: '<S8>/Sign' incorporates:
+ *  Integrator: '<S8>/Integrator'
+ */
+if (saturateModel_X.Integrator_CSTATE_h < 0.0) {
+    rtb_ManualSwitch = -1.0;
+} else if (saturateModel_X.Integrator_CSTATE_h > 0.0) {
+    rtb_ManualSwitch = 1.0;
+} else if (saturateModel_X.Integrator_CSTATE_h == 0.0) {
+    rtb_ManualSwitch = 0.0;
+} else {
+    rtb_ManualSwitch = %<LibGetMathConstant(LibRealNonFinite("nan"), FcnGetDataTypeIdFromName("double"))>;
+}
+/* End of Signum: '<S8>/Sign' */
+
+/* Sum: '<S8>/Subtract' incorporates:
+ *  Gain: '<S8>/Gain'
+ *  Gain: '<S8>/Gain1'
+ *  Integrator: '<S8>/Integrator'
+ */
+saturateModel_B.Subtract_p = -saturateModel_P.M_theta * rtb_ManualSwitch - saturateModel_P.k_theta * saturateModel_X.Integrator_CSTATE_h;
+if (%<(SLibCGIRIsSampleHit(1, 6))>) {
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B20)
+    /* Scope: '<S8>/Scope' */
+%<tlcOutputsFcnOfS6B20>\
+%endif
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B21)
+    /* Scope: '<S8>/Scope1' */
+%<tlcOutputsFcnOfS6B21>\
+%endif
+}
+/* Gain: '<S8>/Gain3' */
+saturateModel_B.Gain3_f = Divide1_tmp_0;
+/* Integrator: '<S9>/Integrator' */
+if (saturateModel_DW.Integrator_IWORK_m != 0) {
+    saturateModel_X.Integrator_CSTATE_n = saturateModel_B.Subtract3_e;
+}
+/* Signum: '<S9>/Sign' incorporates:
+ *  Integrator: '<S9>/Integrator'
+ */
+if (saturateModel_X.Integrator_CSTATE_n < 0.0) {
+    rtb_ManualSwitch = -1.0;
+} else if (saturateModel_X.Integrator_CSTATE_n > 0.0) {
+    rtb_ManualSwitch = 1.0;
+} else if (saturateModel_X.Integrator_CSTATE_n == 0.0) {
+    rtb_ManualSwitch = 0.0;
+} else {
+    rtb_ManualSwitch = %<LibGetMathConstant(LibRealNonFinite("nan"), FcnGetDataTypeIdFromName("double"))>;
+}
+/* End of Signum: '<S9>/Sign' */
+
+/* Sum: '<S9>/Subtract' incorporates:
+ *  Gain: '<S9>/Gain'
+ *  Gain: '<S9>/Gain1'
+ *  Integrator: '<S9>/Integrator'
+ */
+saturateModel_B.Subtract_pe = -saturateModel_P.M_psi * rtb_ManualSwitch - saturateModel_P.k_psi * saturateModel_X.Integrator_CSTATE_n;
+if (%<(SLibCGIRIsSampleHit(1, 6))>) {
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B22)
+    /* Scope: '<S9>/Scope' */
+%<tlcOutputsFcnOfS6B22>\
+%endif
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B23)
+    /* Scope: '<S9>/Scope1' */
+%<tlcOutputsFcnOfS6B23>\
+%endif
+}
+/* Gain: '<S9>/Gain3' */
+saturateModel_B.Gain3_n = lastTime;
+if (%<(SLibCGIRIsSampleHit(1, 6))>) {
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B24)
+    /* Scope: '<S2>/Scope' */
+%<tlcOutputsFcnOfS6B24>\
+%endif
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B25)
+    /* Scope: '<S2>/Scope1' */
+%<tlcOutputsFcnOfS6B25>\
+%endif
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B26)
+    /* Scope: '<S2>/Scope2' */
+%<tlcOutputsFcnOfS6B26>\
+%endif
+    /* SignalConversion: '<S2>/TmpSignal ConversionAtTo WorkspaceInport1' */
+    saturateModel_B.TmpSignalConversionAtToWorkspaceInport1[0] = saturateModel_B.Saturation10;
+    saturateModel_B.TmpSignalConversionAtToWorkspaceInport1[1] = saturateModel_B.Saturation8;
+    saturateModel_B.TmpSignalConversionAtToWorkspaceInport1[2] = saturateModel_B.Saturation9;
+    saturateModel_B.TmpSignalConversionAtToWorkspaceInport1[3] = saturateModel_B.Saturation11;
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B27)
+    /* ToWorkspace: '<S2>/To Workspace' */
+%<tlcOutputsFcnOfS6B27>\
+%endif
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B28)
+    /* Scope: '<S2>/real' */
+%<tlcOutputsFcnOfS6B28>\
+%endif
+}
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B29)
+/* MATLABFcn: '<S4>/Interpreted MATLAB Function' */
+%<tlcOutputsFcnOfS6B29>\
+%endif
+if (%<(SLibCGIRIsSampleHit(1, 6))>) {
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B30)
+    /* ToWorkspace: '<S5>/To Workspace' */
+%<tlcOutputsFcnOfS6B30>\
+%endif
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B31)
+    /* ToWorkspace: '<S5>/To Workspace1' */
+%<tlcOutputsFcnOfS6B31>\
+%endif
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B32)
+    /* ToWorkspace: '<S5>/To Workspace2' */
+%<tlcOutputsFcnOfS6B32>\
+%endif
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B33)
+    /* ToWorkspace: '<S5>/To Workspace3' */
+%<tlcOutputsFcnOfS6B33>\
+%endif
+    /* SignalConversion: '<S5>/TmpSignal ConversionAtTo Workspace4Inport1' */
+    saturateModel_B.TmpSignalConversionAtToWorkspace4Inport1[0] = saturateModel_B.Fcn;
+    saturateModel_B.TmpSignalConversionAtToWorkspace4Inport1[1] = saturateModel_B.Fcn2;
+    saturateModel_B.TmpSignalConversionAtToWorkspace4Inport1[2] = saturateModel_B.Fcn1;
+    saturateModel_B.TmpSignalConversionAtToWorkspace4Inport1[3] = saturateModel_B.Constant;
+%if !WHITE_SPACE(tlcOutputsFcnOfS6B34)
+    /* ToWorkspace: '<S5>/To Workspace4' */
+%<tlcOutputsFcnOfS6B34>\
+%endif
+}
+%<SLibInsertSolverResetCode()>\
+%closefile cfgTxt
+%<cfgTxt>
+%<LibSetSystemField(system, "CachedOutputLocalVars", localVarDecl)>
+%endfunction
+%function OutputsFcnProtoType(block, system) Output
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Outputs(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 2, fcnProtoType)>
+%endfunction

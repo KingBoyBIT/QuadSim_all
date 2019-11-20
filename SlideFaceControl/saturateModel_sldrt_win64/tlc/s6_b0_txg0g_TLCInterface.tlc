@@ -1,0 +1,2194 @@
+%implements s6_b0_txg0g_TLCInterface "C"
+
+%function getInputAddr_6_6_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Divide"
+%endfunction
+
+%function getInput_6_6_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Divide"
+%endfunction
+
+%function getInputAddr_6_6_0_0_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2"
+%endfunction
+
+%function getInput_6_6_0_0_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2"
+%endfunction
+
+%function getInputAddr_6_6_0_0_2_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInput_6_6_0_0_2_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInputAddr_6_6_0_0_3_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInput_6_6_0_0_3_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getDWorkAddr_6_6_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.des_PWORK" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWork_6_6_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.des_PWORK" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInputAddr_6_7_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_6_7_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInputAddr_6_7_0_0_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_6_7_0_0_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInputAddr_6_7_0_0_2_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_6_7_0_0_2_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInputAddr_6_7_0_0_3_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_6_7_0_0_3_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_6_7_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope1_PWORK" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWork_6_7_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope1_PWORK" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInputAddr_6_8_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_6_8_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_6_8_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.ToWorkspace_PWORK"
+%endfunction
+
+%function getDWork_6_8_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.ToWorkspace_PWORK"
+%endfunction
+
+%function getInputAddr_6_9_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_6_9_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_6_9_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.ToWorkspace1_PWORK"
+%endfunction
+
+%function getDWork_6_9_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.ToWorkspace1_PWORK"
+%endfunction
+
+%function getInputAddr_6_10_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_6_10_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_6_10_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.ToWorkspace2_PWORK"
+%endfunction
+
+%function getDWork_6_10_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.ToWorkspace2_PWORK"
+%endfunction
+
+%function getInputAddr_6_11_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_6_11_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_6_11_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.ToWorkspace3_PWORK"
+%endfunction
+
+%function getDWork_6_11_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.ToWorkspace3_PWORK"
+%endfunction
+
+%function getInputAddr_6_12_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.TrigonometricFunction1"
+%endfunction
+
+%function getInput_6_12_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.TrigonometricFunction1"
+%endfunction
+
+%function getDWorkAddr_6_12_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope_PWORK"
+%endfunction
+
+%function getDWork_6_12_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope_PWORK"
+%endfunction
+
+%function getInputAddr_6_13_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.TrigonometricFunction"
+%endfunction
+
+%function getInput_6_13_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.TrigonometricFunction"
+%endfunction
+
+%function getDWorkAddr_6_13_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope1_PWORK_i"
+%endfunction
+
+%function getDWork_6_13_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope1_PWORK_i"
+%endfunction
+
+%function getInputAddr_6_14_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.TrigonometricFunction2_p"
+%endfunction
+
+%function getInput_6_14_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.TrigonometricFunction2_p"
+%endfunction
+
+%function getDWorkAddr_6_14_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope2_PWORK"
+%endfunction
+
+%function getDWork_6_14_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope2_PWORK"
+%endfunction
+
+%function getInputAddr_6_15_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.TrigonometricFunction2"
+%endfunction
+
+%function getInput_6_15_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.TrigonometricFunction2"
+%endfunction
+
+%function getDWorkAddr_6_15_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope3_PWORK"
+%endfunction
+
+%function getDWork_6_15_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope3_PWORK"
+%endfunction
+
+%function getInputAddr_6_16_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Divide1_p"
+%endfunction
+
+%function getInput_6_16_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Divide1_p"
+%endfunction
+
+%function getDWorkAddr_6_16_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope3_PWORK_l"
+%endfunction
+
+%function getDWork_6_16_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope3_PWORK_l"
+%endfunction
+
+%function getInputAddr_6_17_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Divide1"
+%endfunction
+
+%function getInput_6_17_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Divide1"
+%endfunction
+
+%function getDWorkAddr_6_17_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope3_PWORK_a"
+%endfunction
+
+%function getDWork_6_17_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope3_PWORK_a"
+%endfunction
+
+%function getInputAddr_6_18_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract"
+%endfunction
+
+%function getInput_6_18_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract"
+%endfunction
+
+%function getDWorkAddr_6_18_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope_PWORK_b"
+%endfunction
+
+%function getDWork_6_18_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope_PWORK_b"
+%endfunction
+
+%function getInputAddr_6_19_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract3"
+%endfunction
+
+%function getInput_6_19_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract3"
+%endfunction
+
+%function getDWorkAddr_6_19_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope1_PWORK_if"
+%endfunction
+
+%function getDWork_6_19_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope1_PWORK_if"
+%endfunction
+
+%function getInputAddr_6_20_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract_p"
+%endfunction
+
+%function getInput_6_20_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract_p"
+%endfunction
+
+%function getDWorkAddr_6_20_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope_PWORK_f"
+%endfunction
+
+%function getDWork_6_20_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope_PWORK_f"
+%endfunction
+
+%function getInputAddr_6_21_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract3_f"
+%endfunction
+
+%function getInput_6_21_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract3_f"
+%endfunction
+
+%function getDWorkAddr_6_21_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope1_PWORK_n"
+%endfunction
+
+%function getDWork_6_21_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope1_PWORK_n"
+%endfunction
+
+%function getInputAddr_6_22_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract_pe"
+%endfunction
+
+%function getInput_6_22_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract_pe"
+%endfunction
+
+%function getDWorkAddr_6_22_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope_PWORK_g"
+%endfunction
+
+%function getDWork_6_22_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope_PWORK_g"
+%endfunction
+
+%function getInputAddr_6_23_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract3_e"
+%endfunction
+
+%function getInput_6_23_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract3_e"
+%endfunction
+
+%function getDWorkAddr_6_23_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope1_PWORK_f"
+%endfunction
+
+%function getDWork_6_23_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope1_PWORK_f"
+%endfunction
+
+%function getInputAddr_6_24_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Divide"
+%endfunction
+
+%function getInput_6_24_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Divide"
+%endfunction
+
+%function getInputAddr_6_24_0_0_0_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2"
+%endfunction
+
+%function getInput_6_24_0_0_0_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2"
+%endfunction
+
+%function getInputAddr_6_24_0_0_0_2(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInput_6_24_0_0_0_2(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInputAddr_6_24_0_0_0_3(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInput_6_24_0_0_0_3(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInputAddr_6_24_0_0_0_4(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Divide"
+%endfunction
+
+%function getInput_6_24_0_0_0_4(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Divide"
+%endfunction
+
+%function getInputAddr_6_24_0_0_0_5(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2"
+%endfunction
+
+%function getInput_6_24_0_0_0_5(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2"
+%endfunction
+
+%function getInputAddr_6_24_0_0_0_6(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInput_6_24_0_0_0_6(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInputAddr_6_24_0_0_0_7(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInput_6_24_0_0_0_7(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInputAddr_6_24_0_0_0_8(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Divide"
+%endfunction
+
+%function getInput_6_24_0_0_0_8(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Divide"
+%endfunction
+
+%function getInputAddr_6_24_0_0_0_9(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2"
+%endfunction
+
+%function getInput_6_24_0_0_0_9(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2"
+%endfunction
+
+%function getInputAddr_6_24_0_0_0_10(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInput_6_24_0_0_0_10(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInputAddr_6_24_0_0_0_11(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInput_6_24_0_0_0_11(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInputAddr_6_24_0_0_0_12(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Divide"
+%endfunction
+
+%function getInput_6_24_0_0_0_12(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Divide"
+%endfunction
+
+%function getInputAddr_6_24_0_0_0_13(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2"
+%endfunction
+
+%function getInput_6_24_0_0_0_13(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2"
+%endfunction
+
+%function getInputAddr_6_24_0_0_0_14(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInput_6_24_0_0_0_14(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInputAddr_6_24_0_0_0_15(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInput_6_24_0_0_0_15(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getDWorkAddr_6_24_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope_PWORK_k"
+%endfunction
+
+%function getDWork_6_24_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope_PWORK_k"
+%endfunction
+
+%function getInputAddr_6_25_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Divide"
+%endfunction
+
+%function getInput_6_25_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Divide"
+%endfunction
+
+%function getInputAddr_6_25_0_0_0_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2"
+%endfunction
+
+%function getInput_6_25_0_0_0_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2"
+%endfunction
+
+%function getInputAddr_6_25_0_0_0_2(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInput_6_25_0_0_0_2(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInputAddr_6_25_0_0_0_3(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInput_6_25_0_0_0_3(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInputAddr_6_25_0_0_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Divide"
+%endfunction
+
+%function getInput_6_25_0_0_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Divide"
+%endfunction
+
+%function getInputAddr_6_25_0_0_1_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2"
+%endfunction
+
+%function getInput_6_25_0_0_1_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2"
+%endfunction
+
+%function getInputAddr_6_25_0_0_1_2(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInput_6_25_0_0_1_2(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInputAddr_6_25_0_0_1_3(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInput_6_25_0_0_1_3(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInputAddr_6_25_0_0_2_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Divide"
+%endfunction
+
+%function getInput_6_25_0_0_2_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Divide"
+%endfunction
+
+%function getInputAddr_6_25_0_0_2_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2"
+%endfunction
+
+%function getInput_6_25_0_0_2_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2"
+%endfunction
+
+%function getInputAddr_6_25_0_0_2_2(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInput_6_25_0_0_2_2(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInputAddr_6_25_0_0_2_3(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInput_6_25_0_0_2_3(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInputAddr_6_25_0_0_3_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Divide"
+%endfunction
+
+%function getInput_6_25_0_0_3_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Divide"
+%endfunction
+
+%function getInputAddr_6_25_0_0_3_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2"
+%endfunction
+
+%function getInput_6_25_0_0_3_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2"
+%endfunction
+
+%function getInputAddr_6_25_0_0_3_2(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInput_6_25_0_0_3_2(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInputAddr_6_25_0_0_3_3(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInput_6_25_0_0_3_3(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getDWorkAddr_6_25_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope1_PWORK_m" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWork_6_25_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope1_PWORK_m" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInputAddr_6_26_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Divide"
+%endfunction
+
+%function getInput_6_26_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Divide"
+%endfunction
+
+%function getInputAddr_6_26_0_0_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2"
+%endfunction
+
+%function getInput_6_26_0_0_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2"
+%endfunction
+
+%function getInputAddr_6_26_0_0_2_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInput_6_26_0_0_2_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInputAddr_6_26_0_0_3_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInput_6_26_0_0_3_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getDWorkAddr_6_26_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope2_PWORK_d" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWork_6_26_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope2_PWORK_d" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInputAddr_6_27_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.TmpSignalConversionAtToWorkspaceInport1" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_6_27_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.TmpSignalConversionAtToWorkspaceInport1" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_6_27_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.ToWorkspace_PWORK_c"
+%endfunction
+
+%function getDWork_6_27_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.ToWorkspace_PWORK_c"
+%endfunction
+
+%function getInputAddr_6_28_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Saturation10"
+%endfunction
+
+%function getInput_6_28_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Saturation10"
+%endfunction
+
+%function getInputAddr_6_28_0_0_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Saturation8"
+%endfunction
+
+%function getInput_6_28_0_0_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Saturation8"
+%endfunction
+
+%function getInputAddr_6_28_0_0_2_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Saturation9"
+%endfunction
+
+%function getInput_6_28_0_0_2_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Saturation9"
+%endfunction
+
+%function getInputAddr_6_28_0_0_3_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Saturation11"
+%endfunction
+
+%function getInput_6_28_0_0_3_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Saturation11"
+%endfunction
+
+%function getDWorkAddr_6_28_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.real_PWORK" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWork_6_28_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.real_PWORK" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInputAddr_6_30_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Fcn"
+%endfunction
+
+%function getInput_6_30_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Fcn"
+%endfunction
+
+%function getDWorkAddr_6_30_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.ToWorkspace_PWORK_cj"
+%endfunction
+
+%function getDWork_6_30_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.ToWorkspace_PWORK_cj"
+%endfunction
+
+%function getInputAddr_6_31_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Clock"
+%endfunction
+
+%function getInput_6_31_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Clock"
+%endfunction
+
+%function getDWorkAddr_6_31_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.ToWorkspace1_PWORK_h"
+%endfunction
+
+%function getDWork_6_31_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.ToWorkspace1_PWORK_h"
+%endfunction
+
+%function getInputAddr_6_32_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Fcn2"
+%endfunction
+
+%function getInput_6_32_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Fcn2"
+%endfunction
+
+%function getDWorkAddr_6_32_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.ToWorkspace2_PWORK_n"
+%endfunction
+
+%function getDWork_6_32_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.ToWorkspace2_PWORK_n"
+%endfunction
+
+%function getInputAddr_6_33_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Fcn1"
+%endfunction
+
+%function getInput_6_33_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Fcn1"
+%endfunction
+
+%function getDWorkAddr_6_33_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.ToWorkspace3_PWORK_f"
+%endfunction
+
+%function getDWork_6_33_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.ToWorkspace3_PWORK_f"
+%endfunction
+
+%function getInputAddr_6_34_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.TmpSignalConversionAtToWorkspace4Inport1" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_6_34_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.TmpSignalConversionAtToWorkspace4Inport1" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_6_34_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.ToWorkspace4_PWORK"
+%endfunction
+
+%function getDWork_6_34_0_0_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.ToWorkspace4_PWORK"
+%endfunction
+
+%function getInputAddr_6_6_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Divide"
+%endfunction
+
+%function getInput_6_6_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Divide"
+%endfunction
+
+%function getInputAddr_6_6_0_2_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2"
+%endfunction
+
+%function getInput_6_6_0_2_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2"
+%endfunction
+
+%function getInputAddr_6_6_0_2_2_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInput_6_6_0_2_2_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInputAddr_6_6_0_2_3_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInput_6_6_0_2_3_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getDWorkAddr_6_6_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.des_PWORK" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWork_6_6_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.des_PWORK" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInputAddr_6_7_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_6_7_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInputAddr_6_7_0_2_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_6_7_0_2_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInputAddr_6_7_0_2_2_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_6_7_0_2_2_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInputAddr_6_7_0_2_3_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_6_7_0_2_3_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_6_7_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope1_PWORK" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWork_6_7_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope1_PWORK" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInputAddr_6_8_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_6_8_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_6_8_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.ToWorkspace_PWORK"
+%endfunction
+
+%function getDWork_6_8_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.ToWorkspace_PWORK"
+%endfunction
+
+%function getInputAddr_6_9_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_6_9_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_6_9_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.ToWorkspace1_PWORK"
+%endfunction
+
+%function getDWork_6_9_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.ToWorkspace1_PWORK"
+%endfunction
+
+%function getInputAddr_6_10_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_6_10_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_6_10_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.ToWorkspace2_PWORK"
+%endfunction
+
+%function getDWork_6_10_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.ToWorkspace2_PWORK"
+%endfunction
+
+%function getInputAddr_6_11_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_6_11_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_6_11_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.ToWorkspace3_PWORK"
+%endfunction
+
+%function getDWork_6_11_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.ToWorkspace3_PWORK"
+%endfunction
+
+%function getInputAddr_6_12_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.TrigonometricFunction1"
+%endfunction
+
+%function getInput_6_12_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.TrigonometricFunction1"
+%endfunction
+
+%function getDWorkAddr_6_12_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope_PWORK"
+%endfunction
+
+%function getDWork_6_12_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope_PWORK"
+%endfunction
+
+%function getInputAddr_6_13_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.TrigonometricFunction"
+%endfunction
+
+%function getInput_6_13_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.TrigonometricFunction"
+%endfunction
+
+%function getDWorkAddr_6_13_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope1_PWORK_i"
+%endfunction
+
+%function getDWork_6_13_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope1_PWORK_i"
+%endfunction
+
+%function getInputAddr_6_14_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.TrigonometricFunction2_p"
+%endfunction
+
+%function getInput_6_14_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.TrigonometricFunction2_p"
+%endfunction
+
+%function getDWorkAddr_6_14_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope2_PWORK"
+%endfunction
+
+%function getDWork_6_14_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope2_PWORK"
+%endfunction
+
+%function getInputAddr_6_15_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.TrigonometricFunction2"
+%endfunction
+
+%function getInput_6_15_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.TrigonometricFunction2"
+%endfunction
+
+%function getDWorkAddr_6_15_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope3_PWORK"
+%endfunction
+
+%function getDWork_6_15_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope3_PWORK"
+%endfunction
+
+%function getInputAddr_6_16_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Divide1_p"
+%endfunction
+
+%function getInput_6_16_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Divide1_p"
+%endfunction
+
+%function getDWorkAddr_6_16_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope3_PWORK_l"
+%endfunction
+
+%function getDWork_6_16_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope3_PWORK_l"
+%endfunction
+
+%function getInputAddr_6_17_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Divide1"
+%endfunction
+
+%function getInput_6_17_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Divide1"
+%endfunction
+
+%function getDWorkAddr_6_17_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope3_PWORK_a"
+%endfunction
+
+%function getDWork_6_17_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope3_PWORK_a"
+%endfunction
+
+%function getInputAddr_6_18_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract"
+%endfunction
+
+%function getInput_6_18_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract"
+%endfunction
+
+%function getDWorkAddr_6_18_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope_PWORK_b"
+%endfunction
+
+%function getDWork_6_18_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope_PWORK_b"
+%endfunction
+
+%function getInputAddr_6_19_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract3"
+%endfunction
+
+%function getInput_6_19_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract3"
+%endfunction
+
+%function getDWorkAddr_6_19_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope1_PWORK_if"
+%endfunction
+
+%function getDWork_6_19_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope1_PWORK_if"
+%endfunction
+
+%function getInputAddr_6_20_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract_p"
+%endfunction
+
+%function getInput_6_20_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract_p"
+%endfunction
+
+%function getDWorkAddr_6_20_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope_PWORK_f"
+%endfunction
+
+%function getDWork_6_20_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope_PWORK_f"
+%endfunction
+
+%function getInputAddr_6_21_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract3_f"
+%endfunction
+
+%function getInput_6_21_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract3_f"
+%endfunction
+
+%function getDWorkAddr_6_21_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope1_PWORK_n"
+%endfunction
+
+%function getDWork_6_21_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope1_PWORK_n"
+%endfunction
+
+%function getInputAddr_6_22_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract_pe"
+%endfunction
+
+%function getInput_6_22_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract_pe"
+%endfunction
+
+%function getDWorkAddr_6_22_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope_PWORK_g"
+%endfunction
+
+%function getDWork_6_22_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope_PWORK_g"
+%endfunction
+
+%function getInputAddr_6_23_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract3_e"
+%endfunction
+
+%function getInput_6_23_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract3_e"
+%endfunction
+
+%function getDWorkAddr_6_23_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope1_PWORK_f"
+%endfunction
+
+%function getDWork_6_23_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope1_PWORK_f"
+%endfunction
+
+%function getInputAddr_6_24_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Divide"
+%endfunction
+
+%function getInput_6_24_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Divide"
+%endfunction
+
+%function getInputAddr_6_24_0_2_0_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2"
+%endfunction
+
+%function getInput_6_24_0_2_0_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2"
+%endfunction
+
+%function getInputAddr_6_24_0_2_0_2(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInput_6_24_0_2_0_2(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInputAddr_6_24_0_2_0_3(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInput_6_24_0_2_0_3(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInputAddr_6_24_0_2_0_4(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Divide"
+%endfunction
+
+%function getInput_6_24_0_2_0_4(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Divide"
+%endfunction
+
+%function getInputAddr_6_24_0_2_0_5(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2"
+%endfunction
+
+%function getInput_6_24_0_2_0_5(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2"
+%endfunction
+
+%function getInputAddr_6_24_0_2_0_6(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInput_6_24_0_2_0_6(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInputAddr_6_24_0_2_0_7(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInput_6_24_0_2_0_7(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInputAddr_6_24_0_2_0_8(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Divide"
+%endfunction
+
+%function getInput_6_24_0_2_0_8(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Divide"
+%endfunction
+
+%function getInputAddr_6_24_0_2_0_9(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2"
+%endfunction
+
+%function getInput_6_24_0_2_0_9(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2"
+%endfunction
+
+%function getInputAddr_6_24_0_2_0_10(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInput_6_24_0_2_0_10(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInputAddr_6_24_0_2_0_11(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInput_6_24_0_2_0_11(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInputAddr_6_24_0_2_0_12(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Divide"
+%endfunction
+
+%function getInput_6_24_0_2_0_12(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Divide"
+%endfunction
+
+%function getInputAddr_6_24_0_2_0_13(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2"
+%endfunction
+
+%function getInput_6_24_0_2_0_13(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2"
+%endfunction
+
+%function getInputAddr_6_24_0_2_0_14(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInput_6_24_0_2_0_14(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInputAddr_6_24_0_2_0_15(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInput_6_24_0_2_0_15(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getDWorkAddr_6_24_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope_PWORK_k"
+%endfunction
+
+%function getDWork_6_24_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope_PWORK_k"
+%endfunction
+
+%function getInputAddr_6_25_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Divide"
+%endfunction
+
+%function getInput_6_25_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Divide"
+%endfunction
+
+%function getInputAddr_6_25_0_2_0_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2"
+%endfunction
+
+%function getInput_6_25_0_2_0_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2"
+%endfunction
+
+%function getInputAddr_6_25_0_2_0_2(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInput_6_25_0_2_0_2(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInputAddr_6_25_0_2_0_3(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInput_6_25_0_2_0_3(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInputAddr_6_25_0_2_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Divide"
+%endfunction
+
+%function getInput_6_25_0_2_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Divide"
+%endfunction
+
+%function getInputAddr_6_25_0_2_1_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2"
+%endfunction
+
+%function getInput_6_25_0_2_1_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2"
+%endfunction
+
+%function getInputAddr_6_25_0_2_1_2(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInput_6_25_0_2_1_2(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInputAddr_6_25_0_2_1_3(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInput_6_25_0_2_1_3(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInputAddr_6_25_0_2_2_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Divide"
+%endfunction
+
+%function getInput_6_25_0_2_2_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Divide"
+%endfunction
+
+%function getInputAddr_6_25_0_2_2_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2"
+%endfunction
+
+%function getInput_6_25_0_2_2_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2"
+%endfunction
+
+%function getInputAddr_6_25_0_2_2_2(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInput_6_25_0_2_2_2(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInputAddr_6_25_0_2_2_3(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInput_6_25_0_2_2_3(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInputAddr_6_25_0_2_3_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Divide"
+%endfunction
+
+%function getInput_6_25_0_2_3_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Divide"
+%endfunction
+
+%function getInputAddr_6_25_0_2_3_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2"
+%endfunction
+
+%function getInput_6_25_0_2_3_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2"
+%endfunction
+
+%function getInputAddr_6_25_0_2_3_2(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInput_6_25_0_2_3_2(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInputAddr_6_25_0_2_3_3(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInput_6_25_0_2_3_3(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getDWorkAddr_6_25_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope1_PWORK_m" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWork_6_25_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope1_PWORK_m" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInputAddr_6_26_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Divide"
+%endfunction
+
+%function getInput_6_26_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Divide"
+%endfunction
+
+%function getInputAddr_6_26_0_2_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2"
+%endfunction
+
+%function getInput_6_26_0_2_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2"
+%endfunction
+
+%function getInputAddr_6_26_0_2_2_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInput_6_26_0_2_2_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_e"
+%endfunction
+
+%function getInputAddr_6_26_0_2_3_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getInput_6_26_0_2_3_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Subtract2_i"
+%endfunction
+
+%function getDWorkAddr_6_26_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.Scope2_PWORK_d" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWork_6_26_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.Scope2_PWORK_d" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInputAddr_6_27_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.TmpSignalConversionAtToWorkspaceInport1" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_6_27_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.TmpSignalConversionAtToWorkspaceInport1" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_6_27_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.ToWorkspace_PWORK_c"
+%endfunction
+
+%function getDWork_6_27_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.ToWorkspace_PWORK_c"
+%endfunction
+
+%function getInputAddr_6_28_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Saturation10"
+%endfunction
+
+%function getInput_6_28_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Saturation10"
+%endfunction
+
+%function getInputAddr_6_28_0_2_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Saturation8"
+%endfunction
+
+%function getInput_6_28_0_2_1_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Saturation8"
+%endfunction
+
+%function getInputAddr_6_28_0_2_2_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Saturation9"
+%endfunction
+
+%function getInput_6_28_0_2_2_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Saturation9"
+%endfunction
+
+%function getInputAddr_6_28_0_2_3_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Saturation11"
+%endfunction
+
+%function getInput_6_28_0_2_3_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Saturation11"
+%endfunction
+
+%function getDWorkAddr_6_28_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.real_PWORK" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWork_6_28_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.real_PWORK" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInputAddr_6_29_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_6_29_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInputAddr_6_29_0_2_0_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+%<SLibCGIRAccessLocalVar(57, 0)> %% rtb_ManualSwitch1
+
+%return "&rtb_ManualSwitch1" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_6_29_0_2_0_1(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+%<SLibCGIRAccessLocalVar(57, 0)> %% rtb_ManualSwitch1
+
+%return "rtb_ManualSwitch1" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getOutputAddr_6_29_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.InterpretedMATLABFunction" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getOutput_6_29_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.InterpretedMATLABFunction" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInputAddr_6_30_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Fcn"
+%endfunction
+
+%function getInput_6_30_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Fcn"
+%endfunction
+
+%function getDWorkAddr_6_30_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.ToWorkspace_PWORK_cj"
+%endfunction
+
+%function getDWork_6_30_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.ToWorkspace_PWORK_cj"
+%endfunction
+
+%function getInputAddr_6_31_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Clock"
+%endfunction
+
+%function getInput_6_31_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Clock"
+%endfunction
+
+%function getDWorkAddr_6_31_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.ToWorkspace1_PWORK_h"
+%endfunction
+
+%function getDWork_6_31_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.ToWorkspace1_PWORK_h"
+%endfunction
+
+%function getInputAddr_6_32_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Fcn2"
+%endfunction
+
+%function getInput_6_32_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Fcn2"
+%endfunction
+
+%function getDWorkAddr_6_32_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.ToWorkspace2_PWORK_n"
+%endfunction
+
+%function getDWork_6_32_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.ToWorkspace2_PWORK_n"
+%endfunction
+
+%function getInputAddr_6_33_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Fcn1"
+%endfunction
+
+%function getInput_6_33_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Fcn1"
+%endfunction
+
+%function getDWorkAddr_6_33_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.ToWorkspace3_PWORK_f"
+%endfunction
+
+%function getDWork_6_33_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.ToWorkspace3_PWORK_f"
+%endfunction
+
+%function getInputAddr_6_34_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.TmpSignalConversionAtToWorkspace4Inport1" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_6_34_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.TmpSignalConversionAtToWorkspace4Inport1" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_6_34_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.ToWorkspace4_PWORK"
+%endfunction
+
+%function getDWork_6_34_0_2_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.ToWorkspace4_PWORK"
+%endfunction
+
+%function getInputAddr_6_8_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_6_8_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_6_8_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.ToWorkspace_PWORK"
+%endfunction
+
+%function getDWork_6_8_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.ToWorkspace_PWORK"
+%endfunction
+
+%function getInputAddr_6_9_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_6_9_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_6_9_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.ToWorkspace1_PWORK"
+%endfunction
+
+%function getDWork_6_9_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.ToWorkspace1_PWORK"
+%endfunction
+
+%function getInputAddr_6_10_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_6_10_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_6_10_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.ToWorkspace2_PWORK"
+%endfunction
+
+%function getDWork_6_10_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.ToWorkspace2_PWORK"
+%endfunction
+
+%function getInputAddr_6_11_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_6_11_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Integrator" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_6_11_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.ToWorkspace3_PWORK"
+%endfunction
+
+%function getDWork_6_11_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.ToWorkspace3_PWORK"
+%endfunction
+
+%function getInputAddr_6_27_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.TmpSignalConversionAtToWorkspaceInport1" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_6_27_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.TmpSignalConversionAtToWorkspaceInport1" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_6_27_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.ToWorkspace_PWORK_c"
+%endfunction
+
+%function getDWork_6_27_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.ToWorkspace_PWORK_c"
+%endfunction
+
+%function getInputAddr_6_30_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Fcn"
+%endfunction
+
+%function getInput_6_30_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Fcn"
+%endfunction
+
+%function getDWorkAddr_6_30_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.ToWorkspace_PWORK_cj"
+%endfunction
+
+%function getDWork_6_30_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.ToWorkspace_PWORK_cj"
+%endfunction
+
+%function getInputAddr_6_31_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Clock"
+%endfunction
+
+%function getInput_6_31_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Clock"
+%endfunction
+
+%function getDWorkAddr_6_31_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.ToWorkspace1_PWORK_h"
+%endfunction
+
+%function getDWork_6_31_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.ToWorkspace1_PWORK_h"
+%endfunction
+
+%function getInputAddr_6_32_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Fcn2"
+%endfunction
+
+%function getInput_6_32_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Fcn2"
+%endfunction
+
+%function getDWorkAddr_6_32_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.ToWorkspace2_PWORK_n"
+%endfunction
+
+%function getDWork_6_32_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.ToWorkspace2_PWORK_n"
+%endfunction
+
+%function getInputAddr_6_33_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.Fcn1"
+%endfunction
+
+%function getInput_6_33_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.Fcn1"
+%endfunction
+
+%function getDWorkAddr_6_33_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.ToWorkspace3_PWORK_f"
+%endfunction
+
+%function getDWork_6_33_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.ToWorkspace3_PWORK_f"
+%endfunction
+
+%function getInputAddr_6_34_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_B.TmpSignalConversionAtToWorkspace4Inport1" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getInput_6_34_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_B.TmpSignalConversionAtToWorkspace4Inport1" + SLibCG_ArrayIndexer(ucv, lcv, sigIdx)
+%endfunction
+
+%function getDWorkAddr_6_34_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "&saturateModel_DW.ToWorkspace4_PWORK"
+%endfunction
+
+%function getDWork_6_34_0_6_0_0(opaqueBlock, block, lcv, ucv, sigIdx, reim) void
+
+%return "saturateModel_DW.ToWorkspace4_PWORK"
+%endfunction
+

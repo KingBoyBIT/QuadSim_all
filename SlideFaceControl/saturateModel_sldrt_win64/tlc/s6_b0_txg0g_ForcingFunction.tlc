@@ -1,0 +1,36 @@
+%implements s6_b0_txg0g_ForcingFunction "C"
+
+%function ForcingFunction(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+XDot_saturateModel_T *_rtXdot;
+%closefile localVarDecl
+_rtXdot = %<(SLibCG_SE(SLibGetContStatesDerivativeStructPtr()))>;
+/* ForcingFunction for Integrator: '<S4>/Integrator' */
+memcpy(&_rtXdot->Integrator_CSTATE[0], &saturateModel_B.InterpretedMATLABFunction[0], 12U * sizeof(real_T));
+/* ForcingFunction for Integrator: '<S7>/Integrator1' */
+_rtXdot->Integrator1_CSTATE = saturateModel_B.Gain3;
+/* ForcingFunction for Integrator: '<S8>/Integrator1' */
+_rtXdot->Integrator1_CSTATE_j = saturateModel_B.Gain3_f;
+/* ForcingFunction for Integrator: '<S9>/Integrator1' */
+_rtXdot->Integrator1_CSTATE_d = saturateModel_B.Gain3_n;
+/* ForcingFunction for Integrator: '<S7>/Integrator' */
+_rtXdot->Integrator_CSTATE_k = saturateModel_B.Subtract;
+/* ForcingFunction for Integrator: '<S8>/Integrator' */
+_rtXdot->Integrator_CSTATE_h = saturateModel_B.Subtract_p;
+/* ForcingFunction for Integrator: '<S9>/Integrator' */
+_rtXdot->Integrator_CSTATE_n = saturateModel_B.Subtract_pe;
+%closefile cfgTxt
+%<cfgTxt>
+%<LibSetSystemField(system, "CachedForcingFunctionLocalVars", localVarDecl)>
+%endfunction
+%function ForcingFunctionFcnProtoType(block, system) Output
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void ForcingFunction(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 5, fcnProtoType)>
+%endfunction
